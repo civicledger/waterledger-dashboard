@@ -1,0 +1,58 @@
+import { getInstanceIdentifier } from '../utils/ethUtils';
+import { loadInstance } from '../utils/ContractInstanceLoader';
+
+export default class OrderBookService {
+
+  contractName = 'OrderBook';
+
+  async getSellOrders(number=10) {
+    await this.loadContract(this.contractName);
+    return await this.contract.getOrderBookSells(number);
+  }
+
+  async getBuyOrders(number=10) {
+    await this.loadContract(this.contractName);
+    return await this.contract.getOrderBookBuys(number);
+  }
+
+  async addBuyOrder(price, amount, zone) {
+    await this.loadContract(this.contractName);
+    return await this.contract.addBuyLimitOrder(price, amount, zone, 0);
+  }
+
+  async addSellOrder(price, amount, zone) {
+    await this.loadContract(this.contractName);
+    return await this.contract.addSellLimitOrder(price, amount, zone);
+  }
+
+  async awaitConfirmationForHash(hash) {
+    await this.loadContract(this.contractName);
+    return await this.wrapper.getTransactionSuccess(hash);
+  }
+
+  async getLastTradePrice() {
+    await this.loadContract(this.contractName);
+    return await this.contract.getLastTradedPrice();
+  }
+
+  async getEvents(startBlock) {
+    await this.loadContract(this.contractName);
+    return this.wrapper.events.Matched({fromBlock: startBlock});
+  }
+
+  async getAllEvents() {
+    await this.loadContract(this.contractName);
+    return this.wrapper.events;
+  }
+
+  loadContract = async (contractName, identifier = false) => {
+    if(this.contract) return;
+
+    if(!identifier){
+      identifier = getInstanceIdentifier();
+    }
+    const instance = await loadInstance(contractName, identifier);
+    this.contract = instance.proxyContract;
+    this.wrapper = instance;
+  }
+}
