@@ -10,7 +10,7 @@ class OrderForm extends Component {
   render() {
     const { type, isReadOnly, price, quantity } = this.props.orderFormDetails;
 
-    let bgColor = isReadOnly ? 'grey' : (type === ORDER_TYPE_SELL ? 'red' : 'green');
+    let bgColor = isReadOnly ? 'gray' : (type === ORDER_TYPE_SELL ? 'red' : 'green');
 
     return <Fragment>
       <input type="text" value={quantity || ''} className="input" readOnly name="quantity" />

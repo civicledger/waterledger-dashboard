@@ -28,7 +28,11 @@ const getCurrentNetwork = () => {
   return 'rinkeby';
 }
 
-const resolveEthProvider = () => new Web3.providers.WebsocketProvider(process.env.);
+const resolveEthProvider = () => {
+  console.log(process.env.REACT_APP_PROVIDER_URL);
+  return new Web3.providers.WebsocketProvider(process.env.REACT_APP_PROVIDER_URL);
+}
+
 
 const web3 = new Web3(resolveEthProvider());
 
