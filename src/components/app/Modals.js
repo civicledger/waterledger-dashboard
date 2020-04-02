@@ -17,7 +17,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(setOrderFormFixedModal(state));
     },
     placeOrder: ({type, price, quantity, period}) => {
-      console.log(period);
       if (type === 'sell') {
         dispatch(submitSellOrder(price, quantity));
       } else {

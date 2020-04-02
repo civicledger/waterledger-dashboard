@@ -3,7 +3,6 @@ import { formatAmount, formatRelativeDate, formatNumber } from '../../utils/form
 const zones = ['Barron Zone A', 'Barron Zone B', 'Barron Zone C', 'Barron Zone D', 'Barron Zone E'];
 const periods = ['', 'Three Months', 'Six Months', 'Nine Months', 'A Year or More'];
 const Trade = ({trade}) => {
-  console.log(trade);
   return (
     <div className="table-row bg-white relative">
       <div className="row-cell-l border-r-1 rounded-r-lg table-cell lg:border-r-0 lg:rounded-none">{formatAmount(trade.averagePrice)}</div>
