@@ -15,9 +15,10 @@ export default class OrderBookService {
     return await this.contract.getOrderBookBuys(number);
   }
 
-  async addBuyOrder(price, amount, zone) {
+  async addBuyOrder(price, amount, zone, period = 0) {
     await this.loadContract(this.contractName);
-    return await this.contract.addBuyLimitOrder(price, amount, zone, 0);
+    console.log(price, amount, zone, period);
+    return await this.contract.addBuyLimitOrder(price, amount, zone, period);
   }
 
   async addSellOrder(price, amount, zone) {

@@ -76,13 +76,13 @@ export function fetchTrades(number = 10) {
   }
 }
 
-export const submitBuyOrder = (price, quantity) => {
+export const submitBuyOrder = (price, quantity, period = 0) => {
   return (dispatch, getState) => {
 
     const { activeLicence, waterAccounts } = getState();
     const { zoneIndex } = waterAccounts.find(l => activeLicence === l.licenceId);
 
-    orderService.addBuyOrder(price, quantity, zoneIndex).then(rawTransaction => {
+    orderService.addBuyOrder(price, quantity, zoneIndex, period).then(rawTransaction => {
       web3.eth.sendSignedTransaction(rawTransaction)
       .on('transactionHash', hash => {
         dispatch(addNotification({

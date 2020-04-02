@@ -34,7 +34,7 @@ class Dashboard extends Component {
                 </span> }
               </div>
 
-              <OrderList orders={buys} ethContext={ethContext} type='buy' openOrderForm={openOrderForm} />
+              <OrderList orders={buys} ethContext={ethContext} type='buy' showPeriod={true} openOrderForm={openOrderForm} />
             </div>
 
             <div className="flex-1 mt-3 xl:ml-1 xl:mt-0">

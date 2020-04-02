@@ -22,7 +22,7 @@ REACT_APP_WL_CONTRACT_DEPLOYMENT_URL=http://localhost:8081/
 REACT_APP_PROVIDER_URL=http://localhost:8545
 ```
 
-## Contracts API and provider
+### Contracts API and provider
 
 While the actual process of building and viewing the app is straight-forward, there are actually a number of complex dependencies to a working application. The main one is that WaterLedger explicitly **requires** an API. The contents of the API are not publicly available, but the relevant behaviour is to serve via standard HTTP `GET` requests a JSON file with the ABI and address, which are needed to create a working Ethereum contract instance.
 

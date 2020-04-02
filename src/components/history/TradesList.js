@@ -15,6 +15,7 @@ class TradesList extends Component {
         <div className="table-cell px-5">Volume</div>
         <div className="table-cell px-5">From Zone</div>
         <div className="table-cell px-5">To Zone</div>
+        <div className="table-cell px-5">Period</div>
         <div className="hidden xl:table-cell px-5">Date</div>
       </div>
 
