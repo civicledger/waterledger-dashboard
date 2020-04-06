@@ -6,7 +6,6 @@ import OrderButton from './OrderButton';
 class Dashboard extends Component {
 
   async componentDidMount() {
-    this.props.fetchLicence();
     this.props.fetchBuyOrders(10);
     this.props.fetchSellOrders(10);
     this.props.fetchTrades(10);

@@ -7,8 +7,8 @@ export default props => {
     { props.loading && <span className="flex-shrink mr-5 text-gray-500">Checking for updates
       <i className="fab fa-ethereum faa-flash ml-1 text-gray-500"></i>
     </span> }
-    <Link to="/history" className="flex-shrink no-underline text-black text-right pt-4">
+    { props.showLink && <Link to="/history" className="flex-shrink no-underline text-black text-right pt-4">
       See All <i className="fal fa-arrow-right fa-fw"></i>
-    </Link>
+    </Link> }
   </div>;
 }
