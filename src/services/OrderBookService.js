@@ -10,14 +10,23 @@ export default class OrderBookService {
     return await this.contract.getOrderBookSells(number);
   }
 
+  async getLicenceSellOrders(licenceAddress, number=10) {
+    await this.loadContract(this.contractName);
+    return await this.contract.getLicenceOrderBookSells(licenceAddress, number);
+  }
+
   async getBuyOrders(number=10) {
     await this.loadContract(this.contractName);
     return await this.contract.getOrderBookBuys(number);
   }
 
+  async getLicenceBuyOrders(licenceAddress, number=10) {
+    await this.loadContract(this.contractName);
+    return await this.contract.getLicenceOrderBookBuys(licenceAddress, number);
+  }
+
   async addBuyOrder(price, amount, zone, period = 0) {
     await this.loadContract(this.contractName);
-    console.log(price, amount, zone, period);
     return await this.contract.addBuyLimitOrder(price, amount, zone, period);
   }
 

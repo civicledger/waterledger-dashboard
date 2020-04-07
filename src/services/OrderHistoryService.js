@@ -11,6 +11,11 @@ export default class OrderHistoryService {
     return await this.contract.getHistory(number);
   }
 
+  async getLicenceHistory(licenceAddress) {
+    await this.loadContract(this.contractName);
+    return await this.contract.getLicenceHistory(licenceAddress);
+  }
+
   loadContract = async (contractName, identifier = false) => {
     if(this.contract) return;
 

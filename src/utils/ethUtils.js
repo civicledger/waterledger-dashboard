@@ -29,7 +29,6 @@ const getCurrentNetwork = () => {
 }
 
 const resolveEthProvider = () => {
-  console.log(process.env.REACT_APP_PROVIDER_URL);
   return new Web3.providers.WebsocketProvider(process.env.REACT_APP_PROVIDER_URL);
 }
 
