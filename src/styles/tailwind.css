@@ -8,6 +8,7 @@
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+  background-color: red;
 }
 
 .civic {
@@ -112,6 +113,15 @@ h1, h2, h3, h4 {
 
 .row-cell-r {
   @apply .row-cell border-r .rounded-r-lg .p-5;
+}
+
+.order-row .delete-order {
+  display: none;
+}
+
+.order-row:hover .delete-order {
+  display: block;
+  cursor: pointer;
 }
 
 #menu {

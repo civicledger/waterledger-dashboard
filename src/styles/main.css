@@ -10915,6 +10915,7 @@ video {
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+  background-color: red;
 }
 
 .civic {
@@ -11092,6 +11093,14 @@ h1, h2, h3, h4 {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   padding: 1.25rem;
+}
+
+.order-row .delete-order {
+  display: none;
+}
+
+.order-row:hover .delete-order {
+  display: block;
 }
 
 #menu {

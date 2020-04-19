@@ -8,7 +8,7 @@ const orderTypesInternal = ["sell", "buy"];
 const zones = ['Barron Zone A', 'Barron Zone B', 'Barron Zone C', 'Barron Zone D', 'Barron Zone E'];
 const periods = ['', 'Three Months', 'Six Months', 'Nine Months', 'A Year or More'];
 
-export default ({order, showType=false, showTimestamp=false, showPeriod=false, ethContext: {address, isReadOnly}, highlightRow, openOrderForm}) => {
+export default ({order, showType=false, showTimestamp=false, showPeriod=false, ethContext: {address, isReadOnly}, highlightRow, openOrderForm, deleteOrder}) => {
 
   let { orderType:type, price, quantity, timeStamp, period } = order;
 
@@ -18,6 +18,7 @@ export default ({order, showType=false, showTimestamp=false, showPeriod=false, e
   const isOwner = address === order.owner;
 
   const classNameObject = {
+    'order-row': true,
     'text-gray-500': isOwner,
     'cursor-pointer': highlightRow && !isReadOnly,
     'hover:bg-green-300': highlightRow && !isReadOnly && typeInternal === 'buy',
@@ -25,7 +26,6 @@ export default ({order, showType=false, showTimestamp=false, showPeriod=false, e
     'hover:bg-red-300': highlightRow && !isReadOnly && typeInternal === 'sell',
     'hover:text-red-600': highlightRow && !isReadOnly && typeInternal === 'sell',
   };
-
 
   return <tr
     className={ classNames(classNameObject) }
@@ -39,5 +39,10 @@ export default ({order, showType=false, showTimestamp=false, showPeriod=false, e
     <td className="py-2">{zones[order.zone]}</td>
     {showPeriod && <td className="py-2">{periods[period]}</td> }
     {showTimestamp && <td className="py-2">{formatRelativeDate(timeStamp)}</td> }
+    <td width="25">
+      <i className="fal fa-times-square font-red-500 fa-fw delete-order" onClick={() => {
+        deleteOrder(order.orderIndex);
+      }}></i>
+    </td>
   </tr>;
 }

@@ -12,7 +12,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { loading, ethContext, buys, sells, trades, setAccountModal, setPasswordModal, openOrderForm } = this.props;
+    const { loading, ethContext, buys, sells, trades, setAccountModal, setPasswordModal, openOrderForm, deleteBuyOrder, deleteSellOrder } = this.props;
 
     return (<div className="py-5 px-10 bg-gray-100 flex-grow pb-5">
 
@@ -33,7 +33,7 @@ class Dashboard extends Component {
                 </span> }
               </div>
 
-              <OrderList orders={buys} ethContext={ethContext} type='buy' showPeriod={true} openOrderForm={openOrderForm} />
+              <OrderList orders={buys} ethContext={ethContext} type='buy' showPeriod={true} openOrderForm={openOrderForm} deleteOrder={deleteBuyOrder} />
             </div>
 
             <div className="flex-1 mt-3 xl:ml-1 xl:mt-0">
@@ -43,7 +43,7 @@ class Dashboard extends Component {
                   <i className="fab fa-ethereum faa-flash ml-1 text-gray-500"></i>
                 </span> }
 
-                <OrderList orders={sells} ethContext={ethContext} type='sell' openOrderForm={openOrderForm} />
+                <OrderList orders={sells} ethContext={ethContext} type='sell' openOrderForm={openOrderForm} deleteOrder={deleteSellOrder} />
               </div>
             </div>
           </div>

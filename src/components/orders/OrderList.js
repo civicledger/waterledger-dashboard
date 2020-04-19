@@ -14,6 +14,7 @@ const OrderList = props => {
         <th className="pb-1">Zone</th>
         { showPeriod && <th className="pb-1">Period</th> }
         { showTimestamp && <th className="pb-1">Mined</th> }
+        <th></th>
       </tr>
     </thead>
     <tbody>
