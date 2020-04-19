@@ -35,6 +35,16 @@ export default class OrderBookService {
     return await this.contract.addSellLimitOrder(price, amount, zone);
   }
 
+  async deleteBuyOrder(orderIndex) {
+    await this.loadContract(this.contractName);
+    return await this.contract.deleteBuyOrder(orderIndex);
+  }
+
+  async deleteSellOrder(orderIndex) {
+    await this.loadContract(this.contractName);
+    return await this.contract.deleteSellOrder(orderIndex);
+  }
+
   async awaitConfirmationForHash(hash) {
     await this.loadContract(this.contractName);
     return await this.wrapper.getTransactionSuccess(hash);

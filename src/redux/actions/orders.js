@@ -110,6 +110,66 @@ export const submitBuyOrder = (price, quantity, period = 0) => {
   }
 }
 
+export const deleteBuyOrder = index => {
+  return dispatch => {
+    orderService.deleteBuyOrder(index).then(rawTransaction => {
+      web3.eth.sendSignedTransaction(rawTransaction)
+      .on('transactionHash', hash => {
+        dispatch(addNotification({
+          id: `added-${hash}`,
+          text: 'Buy order is being removed'
+        }));
+        orderService.awaitConfirmationForHash(hash).then(
+          receipt => {
+            dispatch(addNotification({
+              id: `confirmed-${hash}`,
+              type: 'success',
+              text: 'Your buy order has been removed'
+            }));
+            dispatch(fetchBuyOrders());
+          }
+        );
+      })
+      .on('error', function(error) {
+        dispatch(addNotification({
+          type: 'error',
+          text: errorMessage(error)
+        }));
+      });
+    });
+  }
+}
+
+export const deleteSellOrder = index => {
+  return dispatch => {
+    orderService.deleteSellOrder(index).then(rawTransaction => {
+      web3.eth.sendSignedTransaction(rawTransaction)
+      .on('transactionHash', hash => {
+        dispatch(addNotification({
+          id: `added-${hash}`,
+          text: 'Sell order is being removed'
+        }));
+        orderService.awaitConfirmationForHash(hash).then(
+          receipt => {
+            dispatch(addNotification({
+              id: `confirmed-${hash}`,
+              type: 'success',
+              text: 'Your sell order has been removed'
+            }));
+            dispatch(fetchSellOrders());
+          }
+        );
+      })
+      .on('error', function(error) {
+        dispatch(addNotification({
+          type: 'error',
+          text: errorMessage(error)
+        }));
+      });
+    });
+  }
+}
+
 export const submitSellOrder = (price, quantity) => {
   return (dispatch, getState) => {
 

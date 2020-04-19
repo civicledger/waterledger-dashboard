@@ -11094,6 +11094,15 @@ h1, h2, h3, h4 {
   padding: 1.25rem;
 }
 
+.order-row .delete-order {
+  display: none;
+}
+
+.order-row:hover .delete-order {
+  display: block;
+  cursor: pointer;
+}
+
 #menu {
   transition: all 0.5s;
   margin-left: 0;

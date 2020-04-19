@@ -14,15 +14,12 @@ const orderBookService = serviceLoader('OrderBook');
 export const watchForNewOrders = () => {
   return async (dispatch, getState) => {
     let events = await orderBookService.getAllEvents();
-    //const { ethContext: { startBlock, address } } = getState();
 
-    events.BuyOrderAdded().on('data', event => {
-      console.log('buyOrderAdded');
+    events.BuyOrderAdded().on('data', () => {
       dispatch(fetchBuyOrders());
     });
 
-    events.SellOrderAdded().on('data', event => {
-      console.log('sellOrderAdded');
+    events.SellOrderAdded().on('data', () => {
       dispatch(fetchSellOrders());
     });
 
