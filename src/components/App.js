@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Sidebar, DashboardContainer, HistoryRouteContainer, Notifications, Modals } from './components';
 import Licence from './licence/Licence';
+import TopNav from './app/TopNav';
 
 class App extends Component {
 
@@ -19,6 +20,9 @@ class App extends Component {
       <Sidebar />
       <Notifications notifications={this.props.notifications} />
       <div className="flex-grow flex flex-col" id="body">
+
+        <TopNav />
+
         <Switch>
           <Route path="/" exact render={() => <DashboardContainer />}/>
           <Route path="/licence" component={Licence} />
