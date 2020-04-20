@@ -90,6 +90,7 @@ export function fetchLicence() {
 }
 
 export function setCurrentWaterAccount(waterAccountId) {
+  console.log(waterAccountId);
   localStorage.setItem('wlWaterAccount', waterAccountId);
   return dispatch => {
     dispatch(setActiveWaterAccount(waterAccountId));

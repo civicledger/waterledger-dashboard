@@ -5,6 +5,7 @@ import { claimWaterAccountsForLicence, setCurrentWaterAccount } from '../../redu
 import {serviceLoader} from '../../services/serviceLoader';
 
 import WaterAccountsList from './WaterAccountsList';
+import WaterAccountsSelect from './WaterAccountsSelect';
 import Summary from './Summary';
 
 class AccountBanner extends Component {
@@ -24,8 +25,13 @@ class AccountBanner extends Component {
   }
 
   hasAccounts = () => <Fragment>
-    <div className="border bg-gray-500 p-2">Current Licences</div>
-    <WaterAccountsList waterAccounts={this.props.waterAccounts}  />
+    <div className="hidden md:block">
+      <div className="border bg-gray-500 p-2">Current Licences</div>
+      <WaterAccountsList waterAccounts={this.props.waterAccounts}  />
+    </div>
+    <div className="md:hidden">
+      <WaterAccountsSelect waterAccounts={this.props.waterAccounts}  />
+    </div>
   </Fragment>
 
   noAccounts = () => {
@@ -58,7 +64,7 @@ class AccountBanner extends Component {
 
         { this.state.waterAccounts.length > 0 && <div className="text-right">
           <button className="bg-green-500 text-green-100 p-3 mt-3" onClick={this.handleClaimLicences}>
-            <i className="fal fa-check-circle mr-2"></i> Claim Licences
+            <i className="fal fa-check-circle mr-2"></i> Claim Water Accounts
           </button>
         </div> }
 
@@ -77,11 +83,11 @@ class AccountBanner extends Component {
     if (!ethContext.statusLoaded) {
       return '';
     }
-    return <div className="flex">
+    return <div className="flex flex-col">
       <div className="flex-1 mb-5 pb-5">
         {panelContent}
       </div>
-      <div className="flex-1 ml-5">
+      <div className="flex-1 md:ml-5">
         <Summary stats={this.props.stats}  />
       </div>
     </div>;

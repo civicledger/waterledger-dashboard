@@ -16,7 +16,6 @@ const WaterAccountsList = ({waterAccounts, setCurrentWaterAccount, activeWaterAc
     onClick={() => setCurrentWaterAccount(wa.waterAccountId)}>
     <span className="mr-5">{wa.waterAccountId}</span>
     <span className="mr-5">{wa.zoneString}</span>
-    <span className="mr-5">{wa.zoneIndex}</span>
     <span className="mr-5">{wa.balance && `${wa.balance} ML`}</span>
 
   </li>) }

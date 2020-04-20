@@ -14,7 +14,7 @@ class Dashboard extends Component {
   render() {
     const { loading, ethContext, buys, sells, trades, setAccountModal, setPasswordModal, openOrderForm, deleteBuyOrder, deleteSellOrder } = this.props;
 
-    return (<div className="py-5 px-10 bg-gray-100 flex-grow pb-5">
+    return (<div className="py-5 px-5 lg:px-10 bg-gray-100 flex-grow pb-5">
 
       <AccountBanner ethContext={ethContext}
         setAccountModal={setAccountModal}
@@ -36,6 +36,10 @@ class Dashboard extends Component {
               <OrderList orders={buys} ethContext={ethContext} type='buy' showPeriod={true} openOrderForm={openOrderForm} deleteOrder={deleteBuyOrder} />
             </div>
 
+            { ethContext.isSignedIn && <div className="flex">
+            <OrderButton type="buy" responsive='lg:hidden' openOrderForm={() => openOrderForm({type: 'buy', price: '', quantity: ''})}  />
+          </div> }
+
             <div className="flex-1 mt-3 xl:ml-1 xl:mt-0">
               <div className="flex flex-col items-baseline">
                 <h2 className="flex-grow inline-block text-blue-500 text-xl mb-3 font-semibold">Offers</h2>
@@ -49,7 +53,7 @@ class Dashboard extends Component {
           </div>
 
           { ethContext.isSignedIn && <div className="flex">
-            <OrderButton type="buy" openOrderForm={() => openOrderForm({type: 'buy', price: '', quantity: ''})}  />
+            <OrderButton type="buy" responsive='hidden lg:block' openOrderForm={() => openOrderForm({type: 'buy', price: '', quantity: ''})}  />
             <OrderButton type="sell" openOrderForm={() => openOrderForm({type: 'sell', price: '', quantity: ''})} />
           </div> }
 
