@@ -83,7 +83,7 @@ class AccountBanner extends Component {
     if (!ethContext.statusLoaded) {
       return '';
     }
-    return <div className="flex flex-col">
+    return <div className="flex flex-col md:flex-row">
       <div className="flex-1 mb-5 pb-5">
         {panelContent}
       </div>

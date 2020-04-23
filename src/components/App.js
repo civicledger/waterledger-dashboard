@@ -9,6 +9,7 @@ class App extends Component {
   async componentDidMount() {
     this.props.fetchEthContext();
     this.props.loadWalletForCurrentLicence();
+    this.props.loadCurrentAuth();
     this.props.watchForMatchEvent();
     this.props.watchForNewOrders();
     this.props.fetchStatsLastTradePrice();
@@ -16,6 +17,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return <div className="flex min-h-screen">
       <Sidebar />
       <Notifications notifications={this.props.notifications} />
