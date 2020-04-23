@@ -33,16 +33,16 @@ export default ({order, showType=false, showTimestamp=false, showPeriod=false, e
       if (!highlightRow || isReadOnly) return;
       openOrderForm({type: matchingType, price, quantity});
     }}>
-    {showType && <td className="py-2">{orderTypes[type]}</td>}
-    <td className="py-2">{formatAmount(price)}</td>
-    <td className="py-2">{formatNumber(quantity)} ML</td>
-    <td className="py-2">{zones[order.zone]}</td>
-    {showPeriod && <td className="py-2">{periods[period]}</td> }
-    {showTimestamp && <td className="py-2">{formatRelativeDate(timeStamp)}</td> }
-    <td width="25">
-      <i className="fal fa-times-square font-red-500 fa-fw delete-order" onClick={() => {
+    {showType && <td className="py-2 px-1">{orderTypes[type]}</td>}
+    <td className="p-2">{formatAmount(price)}</td>
+    <td className="p-2">{formatNumber(quantity)} ML</td>
+    <td className="p-2">{zones[order.zone]}</td>
+    {showPeriod && <td className="p-2">{periods[period]}</td> }
+    {showTimestamp && <td className="p-2">{formatRelativeDate(timeStamp)}</td> }
+    <td width="30" className="p-2 pl-0">
+      { isOwner && <i className="fal fa-times-square font-red-500 fa-fw delete-order" onClick={() => {
         deleteOrder(order.orderIndex);
-      }}></i>
+      }}></i> }
     </td>
   </tr>;
 }
