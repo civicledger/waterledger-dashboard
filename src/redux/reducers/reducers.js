@@ -1,4 +1,4 @@
-import { RECEIVE_STATS_LAST_TRADE_PRICE, RECEIVE_ETH_CONTEXT } from '../actions/actionConstants';
+import { RECEIVE_AUTH, RECEIVE_STATS_LAST_TRADE_PRICE, RECEIVE_ETH_CONTEXT } from '../actions/actionConstants';
 
 import initialState from './initialState';
 
@@ -26,6 +26,15 @@ export const ethContext = (state = defaultEthProviderStatus, action) => {
   }
 }
 
+
+export const auth = (state = false, action) => {
+  switch(action.type) {
+    case RECEIVE_AUTH:
+      return action.value;
+    default: return state;
+  }
+}
+
 const rootReducer = combineReducers({
   buys,
   sells,
@@ -37,7 +46,8 @@ const rootReducer = combineReducers({
   stats,
   notifications,
   activeWaterAccount,
-  waterAccounts
+  waterAccounts,
+  auth
 });
 
 export default rootReducer;
