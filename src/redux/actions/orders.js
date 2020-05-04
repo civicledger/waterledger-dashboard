@@ -175,9 +175,6 @@ export const submitSellOrder = (price, quantity) => {
 
     const { activeWaterAccount, waterAccounts } = getState();
 
-    console.log(activeWaterAccount);
-    console.log(waterAccounts);
-
     const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
 
     orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {

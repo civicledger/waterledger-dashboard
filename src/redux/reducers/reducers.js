@@ -1,4 +1,11 @@
-import { RECEIVE_AUTH, RECEIVE_STATS_LAST_TRADE_PRICE, RECEIVE_ETH_CONTEXT } from '../actions/actionConstants';
+import {
+  RECEIVE_AUTH,
+  RECEIVE_STATS_LAST_TRADE_PRICE,
+  RECEIVE_ETH_CONTEXT,
+  RECEIVE_LICENCES,
+  RECEIVE_ADMIN_LICENCES,
+  SET_ACTIVE_LICENCE
+  } from '../actions/actionConstants';
 
 import initialState from './initialState';
 
@@ -35,6 +42,30 @@ export const auth = (state = false, action) => {
   }
 }
 
+export const licences = (state = [], action) => {
+  switch(action.type) {
+    case RECEIVE_LICENCES:
+      return action.payload;
+    default: return state;
+  }
+}
+
+export const adminLicences = (state = [], action) => {
+  switch(action.type) {
+    case RECEIVE_ADMIN_LICENCES:
+      return action.payload;
+    default: return state;
+  }
+}
+
+export const activeLicence = (state = null, action) => {
+  switch(action.type) {
+    case SET_ACTIVE_LICENCE:
+      return action.payload;
+    default: return state;
+  }
+}
+
 const rootReducer = combineReducers({
   buys,
   sells,
@@ -47,7 +78,10 @@ const rootReducer = combineReducers({
   notifications,
   activeWaterAccount,
   waterAccounts,
-  auth
+  adminLicences,
+  licences,
+  auth,
+  activeLicence
 });
 
 export default rootReducer;

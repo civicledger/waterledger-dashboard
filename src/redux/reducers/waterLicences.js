@@ -10,7 +10,7 @@ export const licence = (state = {}, action) => {
   }
 }
 
-export const activeLicence = (state = localStorage.getItem('wlLicence'), action) => {
+export const activeLicence = (state = localStorage.getItem('wlCurrentLicence'), action) => {
   switch(action.type) {
     case SET_ACTIVE_LICENCE:
       return action.payload;

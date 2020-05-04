@@ -18,5 +18,9 @@ export default class AuthService {
     localStorage.removeItem('wl_jwt');
   }
 
+  async apiGetLicences() {
+    const { data } = await axios.get(`${deployedContractJsonUrl}api/licences/`);
+    return data.licences;
+  }
 
 }

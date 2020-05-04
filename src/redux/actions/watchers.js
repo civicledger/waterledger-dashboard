@@ -5,14 +5,35 @@ import { addNotification } from './actions';
 import {serviceLoader} from '../../services/serviceLoader';
 
 const orderBookService = serviceLoader('OrderBook');
+const licencesService = serviceLoader('Licences');
 
 /**
  * These actions are unusual in that they does not trigger any reducer state changes.
  * Instead they sets up watchers for specific websocket events
  */
+export const watchForNewLicence = () => {
+  return async dispatch => {
+    let events = await licencesService.getAllEvents();
+
+    events.LicenceAdded().on('data', () => {
+      dispatch(fetchBuyOrders());
+    });
+  }
+}
+
+export const watchForAllocation = () => {
+  return async dispatch => {
+    let events = await licencesService.getAllEvents();
+
+    events.LicenceAdded().on('data', () => {
+      dispatch(fetchBuyOrders());
+    });
+  }
+}
+
 
 export const watchForNewOrders = () => {
-  return async (dispatch, getState) => {
+  return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
     events.BuyOrderAdded().on('data', () => {

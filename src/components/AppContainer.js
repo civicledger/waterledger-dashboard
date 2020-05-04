@@ -5,6 +5,8 @@ import { watchForMatchEvent, watchForNewOrders } from '../redux/actions/watchers
 import { fetchStatsLastTradePrice } from '../redux/actions/stats';
 import { loadCurrentAuth } from '../redux/actions/auth';
 import { fetchLicence } from '../redux/actions/waterLicences';
+import { loadAdminLicences } from '../redux/actions/auth';
+
 
 import App from './App';
 
@@ -17,7 +19,8 @@ const actions = {
   fetchEthContext,
   fetchStatsLastTradePrice,
   fetchLicence,
-  loadCurrentAuth
+  loadCurrentAuth,
+  loadAdminLicences,
 };
 
 const AppContainer = connect(mapStateToProps, actions)(App);
