@@ -16,8 +16,11 @@ class OrderForm extends Component {
   resetForm = () => this.setState({ price: '', quantity: '' });
 
   render() {
-    const { type, isReadOnly } = this.props.orderFormDetails;
+    let { type, isReadOnly } = this.props.orderFormDetails;
+
+
     const isSell = type === ORDER_TYPE_SELL;
+    isReadOnly = isReadOnly || !this.state.quantity || !this.state.price || (!isSell && !this.state.period);
 
     let bgColor = isReadOnly ? 'gray' : (isSell ? 'red' : 'green');
 
@@ -45,6 +48,7 @@ class OrderForm extends Component {
         className={`btn-${bgColor} w-full`}
         onClick={() => {
           this.props.placeOrder({...this.props.orderFormDetails, ...this.state});
+          this.setState({price: '', quantity: '', period: 0});
         }}
         disabled={isReadOnly}
         >

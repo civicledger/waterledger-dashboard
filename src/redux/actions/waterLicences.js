@@ -1,7 +1,9 @@
+import { v4 as uuid } from 'uuid';
 
 import {
   RECEIVE_LICENCE, RECEIVE_ZONE_BALANCE,
-  RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT } from './actionConstants';
+  RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT
+ } from './actionConstants';
 
 import { web3 } from '../../utils/ethUtils';
 
@@ -40,22 +42,27 @@ export const claimWaterAccountsForLicence = licence => {
   return dispatch => {
     const id = licence._id;
 
-    if(localStorage.getItem(`${id}_wl-wallet`)) {
-      console.log(`${id}_wl-wallet already exists`);
-      return;
-    }
-    const wallet = web3.eth.accounts.wallet.create(1);
+    const password = uuid();
 
-    licence.ethAccount =  wallet[0].address;
+    const account = web3.eth.accounts.create(uuid());
+
+    const wallet = web3.eth.accounts.wallet.create();
+
+    wallet.add(account);
+
+    localStorage.setItem(`${id}-wlAccountIndex`, wallet.length - 1);
+    localStorage.setItem('walletPassword', password);
+
+    licence.ethAccount = account.address;
 
     licencesService.apiActivateLicence(id, licence);
 
     dispatch(setCurrentWaterAccount(licence.waterAccounts[0].waterAccountId));
     dispatch(receiveWaterAccounts(licence.waterAccounts));
 
-    web3.eth.defaultAccount = wallet[0].address;
+    web3.eth.defaultAccount = account.address;
 
-    wallet.save(id, `${id}_wl-wallet`);
+    wallet.save(password, 'wl-wallet');
 
     const status = {};
     status.walletAccountsAvailable = wallet.length > 0;
@@ -73,15 +80,22 @@ export const claimWaterAccountsForLicence = licence => {
 
 }
 
-export function fetchLicence() {
+export function fetchLicence(licenceId = null) {
   return dispatch => {
-    if(localStorage.getItem('wlWaterAccount')){
+    if(localStorage.getItem('wlCurrentLicence')){
       return licencesService.getWaterAccounts()
         .then(response => {
             dispatch(receiveWaterAccounts(response));
             dispatch(fetchWaterBalances());
-            const waterAccountId = localStorage.getItem('wlWaterAccount');
+            let waterAccountId = localStorage.getItem('wlWaterAccount');
+            const waterAccountFound = response.find(wa => wa.waterAccountId === waterAccountId);
+
+            if (!waterAccountFound) {
+              waterAccountId = response[0].waterAccountId;
+            }
+
             dispatch(setCurrentWaterAccount(waterAccountId));
+
           },
           error => console.log('An error occurred.', error)
         );

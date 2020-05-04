@@ -42,17 +42,18 @@ export const loadWalletForCurrentLicence = () => {
   return dispatch => {
     const licenceId = localStorage.getItem('wlCurrentLicence');
     if(!licenceId) return;
-
     const status = {};
+    const password = localStorage.getItem('walletPassword');
+    const wallet = web3.eth.accounts.wallet.load(password, 'wl-wallet');
 
-    const wallet = web3.eth.accounts.wallet.load(licenceId, `${licenceId}_wl-wallet`);
-    status.address = wallet[0].address;
+    const index = localStorage.getItem(`${licenceId}-wlAccountIndex`);
+    status.address = wallet[index].address;
     status.walletAccountsAvailable = wallet.length > 0;
     status.isReadOnly = false;
     status.hasLocalStorageWallet = true;
     status.isSignedIn = true;
     status.canSignIn = true;
     dispatch(receiveEthContext(status));
-    web3.eth.defaultAccount = wallet[0].address;
+    web3.eth.defaultAccount = wallet[index].address;
   }
 }

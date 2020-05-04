@@ -8,12 +8,12 @@ const OrderList = props => {
   return <table className="w-full order-list">
     <thead>
       <tr className="text-left">
-        { showType && <th className="pb-1">Type</th> }
-        <th className="pb-1">Price</th>
-        <th className="pb-1">Volume</th>
-        <th className="pb-1">Zone</th>
-        { showPeriod && <th className="pb-1">Period</th> }
-        { showTimestamp && <th className="pb-1">Mined</th> }
+        { showType && <th className="p-2 pb-0">Type</th> }
+        <th className="p-2 pb-0">Price</th>
+        <th className="p-2 pb-0">Volume</th>
+        <th className="p-2 pb-0">Zone</th>
+        { showPeriod && <th className="p-2 pb-0">Period</th> }
+        { showTimestamp && <th className="p-2 pb-0">Mined</th> }
         <th></th>
       </tr>
     </thead>

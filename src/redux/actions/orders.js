@@ -79,8 +79,8 @@ export function fetchTrades(number = 10) {
 export const submitBuyOrder = (price, quantity, period = 0) => {
   return (dispatch, getState) => {
 
-    const { activeLicence, waterAccounts } = getState();
-    const { zoneIndex } = waterAccounts.find(l => activeLicence === l.licenceId);
+    const { activeWaterAccount, waterAccounts } = getState();
+    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
 
     orderService.addBuyOrder(price, quantity, zoneIndex, period).then(rawTransaction => {
       web3.eth.sendSignedTransaction(rawTransaction)
@@ -173,8 +173,9 @@ export const deleteSellOrder = index => {
 export const submitSellOrder = (price, quantity) => {
   return (dispatch, getState) => {
 
-    const { activeLicence, waterAccounts } = getState();
-    const { zoneIndex } = waterAccounts.find(l => activeLicence === l.licenceId);
+    const { activeWaterAccount, waterAccounts } = getState();
+
+    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
 
     orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Sidebar, DashboardContainer, HistoryRouteContainer, Notifications, Modals } from './components';
 import Licence from './licence/Licence';
+import Admin from './admin/Admin';
 import TopNav from './app/TopNav';
 
 class App extends Component {
@@ -14,10 +15,10 @@ class App extends Component {
     this.props.watchForNewOrders();
     this.props.fetchStatsLastTradePrice();
     this.props.fetchLicence();
+    this.props.loadAdminLicences();
   }
 
   render() {
-    console.log(this.props);
     return <div className="flex min-h-screen">
       <Sidebar />
       <Notifications notifications={this.props.notifications} />
@@ -28,6 +29,7 @@ class App extends Component {
         <Switch>
           <Route path="/" exact render={() => <DashboardContainer />}/>
           <Route path="/licence" component={Licence} />
+          <Route path="/admin" component={Admin} />
           <Route path="/history" component={HistoryRouteContainer} />
           <Route path="/:address" render={ props => <DashboardContainer address={props.match.params.address}/>}/>
         </Switch>
