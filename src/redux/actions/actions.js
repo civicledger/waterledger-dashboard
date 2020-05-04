@@ -55,6 +55,5 @@ export const loadWalletForCurrentLicence = () => {
     status.canSignIn = true;
     dispatch(receiveEthContext(status));
     web3.eth.defaultAccount = wallet[index].address;
-    console.log(web3.eth.defaultAccount);
   }
 }
