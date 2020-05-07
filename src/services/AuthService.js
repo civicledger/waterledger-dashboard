@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getInstanceIdentifier } from '../utils/ethUtils';
 
 require('dotenv').config();
 
@@ -19,7 +20,8 @@ export default class AuthService {
   }
 
   async apiGetLicences() {
-    const { data } = await axios.get(`${deployedContractJsonUrl}api/licences/`);
+    const params = { scheme: getInstanceIdentifier() }
+    const { data } = await axios.get(`${deployedContractJsonUrl}api/licences/`, { params });
     return data.licences;
   }
 

@@ -11,6 +11,7 @@ import {
 } from './actionConstants';
 
 import { addNotification, setOrderFormModal, setOrderFormFixedModal } from './actions';
+import { fetchZoneBalance } from './waterLicences';
 
 import { web3 } from '../../utils/ethUtils';
 import { errorMessage } from '../../utils/format';
@@ -173,7 +174,7 @@ export const deleteSellOrder = index => {
 export const submitSellOrder = (price, quantity) => {
   return (dispatch, getState) => {
 
-    const { activeWaterAccount, waterAccounts } = getState();
+    const { activeWaterAccount, waterAccounts, ethContext } = getState();
 
     const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
 
@@ -196,6 +197,8 @@ export const submitSellOrder = (price, quantity) => {
             }));
 
             dispatch(fetchSellOrders());
+            dispatch(fetchSellOrders());
+            dispatch(fetchZoneBalance(ethContext.address, zoneIndex));
           }
         );
       })

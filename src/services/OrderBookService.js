@@ -5,6 +5,11 @@ export default class OrderBookService {
 
   contractName = 'OrderBook';
 
+  async getTitle() {
+    await this.loadContract(this.contractName);
+    return await this.contract.getTitle();
+  }
+
   async getSellOrders(number=10) {
     await this.loadContract(this.contractName);
     return await this.contract.getOrderBookSells(number);

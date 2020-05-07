@@ -12,8 +12,9 @@ export default class LicencesService {
   contractName = 'Licences';
 
   async apiGetLicenceByWaterAccountId(waterAccountId) {
-    const {data} = await axios.get(`${deployedContractJsonUrl}api/licences/?waterAccountId=${waterAccountId}`);
-    return {licence: data.licences[0]};
+    const params = { 'waterAccounts.waterAccountId': waterAccountId, scheme: getInstanceIdentifier() };
+    const { data } = await axios.get(`${deployedContractJsonUrl}api/licences`, { params });
+    return { licence: data.licences[0] };
   }
 
   async apiGetLicence(id) {
@@ -27,8 +28,14 @@ export default class LicencesService {
     axios.patch(`${deployedContractJsonUrl}api/licences/${id}`, patchData);
   }
 
+  async getAllEvents() {
+    await this.loadContract(this.contractName);
+    return this.wrapper.events;
+  }
+
   async getWaterAccounts() {
     const waterAccountId = localStorage.getItem('wlWaterAccount');
+    console.log(waterAccountId);
     if(!waterAccountId) {
       return [];
     }
@@ -47,6 +54,7 @@ export default class LicencesService {
     }
     const instance = await loadInstance(contractName, identifier);
     this.contract = instance.proxyContract;
+    this.wrapper = instance;
   }
 
 }
