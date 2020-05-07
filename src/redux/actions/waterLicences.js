@@ -22,6 +22,7 @@ export const receiveWaterAccounts = payload => ({ type: RECEIVE_WATER_ACCOUNTS, 
 export function fetchWaterBalances() {
   return (dispatch, getState) => {
     const { ethContext, waterAccounts } = getState();
+    console.log(ethContext.address);
     waterAccounts.forEach(async wa => {
       dispatch(fetchZoneBalance(ethContext.address, wa.zoneIndex));
     });
@@ -70,6 +71,8 @@ export const claimWaterAccountsForLicence = licence => {
     status.hasLocalStorageWallet = true;
     status.isSignedIn = true;
     status.canSignIn = true;
+    status.address = account.address;
+    status.statusLoaded = true;
     dispatch(receiveEthContext(status));
 
     let licences = JSON.parse(localStorage.getItem('wlLicences')) || [];
@@ -80,14 +83,16 @@ export const claimWaterAccountsForLicence = licence => {
 
 }
 
-export function fetchLicence(licenceId = null) {
+export function fetchLicence() {
   return dispatch => {
+    console.log(localStorage.getItem('wlCurrentLicence'));
     if(localStorage.getItem('wlCurrentLicence')){
       return licencesService.getWaterAccounts()
         .then(response => {
             dispatch(receiveWaterAccounts(response));
             dispatch(fetchWaterBalances());
             let waterAccountId = localStorage.getItem('wlWaterAccount');
+
             const waterAccountFound = response.find(wa => wa.waterAccountId === waterAccountId);
 
             if (!waterAccountFound) {

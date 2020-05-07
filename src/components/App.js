@@ -16,6 +16,8 @@ class App extends Component {
     this.props.fetchStatsLastTradePrice();
     this.props.fetchLicence();
     this.props.loadAdminLicences();
+    this.props.watchForLicenceCompletion();
+    this.props.watchForDeletion();
   }
 
   render() {

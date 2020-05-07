@@ -79,7 +79,7 @@ class AccountBanner extends Component {
     const {ethContext, waterAccounts} = this.props;
 
     const panelContent = waterAccounts.length ? this.hasAccounts() : this.noAccounts();
-
+    console.log(ethContext);
     if (!ethContext.statusLoaded) {
       return '';
     }

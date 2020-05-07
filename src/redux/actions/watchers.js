@@ -1,5 +1,6 @@
 import { fetchBuyOrders, fetchSellOrders, fetchTrades } from './orders';
 import { fetchStatsLastTradePrice } from './stats';
+import { fetchLicence } from './waterLicences';
 import { addNotification } from './actions';
 
 import {serviceLoader} from '../../services/serviceLoader';
@@ -11,22 +12,35 @@ const licencesService = serviceLoader('Licences');
  * These actions are unusual in that they does not trigger any reducer state changes.
  * Instead they sets up watchers for specific websocket events
  */
-export const watchForNewLicence = () => {
-  return async dispatch => {
+export const watchForLicenceCompletion = () => {
+  return async (dispatch, getState) => {
+    const { ethContext: { address } } = getState();
+
     let events = await licencesService.getAllEvents();
 
-    events.LicenceAdded().on('data', () => {
-      dispatch(fetchBuyOrders());
+    events.LicenceCompleted({
+        filter: { ethAccount: address }
+      }).on('data', event => {
+      dispatch(addNotification({
+        id: event.transactionHash,
+        text: 'Licence creation has been completed'
+      }));
+      dispatch(fetchLicence());
     });
   }
 }
 
-export const watchForAllocation = () => {
-  return async dispatch => {
-    let events = await licencesService.getAllEvents();
 
-    events.LicenceAdded().on('data', () => {
+export const watchForDeletion = () => {
+  return async dispatch => {
+    let events = await orderBookService.getAllEvents();
+
+    events.BuyOrderDeleted().on('data', () => {
       dispatch(fetchBuyOrders());
+    });
+
+    events.SellOrderDeleted().on('data', () => {
+      dispatch(fetchSellOrders());
     });
   }
 }

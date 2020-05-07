@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { fetchEthContext, loadWalletForCurrentLicence } from '../redux/actions/actions';
-import { watchForMatchEvent, watchForNewOrders } from '../redux/actions/watchers';
+import { watchForMatchEvent, watchForNewOrders, watchForDeletion, watchForLicenceCompletion } from '../redux/actions/watchers';
 import { fetchStatsLastTradePrice } from '../redux/actions/stats';
 import { loadCurrentAuth } from '../redux/actions/auth';
 import { fetchLicence } from '../redux/actions/waterLicences';
@@ -21,6 +21,8 @@ const actions = {
   fetchLicence,
   loadCurrentAuth,
   loadAdminLicences,
+  watchForDeletion,
+  watchForLicenceCompletion
 };
 
 const AppContainer = connect(mapStateToProps, actions)(App);
