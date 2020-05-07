@@ -20,7 +20,7 @@ class Dashboard extends Component {
         setAccountModal={setAccountModal}
         setPasswordModal={setPasswordModal} />
 
-      <h2 className="mt-10 pb-6 text-2xl">Order Book</h2>
+      <h2 className="md:mt-10 pb-6 text-2xl">Order Book</h2>
 
       <div className="flex">
         <div className="w-full border rounded p-5 bg-white">

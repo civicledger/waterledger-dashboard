@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { fetchEthContext, loadWalletForCurrentLicence } from '../redux/actions/actions';
 import { watchForMatchEvent, watchForNewOrders, watchForDeletion, watchForLicenceCompletion } from '../redux/actions/watchers';
-import { fetchStatsLastTradePrice } from '../redux/actions/stats';
+import { fetchStatsLastTradePrice, fetchScheme } from '../redux/actions/stats';
 import { loadCurrentAuth } from '../redux/actions/auth';
 import { fetchLicence } from '../redux/actions/waterLicences';
 import { loadAdminLicences } from '../redux/actions/auth';
@@ -18,6 +18,7 @@ const actions = {
   loadWalletForCurrentLicence,
   fetchEthContext,
   fetchStatsLastTradePrice,
+  fetchScheme,
   fetchLicence,
   loadCurrentAuth,
   loadAdminLicences,
