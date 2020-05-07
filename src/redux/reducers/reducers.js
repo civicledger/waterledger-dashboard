@@ -4,7 +4,8 @@ import {
   RECEIVE_ETH_CONTEXT,
   RECEIVE_LICENCES,
   RECEIVE_ADMIN_LICENCES,
-  SET_ACTIVE_LICENCE
+  SET_ACTIVE_LICENCE,
+  RECEIVE_SCHEME
   } from '../actions/actionConstants';
 
 import initialState from './initialState';
@@ -21,6 +22,8 @@ export const stats = (state = initialState.stats, action) => {
   switch(action.type){
     case RECEIVE_STATS_LAST_TRADE_PRICE:
       return { ...state, lastTradePrice: action.payload };
+    case RECEIVE_SCHEME:
+        return { ...state, scheme: action.payload };
     default: return { ...state };
   }
 }

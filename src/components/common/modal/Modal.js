@@ -11,7 +11,7 @@ const Modal = ({ show, children }) => {
           {"hidden": !show}
         )
       }>
-      <section className="modal-content w-2/5 rounded bg-gray-100 border-gray-700 m-auto p-5">
+      <section className="modal-content w-4/5 md:w-2/5 rounded bg-gray-100 border-gray-700 m-auto p-5">
         {children}
       </section>
     </div>

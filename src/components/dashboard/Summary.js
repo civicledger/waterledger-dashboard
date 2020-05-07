@@ -1,7 +1,14 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { formatAmount } from '../../utils/format';
 
-export default ({stats}) => <div className="inline-flex flex-grow align-middle">
+export default ({stats}) => <Fragment>
+
+<h2 className="text-3xl mb-3">{stats.scheme}</h2>
+
+<div className="inline-flex flex-grow align-middle">
+
+
+
   <div className="summary-icon-box xl:block">
     <i className="fal fa-chart-area text-3xl fa-fw"></i>
   </div>
@@ -12,3 +19,4 @@ export default ({stats}) => <div className="inline-flex flex-grow align-middle">
   </div>
 
 </div>
+  </Fragment>

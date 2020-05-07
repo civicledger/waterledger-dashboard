@@ -85,7 +85,6 @@ export const claimWaterAccountsForLicence = licence => {
 
 export function fetchLicence() {
   return dispatch => {
-    console.log(localStorage.getItem('wlCurrentLicence'));
     if(localStorage.getItem('wlCurrentLicence')){
       return licencesService.getWaterAccounts()
         .then(response => {

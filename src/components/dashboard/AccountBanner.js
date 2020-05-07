@@ -84,11 +84,11 @@ class AccountBanner extends Component {
       return '';
     }
     return <div className="flex flex-col md:flex-row">
-      <div className="flex-1 mb-5 pb-5">
-        {panelContent}
-      </div>
-      <div className="flex-1 md:ml-5">
+      <div className="flex-1 mb-5">
         <Summary stats={this.props.stats}  />
+      </div>
+      <div className="flex-1 mb-5 pb-5 md:ml-5">
+        {panelContent}
       </div>
     </div>;
   }

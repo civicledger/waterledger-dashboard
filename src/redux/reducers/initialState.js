@@ -17,7 +17,8 @@ const initialState = {
     allocation: false
   },
   stats: {
-    lastTradePrice: 0
+    lastTradePrice: 0,
+    scheme: ''
   },
   modals: {
     license: false,

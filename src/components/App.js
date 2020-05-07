@@ -14,6 +14,7 @@ class App extends Component {
     this.props.watchForMatchEvent();
     this.props.watchForNewOrders();
     this.props.fetchStatsLastTradePrice();
+    this.props.fetchScheme();
     this.props.fetchLicence();
     this.props.loadAdminLicences();
     this.props.watchForLicenceCompletion();
