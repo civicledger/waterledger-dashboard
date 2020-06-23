@@ -63,7 +63,7 @@ export const watchForNewOrders = () => {
 
 export const watchForMatchEvent = () => {
   return async (dispatch, getState) => {
-    const { ethContext: { startBlock, address } } = getState();
+    const { ethContext: { startBlock } } = getState();
 
     let events = await orderBookService.getEvents(startBlock);
 
