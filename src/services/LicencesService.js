@@ -35,7 +35,7 @@ export default class LicencesService {
 
   async getWaterAccounts() {
     const waterAccountId = localStorage.getItem('wlWaterAccount');
-    console.log(waterAccountId);
+
     if(!waterAccountId) {
       return [];
     }

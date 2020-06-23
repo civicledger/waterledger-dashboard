@@ -68,15 +68,13 @@ export const watchForMatchEvent = () => {
     let events = await orderBookService.getEvents(startBlock);
 
     events.on('data', event => {
+
       dispatch(fetchBuyOrders());
       dispatch(fetchSellOrders());
       dispatch(fetchTrades());
       dispatch(fetchStatsLastTradePrice());
 
-      if(!address) {
-        return;
-      }
-      if (address === event.address) {
+      if (event.event === "Matched") {
         dispatch(addNotification({
           id: event.transactionHash,
           text: 'One of your orders has been matched'

@@ -18,7 +18,6 @@ export const receiveStatsLastTradePrice = payload => ({ type: RECEIVE_STATS_LAST
 
 export function fetchScheme() {
   return dispatch => {
-    console.log('fetching scheme');
     return orderBookService.getScheme()
       .then(
         response => dispatch(receiveScheme(response)),

@@ -22,7 +22,7 @@ export const receiveWaterAccounts = payload => ({ type: RECEIVE_WATER_ACCOUNTS, 
 export function fetchWaterBalances() {
   return (dispatch, getState) => {
     const { ethContext, waterAccounts } = getState();
-    console.log(ethContext.address);
+
     waterAccounts.forEach(async wa => {
       dispatch(fetchZoneBalance(ethContext.address, wa.zoneIndex));
     });
