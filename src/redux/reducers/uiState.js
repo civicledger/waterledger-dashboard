@@ -50,3 +50,16 @@ export const notifications = (state = [], action) => {
     default: return state;
   }
 }
+
+const defaultVisibility = {
+  showButtons: false,
+  showAccountBanner: false
+}
+
+export const elementVisibility = (state = {...defaultVisibility}, action) => {
+  switch(action.type) {
+    case 'SET_SHOW_BUTTONS': return {...state, showButtons: action.value};
+    case 'SET_SHOW_ACCOUNT_BANNER': return {...state, showAccountBanner: action.value};
+    default: return {...state};
+  }
+}

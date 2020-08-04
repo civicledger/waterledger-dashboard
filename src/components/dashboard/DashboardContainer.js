@@ -1,12 +1,12 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import  { setAccountModal, setPasswordModal } from '../../redux/actions/actions';
-import  { fetchBuyOrders, fetchSellOrders, fetchTrades, openOrderForm, deleteBuyOrder, deleteSellOrder } from '../../redux/actions/orders';
+import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
+import { fetchBuyOrders, fetchSellOrders, fetchTrades, openOrderForm, deleteBuyOrder, deleteSellOrder } from "../../redux/actions/orders";
 
-import Dashboard from './Dashboard';
+import Dashboard from "./Dashboard";
 
 const mapStateToProps = state => ({ ...state });
 
-const boundActions = { setAccountModal, setPasswordModal, fetchBuyOrders, fetchSellOrders, fetchTrades, openOrderForm, deleteBuyOrder, deleteSellOrder };
+const boundActions = { fetchBuyOrders, fetchSellOrders, fetchTrades, openOrderForm, deleteBuyOrder, deleteSellOrder, setCurrentWaterAccount };
 
 export default connect(mapStateToProps, boundActions)(Dashboard);

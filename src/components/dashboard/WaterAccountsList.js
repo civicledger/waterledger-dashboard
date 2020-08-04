@@ -1,26 +1,33 @@
-import React from 'react';
-import classNames from 'classnames';
-import { connect } from 'react-redux';
-import { setCurrentWaterAccount } from '../../redux/actions/waterLicences';
+import React, { Fragment } from "react";
+import classNames from "classnames";
+import { connect } from "react-redux";
+import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 
-const WaterAccountsList = ({waterAccounts, setCurrentWaterAccount, activeWaterAccount}) => {
-  return <ul className="list-reset">
-  { waterAccounts.map(wa => <li key={wa.waterAccountId}
-    className={
-      classNames(
-        "border p-2 border-t-0 text-gray-700 hover:text-gray-800 cursor-pointer",
-        {"bg-gray-400": activeWaterAccount === wa.waterAccountId},
-        {"bg-gray-200 hover:bg-gray-400": activeWaterAccount !== wa.waterAccountId}
-      )
-    }
-    onClick={() => setCurrentWaterAccount(wa.waterAccountId)}>
-    <span className="mr-5">{wa.waterAccountId}</span>
-    <span className="mr-5">{wa.zoneString}</span>
-    <span className="mr-5">{wa.balance && `${wa.balance} ML`}</span>
+const zones = ["Barron A", "Barron B", "Barron C", "Barron D", "Barron E"];
 
-  </li>) }
-</ul>}
+const WaterAccountsList = ({ waterAccounts, setCurrentWaterAccount, activeWaterAccount, showId = false }) => {
+  return (
+    <div className="table w-full text-sm">
+      {waterAccounts.map(wa => (
+        <Fragment key={wa.waterAccountId}>
+          <div
+            className={classNames(
+              "table-row row-cell text-steel-100 hover:text-steel-200 cursor-pointer flex ",
+              { "bg-steel-700": activeWaterAccount === wa.waterAccountId },
+              { "": activeWaterAccount !== wa.waterAccountId }
+            )}
+            onClick={() => setCurrentWaterAccount(wa.waterAccountId)}
+          >
+            <span className="table-cell text-left p-2">{wa.waterAccountId}</span>
+            <span className="table-cell text-left p-2">{zones[wa.zoneIndex]}</span>
+            <span className="table-cell text-left p-2">{wa.balance && `${wa.balance} ML`}</span>
+          </div>
+        </Fragment>
+      ))}
+    </div>
+  );
+};
 
-const mapStateToProps = ({activeWaterAccount}) => ({activeWaterAccount});
+const mapStateToProps = ({ activeWaterAccount }) => ({ activeWaterAccount });
 
-export default connect(mapStateToProps, {setCurrentWaterAccount})(WaterAccountsList);
+export default connect(mapStateToProps, { setCurrentWaterAccount })(WaterAccountsList);

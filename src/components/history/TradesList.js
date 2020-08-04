@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Trade } from '../components';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
+import Trade from "./Trade";
 
 class TradesList extends Component {
   constructor(props) {
@@ -9,20 +10,26 @@ class TradesList extends Component {
   }
 
   render() {
-    return (<div className="table w-full transaction-list">
-      <div className="table-row text-gray-800 font-semibold">
-        <div className="table-cell px-5">Price / ML</div>
-        <div className="table-cell px-5">Volume</div>
-        <div className="table-cell px-5">From Zone</div>
-        <div className="table-cell px-5">To Zone</div>
-        <div className="table-cell px-5">Period</div>
-        <div className="hidden xl:table-cell px-5">Date</div>
+    return (
+      <div className="table relative w-full transaction-list mt-5 bg-steel-800 rounded p-5 pb-20">
+        <h2 className="flex-grow text-2xl inline-block mb-3">Recent Trades</h2>
+        <div className="table-row font-semibold bg-steel-700">
+          <div className="table-cell p-2">Price / ML</div>
+          <div className="table-cell p-2">Volume</div>
+          <div className="table-cell p-2">From Zone</div>
+          <div className="table-cell p-2">To Zone</div>
+          <div className="hidden xl:table-cell p-2">Date</div>
+        </div>
+
+        {this.props.trades.map((trade, index) => (
+          <Trade key={index} trade={trade} />
+        ))}
+
+        <Link to="/history" className="absolute right-0 mr-5 no-underline text-right p-3 mt-5 border-steel-300 text-steel-300 rounded">
+          See All <i className="fal fa-arrow-right fa-fw"></i>
+        </Link>
       </div>
-
-      {this.props.trades.map((trade, index) => <Trade key={index} trade={trade} />)}
-
-    </div>
-  );
+    );
   }
 }
 export default TradesList;

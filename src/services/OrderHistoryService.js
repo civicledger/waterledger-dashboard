@@ -1,14 +1,19 @@
-import { getInstanceIdentifier } from '../utils/ethUtils';
-import { loadInstance } from '../utils/ContractInstanceLoader';
+import axios from "axios";
+
+import { getInstanceIdentifier } from "../utils/ethUtils";
+import { loadInstance } from "../utils/ContractInstanceLoader";
+
+require("dotenv").config();
+
+const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
 
 export default class OrderHistoryService {
+  contractName = "History";
 
-  contractName = 'History';
-
-  // @defaultContract
   async getHistory(number = 10) {
     await this.loadContract(this.contractName);
-    return await this.contract.getHistory(number);
+    const history = await this.contract.getHistory(number);
+    return history;
   }
 
   async getLicenceHistory(licenceAddress) {
@@ -16,14 +21,18 @@ export default class OrderHistoryService {
     return await this.contract.getLicenceHistory(licenceAddress);
   }
 
-  loadContract = async (contractName, identifier = false) => {
-    if(this.contract) return;
+  async getApiTrades(fromDate, toDate = new Date()) {
+    const { data } = await axios.get(`${deployedContractJsonUrl}api/trades`);
+    return data.trades;
+  }
 
-    if(!identifier){
+  loadContract = async (contractName, identifier = false) => {
+    if (this.contract) return;
+
+    if (!identifier) {
       identifier = getInstanceIdentifier();
     }
     const instance = await loadInstance(contractName, identifier);
     this.contract = instance.proxyContract;
-  }
-
+  };
 }

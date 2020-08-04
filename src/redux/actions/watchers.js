@@ -1,12 +1,18 @@
-import { fetchBuyOrders, fetchSellOrders, fetchTrades } from './orders';
-import { fetchStatsLastTradePrice } from './stats';
-import { fetchLicence } from './waterLicences';
-import { addNotification } from './actions';
+import { fetchBuyOrders, fetchSellOrders, fetchTrades } from "./orders";
+import { fetchLastTradePrice } from "./scheme";
+import { fetchLicence } from "./waterLicences";
+import {
+  addNotification,
+  accountProgressCompleted,
+  accountProgressAdded,
+  elementVisibilityShowButtons,
+  elementVisibilityShowAccountBanner,
+} from "./actions";
 
-import {serviceLoader} from '../../services/serviceLoader';
+import { serviceLoader } from "../../services/serviceLoader";
 
-const orderBookService = serviceLoader('OrderBook');
-const licencesService = serviceLoader('Licences');
+const orderBookService = serviceLoader("OrderBook");
+const licencesService = serviceLoader("Licences");
 
 /**
  * These actions are unusual in that they does not trigger any reducer state changes.
@@ -14,84 +20,117 @@ const licencesService = serviceLoader('Licences');
  */
 export const watchForLicenceCompletion = () => {
   return async (dispatch, getState) => {
-    const { ethContext: { address } } = getState();
+    const {
+      ethContext: { address },
+    } = getState();
 
     let events = await licencesService.getAllEvents();
 
-    events.LicenceCompleted({
-        filter: { ethAccount: address }
-      }).on('data', event => {
-      dispatch(addNotification({
-        id: event.transactionHash,
-        text: 'Licence creation has been completed'
-      }));
-      dispatch(fetchLicence());
-    });
-  }
-}
+    events
+      .LicenceAdded({
+        filter: { ethAccount: address },
+      })
+      .on("data", event => {
+        console.log("adding licence");
+        dispatch(accountProgressAdded({ text: "Account has been added" }));
+        new Promise(r => setTimeout(r, 4000)).then(() => {
+          dispatch(accountProgressAdded({ text: "Getting Water Account Details" }));
+        });
+      });
 
+    events
+      .WaterAccountAdded({
+        filter: { ethAccount: address },
+      })
+      .on("data", event => {
+        console.log("added water account");
+        dispatch(accountProgressAdded({ text: "Water Account Added" }));
+      });
+
+    events
+      .LicenceCompleted({
+        filter: { ethAccount: address },
+      })
+      .on("data", async event => {
+        dispatch(accountProgressAdded({ text: "Licence Creation Completed" }));
+        dispatch(accountProgressCompleted());
+        dispatch(fetchLicence());
+
+        await new Promise(r => setTimeout(r, 2000));
+        dispatch(elementVisibilityShowButtons(true));
+        await new Promise(r => setTimeout(r, 7000));
+        dispatch(elementVisibilityShowAccountBanner(false));
+      });
+  };
+};
 
 export const watchForDeletion = () => {
   return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
-    events.BuyOrderDeleted().on('data', () => {
+    events.BuyOrderDeleted().on("data", () => {
       dispatch(fetchBuyOrders());
     });
 
-    events.SellOrderDeleted().on('data', () => {
+    events.SellOrderDeleted().on("data", () => {
       dispatch(fetchSellOrders());
     });
-  }
-}
-
+  };
+};
 
 export const watchForNewOrders = () => {
   return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
-    events.BuyOrderAdded().on('data', () => {
+    events.BuyOrderAdded().on("data", () => {
       dispatch(fetchBuyOrders());
     });
 
-    events.SellOrderAdded().on('data', () => {
+    events.SellOrderAdded().on("data", () => {
       dispatch(fetchSellOrders());
     });
-
-  }
-}
+  };
+};
 
 export const watchForMatchEvent = () => {
   return async (dispatch, getState) => {
-    const { ethContext: { startBlock } } = getState();
-
+    const { ethContext } = getState();
+    let startBlock = ethContext.startBlock;
     let events = await orderBookService.getEvents(startBlock);
-
-    events.on('data', event => {
-
+    console.log("watching");
+    events.on("data", event => {
+      console.log(event);
+      // if (startBlock === 0) {
+      //   console.log("Startblock must not be 0");
+      //   return;
+      // }
       dispatch(fetchBuyOrders());
       dispatch(fetchSellOrders());
       dispatch(fetchTrades());
-      dispatch(fetchStatsLastTradePrice());
+      dispatch(fetchLastTradePrice());
 
       if (event.event === "Matched") {
-        dispatch(addNotification({
-          id: event.transactionHash,
-          text: 'One of your orders has been matched'
-        }));
+        dispatch(
+          addNotification({
+            id: event.transactionHash,
+            text: "One of your orders has been matched",
+          })
+        );
       }
     });
-  }
-}
+  };
+};
 
 export const watchForStatUpdatedEvent = () => {
   return async (dispatch, getState) => {
-    const { ethContext: { startBlock:fromBlock } } = getState();
+    const {
+      ethContext: { startBlock: fromBlock },
+    } = getState();
 
     const events = await orderBookService.getEvents();
 
-    events.StatsChanged({fromBlock}).on('data', (event) => {
-      dispatch(fetchStatsLastTradePrice());
+    events.StatsChanged({ fromBlock }).on("data", event => {
+      dispatch(fetchLastTradePrice());
     });
-  }
-}
+  };
+};

@@ -1,21 +1,18 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
-import {
-  RECEIVE_LICENCE, RECEIVE_ZONE_BALANCE,
-  RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT
- } from './actionConstants';
+import { RECEIVE_LICENCE, RECEIVE_ZONE_BALANCE, RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT } from "./actionConstants";
 
-import { web3 } from '../../utils/ethUtils';
+import { web3 } from "../../utils/ethUtils";
 
-import { serviceLoader } from '../../services/serviceLoader';
+import { serviceLoader } from "../../services/serviceLoader";
 
-import { receiveEthContext } from './actions';
+import { receiveEthContext, addNotification, accountProgressAdded } from "./actions";
 
-const zonesService = serviceLoader('Zones');
-const licencesService = serviceLoader('Licences');
+const zonesService = serviceLoader("Zones");
+const licencesService = serviceLoader("Licences");
 
 export const receiveZoneBalance = payload => ({ type: RECEIVE_ZONE_BALANCE, payload });
-export const receiveLicence = payload => ({ type: RECEIVE_LICENCE, payload });
+export const receiveLicence = id => ({ type: RECEIVE_LICENCE, id });
 export const setActiveWaterAccount = payload => ({ type: SET_ACTIVE_WATER_ACCOUNT, payload });
 export const receiveWaterAccounts = payload => ({ type: RECEIVE_WATER_ACCOUNTS, payload });
 
@@ -26,21 +23,20 @@ export function fetchWaterBalances() {
     waterAccounts.forEach(async wa => {
       dispatch(fetchZoneBalance(ethContext.address, wa.zoneIndex));
     });
-  }
+  };
 }
 
 export function fetchZoneBalance(address, zoneIndex) {
   return dispatch => {
-    return zonesService.getZoneBalanceFor(address, zoneIndex)
-      .then(
-        balance => dispatch(receiveZoneBalance({balance, zoneIndex})),
-        error => console.log('An error occurred.', error)
-      )
-  }
+    return zonesService.getZoneBalanceFor(address, zoneIndex).then(
+      balance => dispatch(receiveZoneBalance({ balance, zoneIndex })),
+      error => console.log("An error occurred.", error)
+    );
+  };
 }
 
 export const claimWaterAccountsForLicence = licence => {
-  return dispatch => {
+  return async dispatch => {
     const id = licence._id;
 
     const password = uuid();
@@ -52,18 +48,17 @@ export const claimWaterAccountsForLicence = licence => {
     wallet.add(account);
 
     localStorage.setItem(`${id}-wlAccountIndex`, wallet.length - 1);
-    localStorage.setItem('walletPassword', password);
+    localStorage.setItem("walletPassword", password);
 
     licence.ethAccount = account.address;
 
-    licencesService.apiActivateLicence(id, licence);
-
+    await licencesService.apiActivateLicence(id, licence);
     dispatch(setCurrentWaterAccount(licence.waterAccounts[0].waterAccountId));
     dispatch(receiveWaterAccounts(licence.waterAccounts));
-
+    dispatch(accountProgressAdded({ text: "Storing Account Details" }));
     web3.eth.defaultAccount = account.address;
 
-    wallet.save(password, 'wl-wallet');
+    wallet.save(password, "wl-wallet");
 
     const status = {};
     status.walletAccountsAvailable = wallet.length > 0;
@@ -74,42 +69,48 @@ export const claimWaterAccountsForLicence = licence => {
     status.address = account.address;
     status.statusLoaded = true;
     dispatch(receiveEthContext(status));
-
-    let licences = JSON.parse(localStorage.getItem('wlLicences')) || [];
+    let licences = JSON.parse(localStorage.getItem("wlLicences")) || [];
     licences.push(id);
-    localStorage.setItem('wlLicences', JSON.stringify(licences));
-    localStorage.setItem('wlCurrentLicence', id);
-  }
-
-}
+    localStorage.setItem("wlLicence", licences.accountId);
+    localStorage.setItem("wlLicences", JSON.stringify(licences));
+    localStorage.setItem("wlCurrentLicence", id);
+    dispatch(accountProgressAdded({ text: "Updating Water AccountBalances" }));
+    dispatch(fetchWaterBalances());
+  };
+};
 
 export function fetchLicence() {
   return dispatch => {
-    if(localStorage.getItem('wlCurrentLicence')){
-      return licencesService.getWaterAccounts()
-        .then(response => {
-            dispatch(receiveWaterAccounts(response));
-            dispatch(fetchWaterBalances());
-            let waterAccountId = localStorage.getItem('wlWaterAccount');
+    if (localStorage.getItem("wlCurrentLicence")) {
+      return licencesService.getWaterAccounts().then(
+        response => {
+          dispatch(receiveWaterAccounts(response));
+          dispatch(fetchWaterBalances());
+          let waterAccountId = localStorage.getItem("wlWaterAccount");
 
-            const waterAccountFound = response.find(wa => wa.waterAccountId === waterAccountId);
+          const waterAccountFound = response.find(wa => wa.waterAccountId === waterAccountId);
 
-            if (!waterAccountFound) {
-              waterAccountId = response[0].waterAccountId;
-            }
+          if (!waterAccountFound) {
+            waterAccountId = response[0].waterAccountId;
+          }
 
-            dispatch(setCurrentWaterAccount(waterAccountId));
-
-          },
-          error => console.log('An error occurred.', error)
-        );
-      }
+          dispatch(setCurrentWaterAccount(waterAccountId));
+        },
+        error => console.log("An error occurred.", error)
+      );
     }
+  };
 }
 
 export function setCurrentWaterAccount(waterAccountId) {
-  localStorage.setItem('wlWaterAccount', waterAccountId);
+  localStorage.setItem("wlWaterAccount", waterAccountId);
   return dispatch => {
+    dispatch(
+      addNotification({
+        type: "success",
+        text: `Active water account set to ${waterAccountId}`,
+      })
+    );
     dispatch(setActiveWaterAccount(waterAccountId));
-  }
+  };
 }

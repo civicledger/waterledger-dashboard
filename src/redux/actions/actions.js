@@ -1,50 +1,81 @@
 import {
   RECEIVE_ETH_CONTEXT,
-  ADD_NOTIFICATION, REMOVE_NOTIFICATION,
-  MODAL_ACCOUNT_SET,
+  ADD_NOTIFICATION,
+  REMOVE_NOTIFICATION,
   MODAL_PASSWORD_SET,
   MODAL_ORDER_FORM_SET,
-  MODAL_ORDER_FORM_FIXED_SET
-} from './actionConstants';
+  MODAL_ORDER_FORM_FIXED_SET,
+} from "./actionConstants";
 
-import { ethProviderStatus, web3 } from '../../utils/ethUtils';
+import { ethProviderStatus, web3 } from "../../utils/ethUtils";
+import { receiveLicence } from "./waterLicences";
+import { serviceLoader } from "../../services/serviceLoader";
+const licencesService = serviceLoader("Licences");
 
 export function fetchEthContext() {
   return dispatch => {
-    return ethProviderStatus()
-      .then(
-        response => dispatch(receiveEthContext(response)),
-        error => console.log('An error occurred.', error)
-      )
-  }
+    return ethProviderStatus().then(
+      response => dispatch(receiveEthContext(response)),
+      error => console.log("An error occurred.", error)
+    );
+  };
 }
 
-export const createNotification = payload => ({ type: ADD_NOTIFICATION, payload });
-export const removeNotification = id => ({ type: REMOVE_NOTIFICATION, value: id });
-export const setAccountModal = (value = true) => ({ type: MODAL_ACCOUNT_SET, value });
+export const createNotification = payload => ({
+  type: ADD_NOTIFICATION,
+  payload,
+});
+export const removeNotification = id => ({
+  type: REMOVE_NOTIFICATION,
+  value: id,
+});
 export const setPasswordModal = (value = true) => ({ type: MODAL_PASSWORD_SET, value });
 export const setOrderFormModal = (value = true) => ({ type: MODAL_ORDER_FORM_SET, value });
 export const setOrderFormFixedModal = (value = true) => ({ type: MODAL_ORDER_FORM_FIXED_SET, value });
 export const receiveEthContext = payload => ({ type: RECEIVE_ETH_CONTEXT, payload });
 
+export const accountProgressAdded = payload => ({ type: "ADD_ACCOUNT_PROGRESS", payload });
+export const accountProgressAdditionFlight = id => ({ type: "ADD_ACCOUNT_PROGRESS_FLIGHT", id });
+export const accountProgressAdditionCompleted = id => ({ type: "ADD_ACCOUNT_PROGRESS_COMPLETED", id });
+export const accountProgressCompleted = () => ({ type: "ACCOUNT_LICENCE_COMPLETED" });
+
+export const elementVisibilityShowButtons = value => ({
+  type: "SET_SHOW_BUTTONS",
+  value,
+});
+export const elementVisibilityShowAccountBanner = value => ({
+  type: "SET_SHOW_ACCOUNT_BANNER",
+  value,
+});
+
 export const addNotification = payload => {
-  payload = { id: Date.now(), type: 'info', ...payload }
+  payload = { id: Date.now(), type: "info", ...payload };
   return dispatch => {
     dispatch(createNotification(payload));
     setTimeout(() => {
-      dispatch(removeNotification(payload.id))
-    }, 15000);
-  }
-}
+      dispatch(removeNotification(payload.id));
+    }, 10000);
+  };
+};
 
 export const loadWalletForCurrentLicence = () => {
-
   return dispatch => {
-    const licenceId = localStorage.getItem('wlCurrentLicence');
-    if(!licenceId) return;
+    const licenceId = localStorage.getItem("wlCurrentLicence");
+
+    if (!licenceId) {
+      dispatch(elementVisibilityShowAccountBanner(true));
+      return;
+    }
     const status = {};
-    const password = localStorage.getItem('walletPassword');
-    const wallet = web3.eth.accounts.wallet.load(password, 'wl-wallet');
+    const password = localStorage.getItem("walletPassword");
+    const wallet = web3.eth.accounts.wallet.load(password, "wl-wallet");
+
+    if (!localStorage.getItem("wlLicence")) {
+      licencesService.apiGetLicence(licenceId).then(({ licence }) => {
+        dispatch(receiveLicence(licence.accountId));
+        localStorage.setItem("wlLicence", licence.accountId);
+      });
+    }
 
     const index = localStorage.getItem(`${licenceId}-wlAccountIndex`);
     status.address = wallet[index].address;
@@ -55,5 +86,5 @@ export const loadWalletForCurrentLicence = () => {
     status.canSignIn = true;
     dispatch(receiveEthContext(status));
     web3.eth.defaultAccount = wallet[index].address;
-  }
-}
+  };
+};

@@ -11,14 +11,8 @@ const initialState = {
     buy: false,
     sell: false,
     trades: false,
-    statsAverageValue: false,
-    statsTotalVolume: false,
     licenses: false,
     allocation: false
-  },
-  stats: {
-    lastTradePrice: 0,
-    scheme: ''
   },
   modals: {
     license: false,
@@ -32,5 +26,6 @@ const initialState = {
   trades: [],
   waterLicences: []
 }
+
 
 export default initialState;

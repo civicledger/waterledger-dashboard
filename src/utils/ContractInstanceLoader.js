@@ -1,7 +1,7 @@
-import axios from 'axios';
-import {wrap} from './ContractWrapper';
+import axios from "axios";
+import { wrap } from "./ContractWrapper";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
 
@@ -11,10 +11,12 @@ export const loadInstance = async (contractName, identifier) => {
   let response = null;
   try {
     response = await axios.get(identifierUrl);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
+
+  if (!response) return false;
   const { address, abi } = response.data.instance;
 
   return wrap(abi, address);
-}
+};

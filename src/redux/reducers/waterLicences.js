@@ -1,25 +1,31 @@
-import { RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT, SET_ACTIVE_LICENCE, RECEIVE_LICENCE, RECEIVE_ZONE_BALANCE } from '../actions/actionConstants';
+import {
+  RECEIVE_WATER_ACCOUNTS,
+  SET_ACTIVE_WATER_ACCOUNT,
+  SET_ACTIVE_LICENCE,
+  RECEIVE_LICENCE,
+  RECEIVE_ZONE_BALANCE,
+} from "../actions/actionConstants";
 
-
-
-export const licence = (state = {}, action) => {
-  switch(action.type){
+export const licence = (state = localStorage.getItem("wlLicence") || null, action) => {
+  switch (action.type) {
     case RECEIVE_LICENCE:
-      return action.payload;
-    default: return {...state};
+      return action.value;
+    default:
+      return { ...state };
   }
-}
+};
 
-export const activeLicence = (state = localStorage.getItem('wlCurrentLicence'), action) => {
-  switch(action.type) {
+export const activeLicence = (state = localStorage.getItem("wlCurrentLicence"), action) => {
+  switch (action.type) {
     case SET_ACTIVE_LICENCE:
       return action.payload;
-    default: return state;
+    default:
+      return state;
   }
-}
+};
 
 export const waterAccounts = (state = [], action) => {
-  switch(action.type){
+  switch (action.type) {
     case RECEIVE_WATER_ACCOUNTS:
       return action.payload;
     case RECEIVE_ZONE_BALANCE:
@@ -29,14 +35,16 @@ export const waterAccounts = (state = [], action) => {
         }
         return wa;
       });
-    default: return state;
+    default:
+      return state;
   }
-}
+};
 
-export const activeWaterAccount = (state = localStorage.getItem('wlLicence'), action) => {
-  switch(action.type) {
+export const activeWaterAccount = (state = localStorage.getItem("wlWaterAccount"), action) => {
+  switch (action.type) {
     case SET_ACTIVE_WATER_ACCOUNT:
       return action.payload;
-    default: return state;
+    default:
+      return state;
   }
-}
+};

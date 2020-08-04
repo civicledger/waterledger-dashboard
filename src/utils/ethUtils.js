@@ -25,7 +25,7 @@ const getInstanceIdentifier = () => {
 const getCurrentNetwork = () => {
   const hostName = window.location.hostname;
   if(hostName === 'localhost') return 'localhost';
-  return 'rinkeby';
+  return 'goerli';
 }
 
 const resolveEthProvider = () => {
