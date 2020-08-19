@@ -1,4 +1,4 @@
-import Web3 from 'web3';
+import Web3 from "web3";
 
 const networkToId = {
   mainnet: 1,
@@ -8,30 +8,29 @@ const networkToId = {
   sokol: 77,
   localhost: 5777,
   dev: 5777,
-  private: 8995
-}
+  private: 8995,
+};
 
 const getNetworkNameForId = id => {
   return Object.entries(networkToId).find(([name, entryId]) => +id === +entryId)[0];
-}
+};
 
 const getInstanceIdentifier = () => {
   const hostName = window.location.hostname;
-  if(hostName === 'localhost') return 'demo';
+  if (hostName === "localhost") return "demo";
 
-  return hostName.split('.')[0]
-}
+  return hostName.split(".")[0];
+};
 
 const getCurrentNetwork = () => {
   const hostName = window.location.hostname;
-  if(hostName === 'localhost') return 'localhost';
-  return 'goerli';
-}
+  if (hostName === "localhost") return "localhost";
+  return "goerli";
+};
 
 const resolveEthProvider = () => {
   return new Web3.providers.WebsocketProvider(process.env.REACT_APP_PROVIDER_URL);
-}
-
+};
 
 const web3 = new Web3(resolveEthProvider());
 
@@ -56,7 +55,7 @@ const defaultEthProviderStatus = {
   ethBalance: 0,
   startBlock: 0,
   hasLocalStorageWallet: false,
-  statusLoaded: false
+  statusLoaded: false,
 };
 
 const ethProviderStatus = async () => {
@@ -64,9 +63,9 @@ const ethProviderStatus = async () => {
   status.startBlock = await web3.eth.getBlockNumber();
   status.networkId = await web3.eth.net.getId();
 
-  const licenceId = localStorage.getItem('wlCurrentLicence');
+  const licenceId = localStorage.getItem("wlCurrentLicence");
 
-  if(licenceId) {
+  if (licenceId) {
     const wallet = web3.eth.accounts.wallet.load(licenceId, `${licenceId}_wl-wallet`);
     status.address = wallet[0].address;
     status.ethBalance = Number(await web3.eth.getBalance(status.address));
@@ -76,11 +75,9 @@ const ethProviderStatus = async () => {
     status.isSignedIn = true;
     status.canSignIn = true;
     web3.eth.defaultAccount = wallet[0].address;
-
   }
   status.statusLoaded = true;
   return status;
-
 
   // status.ethBalance = !!accountAddress ? Number(await web3.eth.getBalance(accountAddress)) : 0;
 
@@ -94,6 +91,17 @@ const ethProviderStatus = async () => {
   // status.isReadOnly = status.canSignIn || !status.hasLocalStorageWallet;
   // status.statusLoaded = true;
   // return status;
-}
+};
 
-export { networkToId, getNetworkNameForId, getCurrentNetworkId, getCurrentNetwork, cleanIntegers, resolveEthProvider, web3, ethProviderStatus, defaultEthProviderStatus, getInstanceIdentifier };
+export {
+  networkToId,
+  getNetworkNameForId,
+  getCurrentNetworkId,
+  getCurrentNetwork,
+  cleanIntegers,
+  resolveEthProvider,
+  web3,
+  ethProviderStatus,
+  defaultEthProviderStatus,
+  getInstanceIdentifier,
+};

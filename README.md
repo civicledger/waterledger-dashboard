@@ -18,8 +18,8 @@ npm run start
 You will also need to create a `.env` file (which can be done by simply running `touch .env` in the root directory) and provide the Contracts API url and provider URL in the `.env` file:
 
 ```
-REACT_APP_WL_CONTRACT_DEPLOYMENT_URL=http://localhost:8081/
-REACT_APP_PROVIDER_URL=http://localhost:8545
+REACT_APP_WL_CONTRACT_DEPLOYMENT_URL=http://localhost:8090/
+REACT_APP_PROVIDER_URL=ws://localhost:8545
 ```
 
 ### Contracts API and provider
