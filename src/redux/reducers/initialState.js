@@ -1,10 +1,10 @@
-import {ORDER_TYPE_BUY} from '../actions/actionConstants';
+import { ORDER_TYPE_BUY } from "../actions/actionConstants";
 
 const initialState = {
   orderFormDetails: {
     type: ORDER_TYPE_BUY,
-    price: '',
-    volume: ''
+    price: "",
+    quantity: "",
   },
   buys: [],
   loading: {
@@ -12,7 +12,7 @@ const initialState = {
     sell: false,
     trades: false,
     licenses: false,
-    allocation: false
+    allocation: false,
   },
   modals: {
     license: false,
@@ -20,12 +20,11 @@ const initialState = {
     audAllocation: false,
     account: false,
     password: false,
-    orderForm: false
+    orderForm: false,
   },
   sells: [],
   trades: [],
-  waterLicences: []
-}
-
+  waterLicences: [],
+};
 
 export default initialState;

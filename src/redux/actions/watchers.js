@@ -31,7 +31,6 @@ export const watchForLicenceCompletion = () => {
         filter: { ethAccount: address },
       })
       .on("data", event => {
-        console.log("adding licence");
         dispatch(accountProgressAdded({ text: "Account has been added" }));
         new Promise(r => setTimeout(r, 4000)).then(() => {
           dispatch(accountProgressAdded({ text: "Getting Water Account Details" }));
@@ -43,7 +42,6 @@ export const watchForLicenceCompletion = () => {
         filter: { ethAccount: address },
       })
       .on("data", event => {
-        console.log("added water account");
         dispatch(accountProgressAdded({ text: "Water Account Added" }));
       });
 
@@ -97,13 +95,7 @@ export const watchForMatchEvent = () => {
     const { ethContext } = getState();
     let startBlock = ethContext.startBlock;
     let events = await orderBookService.getEvents(startBlock);
-    console.log("watching");
     events.on("data", event => {
-      console.log(event);
-      // if (startBlock === 0) {
-      //   console.log("Startblock must not be 0");
-      //   return;
-      // }
       dispatch(fetchBuyOrders());
       dispatch(fetchSellOrders());
       dispatch(fetchTrades());

@@ -207,8 +207,6 @@ class ContractWrapper {
                     chainId,
                   };
                   const { rawTransaction } = await web3.eth.accounts.signTransaction(tx, account.privateKey);
-                  console.log(rawTransaction);
-                  console.log(JSON.stringify(rawTransaction));
                   return rawTransaction;
                 } catch (error) {
                   throw Error(error);
