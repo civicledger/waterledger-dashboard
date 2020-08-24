@@ -10,7 +10,7 @@ import {
   RECEIVE_TRADES,
 } from "./actionConstants";
 
-import { addNotification, setOrderFormModal, setOrderFormFixedModal } from "./actions";
+import { addNotification, setOrderFormModal } from "./actions";
 import { fetchZoneBalance } from "./waterLicences";
 
 import { web3 } from "../../utils/ethUtils";
@@ -37,11 +37,7 @@ export const openOrderForm = orderForm => {
   return dispatch => {
     dispatch(selectOrderType(orderForm.type));
     dispatch(setOrderFormValues(orderForm));
-    if (orderForm.quantity && orderForm.quantity) {
-      dispatch(setOrderFormFixedModal());
-    } else {
-      dispatch(setOrderFormModal());
-    }
+    dispatch(setOrderFormModal());
   };
 };
 
@@ -214,7 +210,6 @@ export const submitSellOrder = (price, quantity) => {
           });
         })
         .on("error", error => {
-          console.log(error);
           dispatch(
             addNotification({
               type: "error",

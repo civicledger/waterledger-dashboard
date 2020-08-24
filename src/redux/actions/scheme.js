@@ -27,7 +27,6 @@ export function fetchSchemeName() {
 
 export function fetchSchemeAddress() {
   return dispatch => {
-    console.log("getting scheme address?");
     return orderBookService.getAddress().then(
       address => {
         dispatch(receiveSchemeAddress(address));

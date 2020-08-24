@@ -22,13 +22,16 @@ class OrderForm extends Component {
   resetForm = () => this.setState({ price: "", quantity: "" });
 
   render() {
-    let { type, isReadOnly } = this.props.orderFormDetails;
+    let { type, isReadOnly, quantity, price } = this.props.orderFormDetails;
+
+    price = this.state.price ? this.state.price : price;
+    quantity = this.state.quantity ? this.state.quantity : quantity;
 
     const isSell = type === ORDER_TYPE_SELL;
     const waterAccount = this.props.waterAccounts.find(wa => wa.waterAccountId === this.props.activeWaterAccount) || {};
     const excessVolumeError = isSell && this.state.quantity > +waterAccount.balance;
 
-    isReadOnly = isReadOnly || !this.state.quantity || !this.state.price || excessVolumeError;
+    isReadOnly = isReadOnly || (!this.state.quantity && !quantity) || (!this.state.price && !price) || excessVolumeError;
 
     let bgColor = isReadOnly ? "gray" : isSell ? "red" : "green";
 
@@ -44,18 +47,12 @@ class OrderForm extends Component {
         </div>
 
         <label className="text-steel-900">Volume</label>
-        <input
-          type="text"
-          value={this.state.quantity}
-          onChange={this.handleChangeQuantity}
-          className="input text-steel-900 rounded"
-          name="quantity"
-        />
+        <input type="text" value={quantity} onChange={this.handleChangeQuantity} className="input text-steel-900 rounded" name="quantity" />
 
         {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
         <label className="text-steel-900">Price</label>
-        <input type="text" value={this.state.price} onChange={this.handleChangePrice} className="input text-steel-900 rounded" name="price" />
+        <input type="text" value={price} onChange={this.handleChangePrice} className="input text-steel-900 rounded" name="price" />
 
         <button
           type="submit"
