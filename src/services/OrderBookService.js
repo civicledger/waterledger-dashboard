@@ -82,6 +82,7 @@ export default class OrderBookService {
       identifier = getInstanceIdentifier();
     }
     const instance = await loadInstance(contractName, identifier);
+
     this.contract = instance.proxyContract;
     this.wrapper = instance;
   };

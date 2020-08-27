@@ -58,10 +58,7 @@ class OrderForm extends Component {
           type="submit"
           className={`btn-${bgColor} w-full`}
           onClick={() => {
-            this.props.placeOrder({
-              ...this.props.orderFormDetails,
-              ...this.state,
-            });
+            this.props.placeOrder({ price, quantity, type });
             this.setState({ price: "", quantity: "" });
           }}
           disabled={isReadOnly}

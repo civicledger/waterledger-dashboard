@@ -12,6 +12,7 @@ import {
 import { serviceLoader } from "../../services/serviceLoader";
 
 const orderBookService = serviceLoader("OrderBook");
+const historyService = serviceLoader("OrderHistory");
 const licencesService = serviceLoader("Licences");
 
 /**
@@ -94,14 +95,17 @@ export const watchForMatchEvent = () => {
   return async (dispatch, getState) => {
     const { ethContext } = getState();
     let startBlock = ethContext.startBlock;
-    let events = await orderBookService.getEvents(startBlock);
-    events.on("data", event => {
+    let events = await historyService.getAllEvents();
+
+    events.HistoryAdded({ fromBlock: startBlock }).on("data", event => {
+      console.log("A HISTORY ITEM HAS BEEN ADDED");
+      console.log(event);
       dispatch(fetchBuyOrders());
       dispatch(fetchSellOrders());
       dispatch(fetchTrades());
       dispatch(fetchLastTradePrice());
 
-      if (event.event === "Matched") {
+      if (event.event === "HistoryAdded") {
         dispatch(
           addNotification({
             id: event.transactionHash,

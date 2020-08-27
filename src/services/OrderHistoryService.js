@@ -26,6 +26,11 @@ export default class OrderHistoryService {
     return data.trades;
   }
 
+  async getAllEvents() {
+    await this.loadContract(this.contractName);
+    return this.wrapper.events;
+  }
+
   loadContract = async (contractName, identifier = false) => {
     if (this.contract) return;
 
@@ -34,5 +39,6 @@ export default class OrderHistoryService {
     }
     const instance = await loadInstance(contractName, identifier);
     this.contract = instance.proxyContract;
+    this.wrapper = instance;
   };
 }
