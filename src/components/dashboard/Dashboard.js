@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TradesList from "../history/TradesList";
@@ -12,8 +12,7 @@ import { formatAmount, formatEthereumAddress } from "../../utils/format";
 
 import SchemeImage from "../../images/mdwss-rnd.jpg";
 
-import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
-import { openOrderForm, deleteBuyOrder, deleteSellOrder } from "../../redux/actions/orders";
+import { openOrderForm } from "../../redux/actions/orders";
 
 export default props => {
   const dispatch = useDispatch();
@@ -22,15 +21,9 @@ export default props => {
   const sellOrders = useSelector(state => state.sells);
   const trades = useSelector(state => state.trades);
   const ethContext = useSelector(state => state.ethContext);
-  // const notifications = useSelector(state => state.notifications);
   const scheme = useSelector(state => state.scheme);
-
-  // const setCurrentWaterAccount = useSelector(state => state.setCurrentWaterAccount);
   const waterAccounts = useSelector(state => state.waterAccounts);
   const activeWaterAccount = useSelector(state => state.activeWaterAccount);
-
-  // console.log(waterAccounts);
-
 
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
@@ -76,7 +69,7 @@ export default props => {
                       <div className="flex-1 p-5 rounded bg-steel-800">
                         <h2 className="text-xl mb-3 font-semibold">Bids</h2>
 
-                        <OrderList orders={buyOrders} ethContext={ethContext} type="buy" openOrderForm={openOrderForm} deleteOrder={deleteBuyOrder} />
+                        <OrderList orders={buyOrders} ethContext={ethContext} type="buy" />
                         {ethContext.isSignedIn && (
                           <OrderButton
                             type="buy"
@@ -94,7 +87,7 @@ export default props => {
                       <div className="p-5 rounded mr-1 flex-1 mt-3 xl:ml-1 xl:mt-0 bg-steel-800">
                         <h2 className="text-xl mb-3 font-semibold">Offers</h2>
 
-                        <OrderList orders={sellOrders} ethContext={ethContext} type="sell" openOrderForm={openOrderForm} deleteOrder={deleteSellOrder} />
+                        <OrderList orders={sellOrders} ethContext={ethContext} type="sell" />
                         {ethContext.isSignedIn && (
                           <OrderButton
                             type="sell"
