@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
-import { fetchBuyOrders, fetchSellOrders, fetchTrades, openOrderForm, deleteBuyOrder, deleteSellOrder } from "../../redux/actions/orders";
 
 import Dashboard from "./Dashboard";
 
