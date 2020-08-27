@@ -6,10 +6,10 @@ const orderBookService = serviceLoader("OrderBook");
 
 export function fetchLastTradePrice() {
   return dispatch => {
-    return orderBookService.getLastTradePrice().then(
-      response => dispatch(receiveLastTradePrice(response)),
-      error => console.log("An error occurred.", error)
-    );
+    return orderBookService
+      .getLastTradePrice()
+      .then(response => dispatch(receiveLastTradePrice(response)))
+      .catch(error => dispatch(receiveLastTradePrice("NA")));
   };
 }
 
@@ -18,21 +18,21 @@ export const receiveSchemeAddress = address => ({ type: "RECEIVE_SCHEME_ADDRESS"
 
 export function fetchSchemeName() {
   return dispatch => {
-    return orderBookService.getScheme().then(
-      response => dispatch(receiveSchemeName(response)),
-      error => console.log("An error occurred.", error)
-    );
+    return orderBookService
+      .getScheme()
+      .then(response => dispatch(receiveSchemeName(response)))
+      .catch(error => dispatch(receiveSchemeName("CONTRACT NOT FOUND")));
   };
 }
 
 export function fetchSchemeAddress() {
   return dispatch => {
-    return orderBookService.getAddress().then(
-      address => {
+    return orderBookService
+      .getAddress()
+      .then(address => {
         dispatch(receiveSchemeAddress(address));
-      },
-      error => console.log("An error occurred.", error)
-    );
+      })
+      .catch(error => dispatch(receiveSchemeAddress("NOT FOUND")));
   };
 }
 
