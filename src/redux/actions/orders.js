@@ -46,7 +46,15 @@ export function fetchBuyOrders(number = 10) {
     dispatch(startFetchBuyOrders());
     return orderService.getBuyOrders(number).then(
       response => dispatch(receiveBuyOrders(response)),
-      error => console.log("An error occurred.", error)
+      error => {
+        dispatch(
+          addNotification({
+            type: "error",
+            text: "No smart contract connection found",
+          })
+        );
+      }
+      //console.log("An error occurred.", error)
     );
   };
 }
@@ -54,19 +62,19 @@ export function fetchBuyOrders(number = 10) {
 export function fetchSellOrders(number = 10) {
   return dispatch => {
     dispatch(startFetchSellOrders());
-    return orderService.getSellOrders(number).then(
-      response => dispatch(receiveSellOrders(response)),
-      error => console.log("An error occurred.", error)
-    );
+    return orderService
+      .getSellOrders(number)
+      .then(response => dispatch(receiveSellOrders(response)))
+      .catch(error => {});
   };
 }
 
 export function fetchTrades(number = 10) {
   return dispatch => {
-    return orderHistoryService.getHistory(number).then(
-      response => dispatch(receiveTrades(response)),
-      error => console.log("An error occurred.", error)
-    );
+    return orderHistoryService
+      .getHistory(number)
+      .then(response => dispatch(receiveTrades(response)))
+      .catch(error => {});
   };
 }
 

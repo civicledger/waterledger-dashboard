@@ -116,6 +116,10 @@ body {
   fill: white;
 }
 
+.notifications {
+  z-index: 500;
+}
+
 h1,
 h2,
 h3,
