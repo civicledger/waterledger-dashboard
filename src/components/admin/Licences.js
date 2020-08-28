@@ -1,34 +1,27 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { fetchLicences } from '../../redux/actions/auth';
+import React, { Fragment } from "react";
+import { useDispatch } from "react-redux";
+import { fetchLicences } from "../../redux/actions/auth";
 
-import LicencesList from './LicencesList';
+import LicencesList from "./LicencesList";
 
-class Licences extends Component {
+export default () => {
+  const dispatch = useDispatch();
 
-  async componentDidMount() {
-    this.props.fetchLicences();
-  }
+  const licences = dispatch(fetchLicences());
+  const migratedLicences = licences.filter(l => l.migrated);
+  const unmigratedLicences = licences.filter(l => !l.migrated);
 
-  render() {
-    const { licences } = this.props;
-
-    return <Fragment>
-
+  return (
+    <Fragment>
       <p className="text-sm mb-5">Select a licence to act as that licence for demonstration purposes</p>
 
       <h3 className="mb-2 text-xl">Licences previously migrated</h3>
 
-      <LicencesList licences={licences.filter(l => l.migrated)} />
+      <LicencesList licences={migratedLicences} />
 
       <h3 className="mb-2 text-xl">Licences that have not been migrated</h3>
 
-      <LicencesList licences={licences.filter(l => !l.migrated)} unclaimed={true} />
-
+      <LicencesList licences={unmigratedLicences} unclaimed={true} />
     </Fragment>
-  }
-}
-
-const mapStateToProps = ({ licences, auth }) => ({ licences, auth });
-
-export default connect(mapStateToProps, { fetchLicences })(Licences);
+  );
+};
