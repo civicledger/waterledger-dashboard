@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 
-import AppContainer from "./components/AppContainer";
+import App from "./components/App";
 
 import rootReducer from "./redux/reducers/reducers";
 
@@ -17,7 +17,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={createStore(rootReducer, applyMiddleware(thunk))}>
       <BrowserRouter>
-        <AppContainer />
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
