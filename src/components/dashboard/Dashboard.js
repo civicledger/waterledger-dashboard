@@ -13,7 +13,6 @@ import { formatAmount, formatEthereumAddress } from "../../utils/format";
 import SchemeImage from "../../images/mdwss-rnd.jpg";
 
 import { openOrderForm, deleteBuyOrder, deleteSellOrder } from "../../redux/actions/orders";
-import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 
 export default props => {
   const dispatch = useDispatch();
@@ -24,7 +23,6 @@ export default props => {
   const ethContext = useSelector(state => state.ethContext);
   const scheme = useSelector(state => state.scheme);
   const waterAccounts = useSelector(state => state.waterAccounts);
-  const activeWaterAccount = useSelector(state => state.activeWaterAccount);
 
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
@@ -51,11 +49,7 @@ export default props => {
                 </div>
                 <div className="flex-shrink">
                   {waterAccounts.length > 0 && <h4>Your Water Accounts</h4>}
-                  <WaterAccountsList
-                    setCurrentWaterAccount={setCurrentWaterAccount}
-                    waterAccounts={waterAccounts}
-                    activeWaterAccount={activeWaterAccount}
-                  />
+                  <WaterAccountsList />
                 </div>
               </div>
 

@@ -1,11 +1,15 @@
 import React, { Fragment } from "react";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 
 const zones = ["Barron A", "Barron B", "Barron C", "Barron D", "Barron E"];
 
-export default ({ waterAccounts, setCurrentWaterAccount, activeWaterAccount, showId = false }) => {
+export default () => {
   const dispatch = useDispatch();
+  const activeWaterAccount = useSelector(state => state.activeWaterAccount);
+  const waterAccounts = useSelector(state => state.waterAccounts);
+
   return (
     <div className="table w-full text-sm">
       {waterAccounts.map(wa => (
