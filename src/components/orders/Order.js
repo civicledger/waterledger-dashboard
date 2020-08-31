@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { openOrderForm } from "../../redux/actions/orders";
 import { formatAmount, formatRelativeDate, formatNumber } from "../../utils/format";
 import classNames from "classnames";
 
@@ -18,9 +20,9 @@ export default ({
   showTimestamp = false,
   ethContext: { address, isReadOnly },
   highlightRow,
-  openOrderForm,
-  deleteOrder,
+  deleteOrder
 }) => {
+  const dispatch = useDispatch();
   let { orderType: type, price, quantity, timeStamp } = order;
 
   const typeInternal = orderTypesInternal[type];
@@ -43,7 +45,7 @@ export default ({
       className={classNames(classNameObject)}
       onClick={() => {
         if (!highlightRow || isReadOnly) return;
-        openOrderForm({ type: matchingType, price, quantity });
+        dispatch(openOrderForm({ type: matchingType, price, quantity }));
       }}
     >
       {showType && <td className="py-2 px-1">{orderTypes[type]}</td>}
@@ -56,7 +58,7 @@ export default ({
           <i
             className="fal fa-times-square font-red-500 fa-fw delete-order"
             onClick={() => {
-              deleteOrder(order.orderIndex);
+              dispatch(deleteOrder(order.orderIndex));
             }}
           ></i>
         )}
