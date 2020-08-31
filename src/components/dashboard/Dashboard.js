@@ -12,7 +12,8 @@ import { formatAmount, formatEthereumAddress } from "../../utils/format";
 
 import SchemeImage from "../../images/mdwss-rnd.jpg";
 
-import { openOrderForm } from "../../redux/actions/orders";
+import { openOrderForm, deleteBuyOrder, deleteSellOrder } from "../../redux/actions/orders";
+import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 
 export default props => {
   const dispatch = useDispatch();
@@ -51,9 +52,9 @@ export default props => {
                 <div className="flex-shrink">
                   {waterAccounts.length > 0 && <h4>Your Water Accounts</h4>}
                   <WaterAccountsList
-                    setCurrentWaterAccount={() => props.setCurrentWaterAccount}
+                    setCurrentWaterAccount={setCurrentWaterAccount}
                     waterAccounts={waterAccounts}
-                    activeWaterAccount={() => activeWaterAccount}
+                    activeWaterAccount={activeWaterAccount}
                   />
                 </div>
               </div>
@@ -69,7 +70,11 @@ export default props => {
                       <div className="flex-1 p-5 rounded bg-steel-800">
                         <h2 className="text-xl mb-3 font-semibold">Bids</h2>
 
-                        <OrderList orders={buyOrders} ethContext={ethContext} type="buy" />
+                        <OrderList
+                          orders={buyOrders}
+                          ethContext={ethContext}
+                          type="buy"
+                          deleteOrder={deleteBuyOrder}/>
                         {ethContext.isSignedIn && (
                           <OrderButton
                             type="buy"
@@ -87,7 +92,12 @@ export default props => {
                       <div className="p-5 rounded mr-1 flex-1 mt-3 xl:ml-1 xl:mt-0 bg-steel-800">
                         <h2 className="text-xl mb-3 font-semibold">Offers</h2>
 
-                        <OrderList orders={sellOrders} ethContext={ethContext} type="sell" />
+                        <OrderList
+                          orders={sellOrders}
+                          ethContext={ethContext}
+                          type="sell"
+                          deleteOrder={deleteSellOrder}
+                        />
                         {ethContext.isSignedIn && (
                           <OrderButton
                             type="sell"

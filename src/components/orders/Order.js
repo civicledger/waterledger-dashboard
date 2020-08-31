@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteBuyOrder, deleteSellOrder, openOrderForm } from "../../redux/actions/orders";
+import { openOrderForm } from "../../redux/actions/orders";
 import { formatAmount, formatRelativeDate, formatNumber } from "../../utils/format";
 import classNames from "classnames";
 
@@ -19,7 +19,8 @@ export default ({
   showType = false,
   showTimestamp = false,
   ethContext: { address, isReadOnly },
-  highlightRow
+  highlightRow,
+  deleteOrder
 }) => {
   const dispatch = useDispatch();
   let { orderType: type, price, quantity, timeStamp } = order;
@@ -57,9 +58,7 @@ export default ({
           <i
             className="fal fa-times-square font-red-500 fa-fw delete-order"
             onClick={() => {
-              // TODO: pass the correct deletion through
-              if (order.orderType === 1) dispatch(deleteBuyOrder(order.orderIndex));
-              if (order.orderType === 0) dispatch(deleteSellOrder(order.orderIndex));
+              dispatch(deleteOrder(order.orderIndex));
             }}
           ></i>
         )}

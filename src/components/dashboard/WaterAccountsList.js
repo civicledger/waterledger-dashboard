@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import classNames from "classnames";
-import { connect } from "react-redux";
-import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
+import { useDispatch } from "react-redux";
 
 const zones = ["Barron A", "Barron B", "Barron C", "Barron D", "Barron E"];
 
-const WaterAccountsList = ({ waterAccounts, setCurrentWaterAccount, activeWaterAccount, showId = false }) => {
+export default ({ waterAccounts, setCurrentWaterAccount, activeWaterAccount, showId = false }) => {
+  const dispatch = useDispatch();
   return (
     <div className="table w-full text-sm">
       {waterAccounts.map(wa => (
@@ -16,7 +16,7 @@ const WaterAccountsList = ({ waterAccounts, setCurrentWaterAccount, activeWaterA
               { "bg-steel-700": activeWaterAccount === wa.waterAccountId },
               { "": activeWaterAccount !== wa.waterAccountId }
             )}
-            onClick={() => setCurrentWaterAccount(wa.waterAccountId)}
+            onClick={() => dispatch(setCurrentWaterAccount(wa.waterAccountId))}
           >
             <span className="table-cell text-left p-2">{wa.waterAccountId}</span>
             <span className="table-cell text-left p-2">{zones[wa.zoneIndex]}</span>
@@ -27,7 +27,3 @@ const WaterAccountsList = ({ waterAccounts, setCurrentWaterAccount, activeWaterA
     </div>
   );
 };
-
-const mapStateToProps = ({ activeWaterAccount }) => ({ activeWaterAccount });
-
-export default connect(mapStateToProps, { setCurrentWaterAccount })(WaterAccountsList);

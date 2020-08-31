@@ -20,7 +20,6 @@ import { loadCurrentAuth } from "../redux/actions/auth";
 import { fetchLicence } from "../redux/actions/waterLicences";
 import { loadAdminLicences } from "../redux/actions/auth";
 
-// do we want to load this here???
 import { fetchBuyOrders, fetchSellOrders, fetchTrades } from "../redux/actions/orders";
 
 export default props => {

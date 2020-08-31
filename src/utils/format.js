@@ -3,9 +3,6 @@ import { subDays, getTime, formatDistance, formatDistanceToNow } from "date-fns"
 export const formatNumber = (number = 0) => number.toLocaleString("en-AU");
 
 export const formatAmount = amountInDollars => {
-  if (!amountInDollars) {
-    return "-";
-  }
   return amountInDollars.toLocaleString("en-AU", { style: "currency", currency: "AUD", maximumFractionDigits: 0, minimumFractionDigits: 0 });
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Order from "./Order";
 
-const OrderList = props => {
+export default props => {
   const { orders, showType = false, showTimestamp = false } = props;
   let firstValid = false;
   let firstValidSent = false;
@@ -32,11 +32,12 @@ const OrderList = props => {
             firstValidSent = true;
             firstValid = index;
           }
-          return <Order order={order} key={index} highlightRow={firstValid === index} {...props} />;
+          return <Order
+            order={order}
+            key={index}
+            highlightRow={firstValid === index} {...props} />;
         })}
       </tbody>
     </table>
   );
 };
-
-export default OrderList;
