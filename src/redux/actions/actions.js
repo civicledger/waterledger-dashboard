@@ -1,11 +1,4 @@
-import {
-  RECEIVE_ETH_CONTEXT,
-  ADD_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  MODAL_PASSWORD_SET,
-  MODAL_ORDER_FORM_SET,
-  MODAL_ORDER_FORM_FIXED_SET,
-} from "./actionConstants";
+import { RECEIVE_ETH_CONTEXT, ADD_NOTIFICATION, REMOVE_NOTIFICATION, MODAL_PASSWORD_SET, MODAL_ORDER_FORM_SET } from "./actionConstants";
 
 import { ethProviderStatus, web3 } from "../../utils/ethUtils";
 import { receiveLicence } from "./waterLicences";
@@ -31,7 +24,6 @@ export const removeNotification = id => ({
 });
 export const setPasswordModal = (value = true) => ({ type: MODAL_PASSWORD_SET, value });
 export const setOrderFormModal = (value = true) => ({ type: MODAL_ORDER_FORM_SET, value });
-export const setOrderFormFixedModal = (value = true) => ({ type: MODAL_ORDER_FORM_FIXED_SET, value });
 export const receiveEthContext = payload => ({ type: RECEIVE_ETH_CONTEXT, payload });
 
 export const accountProgressAdded = payload => ({ type: "ADD_ACCOUNT_PROGRESS", payload });
