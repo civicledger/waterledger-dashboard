@@ -6,6 +6,7 @@ import {
   FETCH_TRADES,
   RECEIVE_TRADES,
   MODAL_ORDER_FORM_SET,
+  MODAL_ACCEPT_ORDER_SET,
   FETCH_WATER_ACCOUNTS,
   RECEIVE_WATER_ACCOUNTS,
   ADD_NOTIFICATION,
@@ -41,6 +42,8 @@ export const modals = (state = { ...initialState.modals }, action) => {
   switch (action.type) {
     case MODAL_ORDER_FORM_SET:
       return { ...state, orderForm: action.value };
+    case MODAL_ACCEPT_ORDER_SET:
+      return { ...state, acceptOrder: action.value };
     default:
       return state;
   }

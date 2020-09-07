@@ -12,7 +12,7 @@ import { combineReducers } from "redux";
 
 import { defaultEthProviderStatus } from "../../utils/ethUtils";
 
-import { buys, sells, trades, orderFormDetails } from "./orders";
+import { buys, sells, trades, orderFormDetails, acceptFormDetails } from "./orders";
 import { loading, modals, notifications, elementVisibility } from "./uiState";
 import { waterAccounts, activeWaterAccount, licence } from "./waterLicences";
 import { accountProgress } from "./progress";
@@ -79,6 +79,7 @@ const rootReducer = combineReducers({
   buys,
   sells,
   orderFormDetails,
+  acceptFormDetails,
   ethContext,
   loading,
   modals,

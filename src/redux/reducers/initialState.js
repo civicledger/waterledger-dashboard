@@ -6,6 +6,12 @@ const initialState = {
     price: "",
     quantity: "",
   },
+  acceptFormDetails: {
+    type: ORDER_TYPE_BUY,
+    id: "",
+    price: "",
+    quantity: "",
+  },
   buys: [],
   loading: {
     buy: false,
@@ -15,11 +21,7 @@ const initialState = {
     allocation: false,
   },
   modals: {
-    license: false,
-    waterAllocation: false,
-    audAllocation: false,
-    account: false,
-    password: false,
+    acceptOrder: false,
     orderForm: false,
   },
   sells: [],

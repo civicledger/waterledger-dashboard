@@ -50,6 +50,14 @@ export default class OrderBookService {
     return await this.contract.addSellLimitOrder(price, amount, zone);
   }
 
+  async acceptOrder(id, type) {
+    await this.loadContract(this.contractName);
+    if (type === "sell") {
+      return await this.contract.acceptSellOrder(id);
+    }
+    return await this.contract.acceptBuyOrder(id);
+  }
+
   async deleteBuyOrder(orderIndex) {
     await this.loadContract(this.contractName);
     return await this.contract.deleteBuyOrder(orderIndex);

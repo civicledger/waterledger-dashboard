@@ -7,10 +7,11 @@ import {
   RECEIVE_SELL_ORDERS,
   SELECT_ORDER_TYPE,
   SET_ORDER_FORM_VALUES,
+  SET_ACCEPT_FORM_VALUES,
   RECEIVE_TRADES,
 } from "./actionConstants";
 
-import { addNotification, setOrderFormModal } from "./actions";
+import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
 import { fetchZoneBalance } from "./waterLicences";
 
 import { web3 } from "../../utils/ethUtils";
@@ -24,6 +25,7 @@ const orderHistoryService = serviceLoader("OrderHistory");
 export const confirmOrder = id => ({ type: CONFIRM_ORDER, id });
 export const selectOrderType = type => ({ type: SELECT_ORDER_TYPE, selected: type });
 export const setOrderFormValues = payload => ({ type: SET_ORDER_FORM_VALUES, payload });
+export const setAcceptFormValues = payload => ({ type: SET_ACCEPT_FORM_VALUES, payload });
 
 export const receiveBuyOrders = payload => ({ type: RECEIVE_BUY_ORDERS, payload });
 export const receiveSellOrders = payload => ({ type: RECEIVE_SELL_ORDERS, payload });
@@ -38,6 +40,13 @@ export const openOrderForm = orderForm => {
     dispatch(selectOrderType(orderForm.type));
     dispatch(setOrderFormValues(orderForm));
     dispatch(setOrderFormModal());
+  };
+};
+
+export const openAcceptOrder = acceptForm => {
+  return dispatch => {
+    dispatch(setAcceptFormValues(acceptForm));
+    dispatch(setAcceptOrderModal());
   };
 };
 
@@ -111,6 +120,24 @@ export const submitBuyOrder = (price, quantity) => {
               text: errorMessage(error),
             })
           );
+        });
+    });
+  };
+};
+
+export const acceptOrder = (id, type) => {
+  return dispatch => {
+    orderService.acceptOrder(id, type).then(rawTransaction => {
+      web3.eth
+        .sendSignedTransaction(rawTransaction)
+        .on("transactionHash", hash => {
+          dispatch(addNotification({ id: `accepted-${hash}`, text: "Order has been accepted" }));
+          dispatch(fetchBuyOrders());
+          dispatch(fetchSellOrders());
+          dispatch(fetchTrades());
+        })
+        .on("error", function (error) {
+          dispatch(addNotification({ type: "error", text: errorMessage(error) }));
         });
     });
   };
