@@ -37,8 +37,7 @@ export default class OrderBookService {
 
   async getLicenceBuyOrders(licenceAddress, number = 10) {
     await this.loadContract(this.contractName);
-    const orders = await this.contract.getLicenceOrderBookBuys(licenceAddress, number);
-    return orders;
+    return await this.contract.getLicenceOrderBookBuys(licenceAddress, number);
   }
 
   async addBuyOrder(price, amount, zone) {
