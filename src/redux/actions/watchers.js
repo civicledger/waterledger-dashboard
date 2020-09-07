@@ -98,8 +98,6 @@ export const watchForMatchEvent = () => {
     let events = await historyService.getAllEvents();
 
     events.HistoryAdded({ fromBlock: startBlock }).on("data", event => {
-      console.log("A HISTORY ITEM HAS BEEN ADDED");
-      console.log(event);
       dispatch(fetchBuyOrders());
       dispatch(fetchSellOrders());
       dispatch(fetchTrades());

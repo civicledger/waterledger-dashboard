@@ -105,6 +105,7 @@ export const submitBuyOrder = (price, quantity) => {
           });
         })
         .on("error", function (error) {
+          console.log(error);
           dispatch(
             addNotification({
               type: "error",
