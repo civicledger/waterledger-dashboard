@@ -8,6 +8,8 @@ export const formatAmount = amountInDollars => {
 
 export const formatDate = utcDate => formatDistance(utcDate * 1000, new Date()) + " ago";
 
+export const formatKilolitres = kl => kl / 1000;
+
 export const formatShortDate = utcDate => new Date(utcDate * 1000).toLocaleDateString("en-au", { day: "numeric", year: "numeric", month: "short" });
 
 export const formatShortDateObject = dateObject => {
