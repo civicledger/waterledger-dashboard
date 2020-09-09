@@ -14,7 +14,7 @@ const licencesService = serviceLoader("Licences");
 export default () => {
   const elementVisibility = useSelector(state => state.elementVisibility);
   const dispatch = useDispatch();
-  const allClasses = classNames("bg-steel-700 mb-10 rounded p-5 relative overflow-hidden account-banner", {
+  const allClasses = classNames("bg-steel-700 mb-10 rounded p-5 relative overflow-hidden account-banner hidden lg:block", {
     "account-banner-visible": elementVisibility.showAccountBanner,
   });
 

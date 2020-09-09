@@ -16,7 +16,7 @@ export default props => {
   }, []);
 
   return (
-    <div className="p-10 flex-grow pb-5">
+    <div className="p-5 lg:p-10 flex-grow pb-5">
       <PageHeader header="Liabilities" />
 
       <LiabilitiesList liabilities={liabilities} />

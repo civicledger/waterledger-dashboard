@@ -10,13 +10,13 @@ const zones = [
 
 const Trade = ({ trade }) => {
   return (
-    <div className="table-row relative">
-      <div className="row-cell-l table-cell">{formatAmount(trade.averagePrice)}</div>
-      <div className="row-cell table-cell">{formatNumber(trade.quantity)} ML</div>
-      <div className="row-cell table-cell">{zones[trade.fromZone]}</div>
-      <div className="row-cell table-cell">{zones[trade.toZone]}</div>
-      <div className="hidden xl:table-cell row-cell-r text-steel-300">{formatShortDate(new Date(trade.timeStamp))}</div>
-    </div>
+    <tr>
+      <td className="">{formatAmount(trade.averagePrice)}</td>
+      <td className="">{formatNumber(trade.quantity)} ML</td>
+      <td className="">{zones[trade.fromZone]}</td>
+      <td className="">{zones[trade.toZone]}</td>
+      <td className="text-steel-300">{formatShortDate(new Date(trade.timeStamp))}</td>
+    </tr>
   );
 };
 
