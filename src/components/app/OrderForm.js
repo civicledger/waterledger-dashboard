@@ -37,7 +37,7 @@ class OrderForm extends Component {
 
     return (
       <Fragment>
-        <div className="p-3 rounded bg-steel-400 my-3">
+        <div className="hidden lg:block p-3 rounded bg-steel-400 my-3">
           <h4 className="mb-2">Currently Trading As</h4>
           <div className="flex text-steel-100 text-center">
             <div className="flex-1 text-left">{waterAccount.waterAccountId}</div>

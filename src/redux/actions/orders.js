@@ -53,7 +53,7 @@ export const openAcceptOrder = acceptForm => {
 export function fetchBuyOrders(number = 10) {
   return dispatch => {
     dispatch(startFetchBuyOrders());
-    return orderService.getBuyOrders(number).then(
+    return orderService.getBuyOrders().then(
       response => dispatch(receiveBuyOrders(response)),
       error => {
         dispatch(
@@ -63,7 +63,6 @@ export function fetchBuyOrders(number = 10) {
           })
         );
       }
-      //console.log("An error occurred.", error)
     );
   };
 }
@@ -72,7 +71,7 @@ export function fetchSellOrders(number = 10) {
   return dispatch => {
     dispatch(startFetchSellOrders());
     return orderService
-      .getSellOrders(number)
+      .getSellOrders()
       .then(response => dispatch(receiveSellOrders(response)))
       .catch(error => {});
   };

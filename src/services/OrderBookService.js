@@ -14,28 +14,28 @@ export default class OrderBookService {
     return this.contract.address;
   }
 
-  async getSellOrders(number = 10) {
+  async getSellOrders() {
     await this.loadContract(this.contractName);
     const orders = await this.contract.getOrderBookSells();
     orders.sort((a, b) => Math.sign(a.price - b.price));
     return orders;
   }
 
-  async getLicenceSellOrders(licenceAddress, number = 10) {
+  async getLicenceSellOrders(licenceAddress) {
     await this.loadContract(this.contractName);
     const orders = await this.contract.getLicenceOrderBookSells(licenceAddress);
     orders.sort((a, b) => Math.sign(b.price - a.price));
     return orders;
   }
 
-  async getBuyOrders(number = 10) {
+  async getBuyOrders() {
     await this.loadContract(this.contractName);
     const orders = await this.contract.getOrderBookBuys();
     orders.sort((a, b) => Math.sign(b.price - a.price));
     return orders;
   }
 
-  async getLicenceBuyOrders(licenceAddress, number = 10) {
+  async getLicenceBuyOrders(licenceAddress) {
     await this.loadContract(this.contractName);
     return await this.contract.getLicenceOrderBookBuys(licenceAddress);
   }

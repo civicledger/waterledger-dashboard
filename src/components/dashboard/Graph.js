@@ -19,7 +19,7 @@ const dataFull = [
 
 export default () => {
   return (
-    <div className="mr-10 p-3" id="graph">
+    <div className="mr-10 p-3 hidden lg:block" id="graph">
       <h2 className="ml-2 pb-6 text-2xl">Historical Prices</h2>
       <XYPlot height={500} width={1000} xType="time" yDomain={[0, 200]}>
         <HorizontalGridLines style={{ opacity: 0.05 }} />
