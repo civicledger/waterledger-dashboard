@@ -174,11 +174,8 @@ class ContractWrapper {
             if (typeof args[args.length - 1] === "object") {
               parameterObject = { ...parameterObject, ...args.pop() };
             }
-            console.log(name);
+
             args.forEach((arg, index) => {
-              console.log(this.abiObject.interface[name]);
-              console.log(this.abiObject.interface[name].inputs);
-              console.log(index);
               let { type } = this.abiObject.interface[name].inputs[index];
               args[index] = this.inputType(arg, type);
             });

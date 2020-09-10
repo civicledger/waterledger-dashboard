@@ -56,7 +56,6 @@ export function fetchBuyOrders(number = 10) {
     return orderService.getBuyOrders().then(
       response => dispatch(receiveBuyOrders(response)),
       error => {
-        console.log(error);
         dispatch(
           addNotification({
             type: "error",
@@ -64,7 +63,6 @@ export function fetchBuyOrders(number = 10) {
           })
         );
       }
-      //
     );
   };
 }
