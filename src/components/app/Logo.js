@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <div className="flex-shrink flex m-5 mt-2">
       <div className="pt-2">
-        <img src={waterLedgerLogo} alt="waterledger logo" className="" />
+        <img src={waterLedgerLogo} alt="waterledger logo" />
       </div>
     </div>
   );
