@@ -46,12 +46,12 @@ class OrderForm extends Component {
           </div>
         </div>
 
-        <label className="text-steel-900">Volume</label>
+        <label className="text-steel-900">Volume (ML)</label>
         <input type="text" value={quantity} onChange={this.handleChangeQuantity} className="input text-steel-900 rounded" name="quantity" />
 
         {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
-        <label className="text-steel-900">Price</label>
+        <label className="text-steel-900">Price ($/ML)</label>
         <input type="text" value={price} onChange={this.handleChangePrice} className="input text-steel-900 rounded" name="price" />
 
         <button

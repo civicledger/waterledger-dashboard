@@ -1,5 +1,6 @@
 import React from "react";
-import { formatAmount, formatNumber, formatShortDate } from "../../utils/format";
+import { formatAmount, formatKilolitres, formatShortDate } from "../../utils/format";
+
 const zones = [
   "Barron A - Barron Catchment",
   "Barron B - Tinaroo Dam",
@@ -11,10 +12,10 @@ const zones = [
 const Trade = ({ trade }) => {
   return (
     <tr>
-      <td className="">{formatAmount(trade.averagePrice)}</td>
-      <td className="">{formatNumber(trade.quantity)} ML</td>
-      <td className="">{zones[trade.fromZone]}</td>
-      <td className="">{zones[trade.toZone]}</td>
+      <td>{formatAmount(trade.averagePrice)}</td>
+      <td>{formatKilolitres(trade.quantity)}</td>
+      <td>{zones[trade.fromZone]}</td>
+      <td>{zones[trade.toZone]}</td>
       <td className="text-steel-300">{formatShortDate(new Date(trade.timeStamp))}</td>
     </tr>
   );

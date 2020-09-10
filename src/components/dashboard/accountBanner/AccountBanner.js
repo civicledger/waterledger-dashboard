@@ -21,6 +21,7 @@ export default () => {
   const [abWaterAccounts, setWaterAccounts] = useState([]);
   const [searchError, setSearchError] = useState("");
   const [waSearched, setWaSearched] = useState(false);
+  const [waClaimed, setWaClaimed] = useState(false);
   const [positions, setPosition] = useState({ welcome: 2, waSearch: 3, waFound: 4, progress: 4 });
   const [licence, setLicence] = useState(null);
 
@@ -46,6 +47,7 @@ export default () => {
 
   const claimLicences = () => {
     dispatch(claimWaterAccountsForLicence(licence));
+    setWaClaimed(true);
     setPosition({ ...positions, waSearch: 1, waFound: 2, progress: 3 });
   };
 
@@ -53,7 +55,7 @@ export default () => {
     <div className={allClasses}>
       <Welcome position={positions.welcome} />
       <WaterAccountSearch getLicence={getLicence} error={searchError} disableForm={waSearched} position={positions.waSearch} />
-      <WaterAccountsFound waterAccounts={abWaterAccounts} claimLicences={claimLicences} position={positions.waFound} />
+      <WaterAccountsFound waterAccounts={abWaterAccounts} disableForm={waClaimed} claimLicences={claimLicences} position={positions.waFound} />
       <Progress position={positions.progress} />
     </div>
   );

@@ -42,12 +42,12 @@ export default class OrderBookService {
 
   async addBuyOrder(price, amount, zone) {
     await this.loadContract(this.contractName);
-    return await this.contract.addBuyLimitOrder(price, amount, zone);
+    return await this.contract.addBuyLimitOrder(price, amount * 1000, zone);
   }
 
   async addSellOrder(price, amount, zone) {
     await this.loadContract(this.contractName);
-    return await this.contract.addSellLimitOrder(price, amount, zone);
+    return await this.contract.addSellLimitOrder(price, amount * 1000, zone);
   }
 
   async acceptOrder(id, type) {
