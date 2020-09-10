@@ -6,6 +6,7 @@ import Sidebar from "./app/Sidebar";
 import Dashboard from "./dashboard/Dashboard";
 import History from "./history/History";
 import Notifications from "./dashboard/Notifications";
+import Events from "./events/Events";
 import Modals from "./app/Modals";
 
 import Liabilities from "./liabilities/Liabilities";
@@ -61,6 +62,7 @@ export default props => {
           <Route path="/admin" component={Admin} />
           <Route path="/history" component={History} />
           <Route path="/liabilities" component={Liabilities} />
+          <Route path="/events" component={Events} />
           <Route path="/:address" render={props => <Dashboard address={props.match.params.address} />} />
         </Switch>
       </div>
