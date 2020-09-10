@@ -1,16 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatAmount, formatNumber } from "../../utils/format";
+import { formatAmount, formatKilolitres } from "../../utils/format";
 
 import { acceptOrder } from "../../redux/actions/orders";
 
-const zones = [
-  "Barron A - Barron Catchment",
-  "Barron B - Tinaroo Dam",
-  "Barron C - Lake Tinaroo Ponded Area",
-  "Barron D - Lake Tinaroo Ponded Area",
-  "Barron E - Walsh & Mitchell Catchments",
-];
+// const zones = [
+//   "Barron A - Barron Catchment",
+//   "Barron B - Tinaroo Dam",
+//   "Barron C - Lake Tinaroo Ponded Area",
+//   "Barron D - Lake Tinaroo Ponded Area",
+//   "Barron E - Walsh & Mitchell Catchments",
+// ];
 
 export default props => {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ export default props => {
 
             <div className="flex mt-1">
               <div className="w-1/4">Quantity</div>
-              <div className="w-3/4">{formatNumber(order.quantity)} ML</div>
+              <div className="w-3/4">{formatKilolitres(order.quantity)}</div>
             </div>
             {/*
             <div className="flex mt-3">

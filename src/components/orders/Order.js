@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder } from "../../redux/actions/orders";
-import { formatAmount, formatRelativeDate, formatNumber } from "../../utils/format";
+import { formatAmount, formatRelativeDate, formatKilolitres } from "../../utils/format";
 import classNames from "classnames";
 
 const orderTypes = ["Offer", "Bid"];
@@ -42,7 +42,7 @@ export default ({ order, showType = false, showTimestamp = false, ethContext: { 
     >
       {showType && <td className="py-2 px-1">{orderTypes[type]}</td>}
       <td className="p-2">{formatAmount(price)}</td>
-      <td className="p-2">{formatNumber(quantity)} ML</td>
+      <td className="p-2">{formatKilolitres(quantity)} ML</td>
       <td className="p-2">{zones[order.zone]}</td>
       {showTimestamp && <td className="p-2">{formatRelativeDate(timeStamp)}</td>}
       <td width="30" className="p-2 pl-0">

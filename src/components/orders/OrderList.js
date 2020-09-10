@@ -32,10 +32,7 @@ export default props => {
             firstValidSent = true;
             firstValid = index;
           }
-          return <Order
-            order={order}
-            key={index}
-            highlightRow={firstValid === index} {...props} />;
+          return <Order order={order} key={index} highlightRow={firstValid === index} {...props} />;
         })}
       </tbody>
     </table>
