@@ -5,7 +5,6 @@ import TradesList from "./TradesList";
 import OrderHistoryService from "../../services/OrderHistoryService";
 const orderHistorysvc = new OrderHistoryService();
 
-
 export default props => {
   const [trades, setTrades] = useState([]);
 
@@ -17,9 +16,9 @@ export default props => {
   }, []);
 
   return (
-    <div className="p-10 flex-grow pb-5">
+    <div className="p-5 lg:p-10 flex-grow pb-5">
       <PageHeader header="Trade History" />
-      <TradesList trades={ trades } />
+      <TradesList trades={trades} />
     </div>
   );
-}
+};

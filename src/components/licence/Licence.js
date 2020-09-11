@@ -36,7 +36,7 @@ export default () => {
 
       <h4 className="text-steel-600 text-lg mb-3">Your Water Accounts</h4>
 
-      <div className="w-1/2">
+      <div className="w-full lg:w-1/2">
         <WaterAccountsList />
       </div>
 

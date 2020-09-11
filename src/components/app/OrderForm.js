@@ -37,7 +37,7 @@ class OrderForm extends Component {
 
     return (
       <Fragment>
-        <div className="p-3 rounded bg-steel-400 my-3">
+        <div className="hidden lg:block p-3 rounded bg-steel-400 my-3">
           <h4 className="mb-2">Currently Trading As</h4>
           <div className="flex text-steel-100 text-center">
             <div className="flex-1 text-left">{waterAccount.waterAccountId}</div>
@@ -46,12 +46,12 @@ class OrderForm extends Component {
           </div>
         </div>
 
-        <label className="text-steel-900">Volume</label>
+        <label className="text-steel-900">Volume (ML)</label>
         <input type="text" value={quantity} onChange={this.handleChangeQuantity} className="input text-steel-900 rounded" name="quantity" />
 
         {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
-        <label className="text-steel-900">Price</label>
+        <label className="text-steel-900">Price ($/ML)</label>
         <input type="text" value={price} onChange={this.handleChangePrice} className="input text-steel-900 rounded" name="price" />
 
         <button

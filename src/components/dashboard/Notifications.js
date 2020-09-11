@@ -25,7 +25,7 @@ const notificationIcon = type => {
 };
 
 const notificationItem = ({ id, type = "info", text }) => {
-  const classes = classNames("inline-flex mt-3 shadow bg-steel-700 rounded border", {
+  const classes = classNames("hidden lg:inline-flex mt-3 shadow bg-steel-700 rounded border", {
     "border-green-500": type === "success",
     "border-blue-500": type === "info",
     "border-red-500": type === "error",

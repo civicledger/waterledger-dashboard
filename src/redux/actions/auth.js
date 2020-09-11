@@ -42,7 +42,6 @@ export const receiveLicence = payload => ({ type: RECEIVE_LICENCE, payload });
 export const fetchLicences = () => {
   return dispatch => {
     authService.apiGetLicences().then(response => {
-      console.log(response);
       dispatch(receiveLicences(response));
     });
   };

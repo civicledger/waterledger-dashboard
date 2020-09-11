@@ -48,6 +48,7 @@ export default ({ waterAccounts, disableForm = false, position, claimLicences })
         <input
           value={code}
           placeholder="Enter Security Code"
+          disabled={disableForm}
           className="w-64 text-steel-900 mt-5 p-2 mr-5 rounded-sm"
           onChange={({ target }) => setCode(target.value)}
         />
