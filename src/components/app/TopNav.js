@@ -31,6 +31,12 @@ const TopNav = ({ ethContext }) => {
             <i className="fal fa-chart-pie fa-fw menu-icon"></i>
           </NavLink>
         </li>
+        <li className="mr-3">
+          <NavLink to="/audit" exact onClick={toggleMenu}>
+            Audit
+            <i className="fal fa-history fa-fw menu-icon"></i>
+          </NavLink>
+        </li>
         {ethContext.address && (
           <Fragment>
             <li className="mt-4 mr-3">

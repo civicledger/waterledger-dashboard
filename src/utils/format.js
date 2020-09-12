@@ -13,7 +13,11 @@ export const formatKilolitres = kl => kl / 1000;
 export const formatShortDate = utcDate => new Date(utcDate * 1000).toLocaleDateString("en-au", { day: "numeric", year: "numeric", month: "short" });
 
 export const formatShortDateObject = dateObject => {
-  return dateObject.toLocaleDateString("en-au", { day: "numeric", year: "numeric", month: "short" });
+  return dateObject.toLocaleDateString("en-AU", { day: "numeric", year: "numeric", month: "short" });
+};
+
+export const formatShortTimeObject = dateObject => {
+  return dateObject.toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit", hour12: true });
 };
 
 export const formatRelativeDateSeconds = utcDate => formatDistanceToNow(new Date(utcDate * 1000), { addSuffix: true });

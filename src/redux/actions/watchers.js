@@ -67,11 +67,8 @@ export const watchForDeletion = () => {
   return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
-    events.BuyOrderDeleted().on("data", () => {
+    events.OrderDeleted().on("data", () => {
       dispatch(fetchBuyOrders());
-    });
-
-    events.SellOrderDeleted().on("data", () => {
       dispatch(fetchSellOrders());
     });
   };
@@ -81,11 +78,8 @@ export const watchForNewOrders = () => {
   return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
-    events.BuyOrderAdded().on("data", () => {
+    events.OrderAdded().on("data", () => {
       dispatch(fetchBuyOrders());
-    });
-
-    events.SellOrderAdded().on("data", () => {
       dispatch(fetchSellOrders());
     });
   };

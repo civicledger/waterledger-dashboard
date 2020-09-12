@@ -35,9 +35,9 @@ const MainNav = ({ ethContext, auth }) => (
       </NavLink>
     </li>
     <li>
-      <NavLink to="/events" className="main-nav text-steel-100 pb-0">
-        <i className="fal fa-balance-scale fa-fw menu-icon"></i>
-        <div className="text-xs">EVENTS</div>
+      <NavLink to="/audit" className="main-nav text-steel-100 pb-0">
+        <i className="fal fa-history fa-fw menu-icon"></i>
+        <div className="text-xs">AUDIT</div>
       </NavLink>
     </li>
     {auth && (

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Switch } from "react-router-dom";
 import Sidebar from "./app/Sidebar";
 import Dashboard from "./dashboard/Dashboard";
 import History from "./history/History";
 import Notifications from "./dashboard/Notifications";
-import Events from "./events/Events";
+import Audit from "./audit/Audit";
 import Modals from "./app/Modals";
 
 import Liabilities from "./liabilities/Liabilities";
@@ -41,14 +41,12 @@ export default props => {
       dispatch(loadAdminLicences());
       dispatch(watchForLicenceCompletion());
       dispatch(watchForDeletion());
-
       dispatch(fetchBuyOrders());
       dispatch(fetchSellOrders());
       dispatch(fetchTrades());
     };
     getData();
   }, [dispatch]);
-
 
   return (
     <div className="flex min-h-screen bg-steel-900 text-steel-100">
@@ -62,11 +60,11 @@ export default props => {
           <Route path="/admin" component={Admin} />
           <Route path="/history" component={History} />
           <Route path="/liabilities" component={Liabilities} />
-          <Route path="/events" component={Events} />
+          <Route path="/audit" component={Audit} />
           <Route path="/:address" render={props => <Dashboard address={props.match.params.address} />} />
         </Switch>
       </div>
       <Modals />
     </div>
   );
-}
+};
