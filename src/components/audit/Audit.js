@@ -59,7 +59,7 @@ export default props => {
     <div className="p-10 flex-grow pb-5">
       <PageHeader header="Audit Trail" />
 
-      <h3 className="mt-5 mb-2">Events</h3>
+      <h3 className="mt-5 mb-2">Available Events</h3>
       <ul>
         {eventTypes.map(et => (
           <EventType key={et} type={et} isActive={activeEventTypes.includes(et)} toggle={toggleEventType} />
