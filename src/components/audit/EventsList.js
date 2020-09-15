@@ -37,9 +37,9 @@ export default ({ events, sortTimeDirection, changeTimeSort }) => {
             </tr>
           )}
 
-          {events.map(event => {
+          {events.map((event, index) => {
             return (
-              <tr key={event.transactionHash}>
+              <tr key={index}>
                 <td className="p-3 align-top">{event.event}</td>
                 {/* <td className="row-cell table-cell">{event.transactionHash}</td> */}
                 <td className="p-3 align-top">{event.contract}</td>

@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
+import { formatKilolitres } from "../../utils/format";
 
 const zones = ["Barron A", "Barron B", "Barron C", "Barron D", "Barron E"];
 
@@ -25,7 +26,7 @@ export default () => {
         >
           <span className="table-cell text-left p-2">{wa.waterAccountId}</span>
           <span className="table-cell text-left p-2">{zones[wa.zoneIndex]}</span>
-          <span className="table-cell text-left p-2">{wa.balance && `${wa.balance} ML`}</span>
+          <span className="table-cell text-left p-2">{formatKilolitres(wa.balance)}</span>
         </div>
       ))}
     </div>

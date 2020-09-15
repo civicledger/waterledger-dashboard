@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 
-// import {} from '../../../redux/actions/actions';
-
+import { formatKilolitres } from "../../../utils/format";
 const zones = [
   "Barron A - Barron Catchment",
   "Barron B - Tinaroo Dam",
@@ -40,7 +39,7 @@ export default ({ waterAccounts, disableForm = false, position, claimLicences })
           <div key={wa.waterAccountId} className="table-row">
             <span className="table-cell p-1 text-left">{wa.waterAccountId}</span>
             <span className="table-cell p-1 text-left">{zones[wa.zoneIndex]}</span>
-            <span className="table-cell p-1 text-right">{wa.allocation}ML</span>
+            <span className="table-cell p-1 text-right">{formatKilolitres(wa.allocation)}</span>
           </div>
         ))}
       </div>

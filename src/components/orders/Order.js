@@ -42,7 +42,7 @@ export default ({ order, showType = false, showTimestamp = false, ethContext: { 
     >
       {showType && <td className="py-2 px-1">{orderTypes[type]}</td>}
       <td className="p-2">{formatAmount(price)}</td>
-      <td className="p-2">{formatKilolitres(quantity)} ML</td>
+      <td className="p-2">{formatKilolitres(quantity)}</td>
       <td className="p-2">{zones[order.zone]}</td>
       {showTimestamp && <td className="p-2">{formatRelativeDate(timeStamp)}</td>}
       <td width="30" className="p-2 pl-0">
@@ -50,7 +50,7 @@ export default ({ order, showType = false, showTimestamp = false, ethContext: { 
           <i
             className="fal fa-times-square font-red-500 fa-fw delete-order"
             onClick={() => {
-              dispatch(deleteOrder(order.orderIndex));
+              dispatch(deleteOrder(id));
             }}
           ></i>
         )}

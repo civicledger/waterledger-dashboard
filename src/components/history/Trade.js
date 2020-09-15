@@ -12,11 +12,11 @@ const zones = [
 const Trade = ({ trade }) => {
   return (
     <tr>
-      <td>{formatAmount(trade.averagePrice)}</td>
-      <td>{formatKilolitres(trade.quantity)}</td>
-      <td>{zones[trade.fromZone]}</td>
-      <td>{zones[trade.toZone]}</td>
-      <td className="text-steel-300">{formatShortDate(new Date(trade.timeStamp))}</td>
+      <td className="p-2 pb-1">{formatAmount(trade.averagePrice)}</td>
+      <td className="p-2 pb-1">{formatKilolitres(trade.quantity)}</td>
+      <td className="p-2 pb-1">{zones[trade.fromZone]}</td>
+      <td className="p-2 pb-1">{zones[trade.toZone]}</td>
+      <td className="p-2 pb-1 text-steel-300">{formatShortDate(new Date(trade.timeStamp))}</td>
     </tr>
   );
 };

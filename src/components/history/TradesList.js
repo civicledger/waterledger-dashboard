@@ -8,7 +8,7 @@ export default ({ trades }) => (
     <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Recent Trades</h2>
     <table className="table relative w-full transaction-list ">
       <thead>
-        <tr className="text-left font-semibold bg-steel-700">
+        <tr className="text-leftfont-semibold bg-steel-700">
           <th className="p-2">Price / ML</th>
           <th className="p-2">Volume</th>
           <th className="p-2 hidden lg:table-cell">From Zone</th>

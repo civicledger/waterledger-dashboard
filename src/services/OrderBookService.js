@@ -49,9 +49,9 @@ export default class OrderBookService extends BaseService {
     return await this.contract.addSellLimitOrder(price, amount * 1000, zone);
   }
 
-  async acceptOrder(id) {
+  async acceptOrder(id, zone) {
     await this.loadContract(this.contractName);
-    return await this.contract.acceptOrder(id);
+    return await this.contract.acceptOrder(id, zone);
   }
 
   async deleteOrder(id) {

@@ -124,9 +124,9 @@ export const submitBuyOrder = (price, quantity) => {
   };
 };
 
-export const acceptOrder = (id, type) => {
+export const acceptOrder = (id, zone) => {
   return dispatch => {
-    orderService.acceptOrder(id, type).then(rawTransaction => {
+    orderService.acceptOrder(id, zone).then(rawTransaction => {
       web3.eth
         .sendSignedTransaction(rawTransaction)
         .on("transactionHash", hash => {
@@ -142,9 +142,9 @@ export const acceptOrder = (id, type) => {
   };
 };
 
-export const deleteOrder = index => {
+export const deleteOrder = id => {
   return dispatch => {
-    orderService.deleteOrder(index).then(rawTransaction => {
+    orderService.deleteOrder(id).then(rawTransaction => {
       web3.eth
         .sendSignedTransaction(rawTransaction)
         .on("transactionHash", hash => {
@@ -154,7 +154,7 @@ export const deleteOrder = index => {
               text: "Order is being removed",
             })
           );
-          orderService.awaitConfirmationForHash(hash).then(receipt => {
+          orderService.awaitConfirmationForHash(hash).then(() => {
             dispatch(
               addNotification({
                 id: `confirmed-${hash}`,
