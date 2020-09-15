@@ -67,11 +67,8 @@ export const watchForDeletion = () => {
   return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
-    events.BuyOrderDeleted().on("data", () => {
+    events.OrderDeleted().on("data", () => {
       dispatch(fetchBuyOrders());
-    });
-
-    events.SellOrderDeleted().on("data", () => {
       dispatch(fetchSellOrders());
     });
   };

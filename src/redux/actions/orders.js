@@ -142,16 +142,16 @@ export const acceptOrder = (id, type) => {
   };
 };
 
-export const deleteBuyOrder = index => {
+export const deleteOrder = index => {
   return dispatch => {
-    orderService.deleteBuyOrder(index).then(rawTransaction => {
+    orderService.deleteOrder(index).then(rawTransaction => {
       web3.eth
         .sendSignedTransaction(rawTransaction)
         .on("transactionHash", hash => {
           dispatch(
             addNotification({
               id: `added-${hash}`,
-              text: "Buy order is being removed",
+              text: "Order is being removed",
             })
           );
           orderService.awaitConfirmationForHash(hash).then(receipt => {
@@ -159,45 +159,10 @@ export const deleteBuyOrder = index => {
               addNotification({
                 id: `confirmed-${hash}`,
                 type: "success",
-                text: "Your buy order has been removed",
+                text: "Your order has been removed",
               })
             );
             dispatch(fetchBuyOrders());
-          });
-        })
-        .on("error", function (error) {
-          dispatch(
-            addNotification({
-              type: "error",
-              text: errorMessage(error),
-            })
-          );
-        });
-    });
-  };
-};
-
-export const deleteSellOrder = index => {
-  return dispatch => {
-    orderService.deleteSellOrder(index).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(
-            addNotification({
-              id: `added-${hash}`,
-              text: "Sell order is being removed",
-            })
-          );
-          orderService.awaitConfirmationForHash(hash).then(receipt => {
-            dispatch(
-              addNotification({
-                id: `confirmed-${hash}`,
-                type: "success",
-                text: "Your sell order has been removed",
-              })
-            );
-            dispatch(fetchSellOrders());
           });
         })
         .on("error", function (error) {
