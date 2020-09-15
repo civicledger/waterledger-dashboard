@@ -31,7 +31,7 @@ export default ({ events, sortTimeDirection, changeTimeSort }) => {
         <tbody>
           {events.length === 0 && (
             <tr>
-              <td colspan="6" className="text-center pt-3">
+              <td colSpan="6" className="text-center pt-3">
                 No Events found
               </td>
             </tr>

@@ -32,6 +32,24 @@ export default class LicencesService {
     return this.wrapper.events;
   }
 
+  async getPastEvents() {
+    await this.loadContract(this.contractName);
+    const rawEvents = await this.wrapper.web3Contract.getPastEvents("allEvents", { fromBlock: 0 });
+
+    return Promise.all(
+      rawEvents.map(async raw => {
+        let { address, transactionHash, returnValues, event, blockNumber } = raw;
+
+        returnValues = Object.entries(returnValues)
+          .filter(([key]) => isNaN(key))
+          .map(([key, value]) => ({ key, value }));
+
+        const { timestamp } = await this.wrapper.web3.eth.getBlock(blockNumber);
+        return { event, address, transactionHash, returnValues, contract: this.contractName, time: new Date(timestamp * 1000) };
+      })
+    );
+  }
+
   async getWaterAccounts() {
     const waterAccountId = localStorage.getItem("wlWaterAccount");
 

@@ -82,7 +82,7 @@ export default class OrderBookService {
 
   async getPastEvents() {
     await this.loadContract(this.contractName);
-    const rawEvents = await this.wrapper.web3Contract.getPastEvents("allEvents");
+    const rawEvents = await this.wrapper.web3Contract.getPastEvents("allEvents", { fromBlock: 0 });
 
     return Promise.all(
       rawEvents.map(async raw => {
