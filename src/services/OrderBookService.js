@@ -1,7 +1,6 @@
-import { getInstanceIdentifier } from "../utils/ethUtils";
-import { loadInstance } from "../utils/ContractInstanceLoader";
+import BaseService from "./BaseService";
 
-export default class OrderBookService {
+export default class OrderBookService extends BaseService {
   contractName = "OrderBook";
 
   async getScheme() {
@@ -74,21 +73,4 @@ export default class OrderBookService {
     await this.loadContract(this.contractName);
     return this.wrapper.events.Matched({ fromBlock: startBlock });
   }
-
-  async getAllEvents() {
-    await this.loadContract(this.contractName);
-    return this.wrapper.events;
-  }
-
-  loadContract = async (contractName, identifier = false) => {
-    if (this.contract) return;
-
-    if (!identifier) {
-      identifier = getInstanceIdentifier();
-    }
-    const instance = await loadInstance(contractName, identifier);
-
-    this.contract = instance.proxyContract;
-    this.wrapper = instance;
-  };
 }

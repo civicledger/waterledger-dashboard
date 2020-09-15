@@ -34,6 +34,12 @@ const MainNav = ({ ethContext, auth }) => (
         <div className="text-xs">TRADES</div>
       </NavLink>
     </li>
+    <li>
+      <NavLink to="/audit" className="main-nav text-steel-100 pb-0">
+        <i className="fal fa-history fa-fw menu-icon"></i>
+        <div className="text-xs">AUDIT</div>
+      </NavLink>
+    </li>
     {auth && (
       <Fragment>
         <li>

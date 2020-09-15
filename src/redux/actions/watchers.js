@@ -78,11 +78,8 @@ export const watchForNewOrders = () => {
   return async dispatch => {
     let events = await orderBookService.getAllEvents();
 
-    events.BuyOrderAdded().on("data", () => {
+    events.OrderAdded().on("data", () => {
       dispatch(fetchBuyOrders());
-    });
-
-    events.SellOrderAdded().on("data", () => {
       dispatch(fetchSellOrders());
     });
   };

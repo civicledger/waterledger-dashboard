@@ -19,7 +19,7 @@ export default ({ trades }) => (
       <tbody>
         {trades.length === 0 && (
           <tr>
-            <td colspan="5" className="p-5 pb-0 text-center">
+            <td colSpan="5" className="p-5 pb-0 text-center">
               No Trades have been recorded
             </td>
           </tr>

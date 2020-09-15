@@ -1,13 +1,14 @@
 import axios from "axios";
 
+import BaseService from "./BaseService";
+
 import { getInstanceIdentifier } from "../utils/ethUtils";
-import { loadInstance } from "../utils/ContractInstanceLoader";
 
 require("dotenv").config();
 
 const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
 
-export default class LicencesService {
+export default class LicencesService extends BaseService {
   contractName = "Licences";
 
   async apiGetLicenceByWaterAccountId(waterAccountId) {
@@ -27,11 +28,6 @@ export default class LicencesService {
     await axios.patch(`${deployedContractJsonUrl}api/licences/${id}`, patchData);
   }
 
-  async getAllEvents() {
-    await this.loadContract(this.contractName);
-    return this.wrapper.events;
-  }
-
   async getWaterAccounts() {
     const waterAccountId = localStorage.getItem("wlWaterAccount");
 
@@ -45,15 +41,4 @@ export default class LicencesService {
 
     return waterAccounts.sort((a, b) => Math.sign(a.zoneIndex - b.zoneIndex));
   }
-
-  loadContract = async (contractName, identifier = false) => {
-    if (this.contract) return;
-
-    if (!identifier) {
-      identifier = getInstanceIdentifier();
-    }
-    const instance = await loadInstance(contractName, identifier);
-    this.contract = instance.proxyContract;
-    this.wrapper = instance;
-  };
 }
