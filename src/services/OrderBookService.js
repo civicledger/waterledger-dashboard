@@ -1,11 +1,17 @@
 import BaseService from "./BaseService";
+import { getInstanceIdentifier } from "../utils/ethUtils";
 
 export default class OrderBookService extends BaseService {
   contractName = "OrderBook";
 
+  sortCallbacks = {
+    sell: (a, b) => Math.sign(b.price - a.price),
+    buy: (a, b) => Math.sign(a.price - b.price),
+  };
+
   async getScheme() {
-    await this.loadContract(this.contractName);
-    return await this.contract.getScheme();
+    const { data } = await this.axios.get(`schemes/${getInstanceIdentifier()}`);
+    return data.scheme;
   }
 
   async getAddress() {
@@ -13,30 +19,12 @@ export default class OrderBookService extends BaseService {
     return this.contract.address;
   }
 
-  async getSellOrders() {
-    await this.loadContract(this.contractName);
-    const orders = await this.contract.getOrderBookSells();
-    orders.sort((a, b) => Math.sign(a.price - b.price));
+  async getOrders(type, ownerAddress = null) {
+    const params = { type, ownerAddress };
+    const { data } = await this.axios.get("orders", { params });
+    const { orders } = data;
+    orders.sort(this.sortCallbacks[type]);
     return orders;
-  }
-
-  async getLicenceSellOrders(licenceAddress) {
-    await this.loadContract(this.contractName);
-    const orders = await this.contract.getLicenceOrderBookSells(licenceAddress);
-    orders.sort((a, b) => Math.sign(b.price - a.price));
-    return orders;
-  }
-
-  async getBuyOrders() {
-    await this.loadContract(this.contractName);
-    const orders = await this.contract.getOrderBookBuys();
-    orders.sort((a, b) => Math.sign(b.price - a.price));
-    return orders;
-  }
-
-  async getLicenceBuyOrders(licenceAddress) {
-    await this.loadContract(this.contractName);
-    return await this.contract.getLicenceOrderBookBuys(licenceAddress);
   }
 
   async addBuyOrder(price, amount, zone) {

@@ -6,7 +6,7 @@ require("dotenv").config();
 const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
 
 export const loadInstance = async (contractName, identifier) => {
-  const identifierUrl = `${deployedContractJsonUrl}api/contracts/${contractName.toLowerCase()}/instances/${identifier}`;
+  const identifierUrl = `${deployedContractJsonUrl}schemes/${identifier}`;
 
   let response = null;
   try {
@@ -14,9 +14,12 @@ export const loadInstance = async (contractName, identifier) => {
   } catch (error) {
     console.log(error);
   }
-
   if (!response) return false;
-  const { address, abi } = response.data.instance;
+
+  contractName = contractName.toLowerCase();
+  contractName = contractName === "licences" ? "licence" : contractName;
+
+  const { address, abi } = response.data.scheme[`${contractName}Deployment`];
 
   return wrap(abi, address);
 };

@@ -1,7 +1,15 @@
+import axios from "axios";
 import { getInstanceIdentifier } from "../utils/ethUtils";
 import { loadInstance } from "../utils/ContractInstanceLoader";
 
+require("dotenv").config();
+
+axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
+axios.defaults.headers.common["X-Scheme"] = getInstanceIdentifier();
+
 export default class BaseService {
+  axios = axios;
+
   async getAllEvents() {
     await this.loadContract(this.contractName);
     return this.wrapper.events;
