@@ -53,9 +53,10 @@ export const openAcceptOrder = acceptForm => {
 export function fetchBuyOrders(number = 10) {
   return dispatch => {
     dispatch(startFetchBuyOrders());
-    return orderService.getBuyOrders().then(
+    return orderService.getOrders("buy").then(
       response => dispatch(receiveBuyOrders(response)),
       error => {
+        console.log(error);
         dispatch(
           addNotification({
             type: "error",
@@ -71,7 +72,7 @@ export function fetchSellOrders(number = 10) {
   return dispatch => {
     dispatch(startFetchSellOrders());
     return orderService
-      .getSellOrders()
+      .getOrders("sell")
       .then(response => dispatch(receiveSellOrders(response)))
       .catch(error => {});
   };

@@ -14,9 +14,10 @@ import Licence from "./licence/Licence";
 import Admin from "./admin/Admin";
 import TopNav from "./app/TopNav";
 
+import { ReactQueryCacheProvider, QueryCache } from "react-query";
+
 import { fetchEthContext, loadWalletForCurrentLicence } from "../redux/actions/actions";
 import { watchForMatchEvent, watchForNewOrders, watchForDeletion, watchForLicenceCompletion } from "../redux/actions/watchers";
-import { fetchLastTradePrice, fetchSchemeName, fetchSchemeAddress } from "../redux/actions/scheme";
 import { loadCurrentAuth } from "../redux/actions/auth";
 import { fetchLicence } from "../redux/actions/waterLicences";
 import { loadAdminLicences } from "../redux/actions/auth";
@@ -34,9 +35,6 @@ export default props => {
       dispatch(loadCurrentAuth());
       dispatch(watchForMatchEvent());
       dispatch(watchForNewOrders());
-      dispatch(fetchLastTradePrice());
-      dispatch(fetchSchemeName());
-      dispatch(fetchSchemeAddress());
       dispatch(fetchLicence());
       dispatch(loadAdminLicences());
       dispatch(watchForLicenceCompletion());
@@ -49,22 +47,24 @@ export default props => {
   }, [dispatch]);
 
   return (
-    <div className="flex min-h-screen bg-steel-900 text-steel-100">
-      <Sidebar />
-      <Notifications notifications={notifications} />
-      <div className="flex-grow flex flex-col" id="body">
-        <TopNav />
-        <Switch>
-          <Route path="/" exact render={() => <Dashboard />} />
-          <Route path="/licence" component={Licence} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/history" component={History} />
-          <Route path="/liabilities" component={Liabilities} />
-          <Route path="/audit" component={Audit} />
-          <Route path="/:address" render={props => <Dashboard address={props.match.params.address} />} />
-        </Switch>
+    <ReactQueryCacheProvider queryCache={new QueryCache()}>
+      <div className="flex min-h-screen bg-steel-900 text-steel-100">
+        <Sidebar />
+        <Notifications notifications={notifications} />
+        <div className="flex-grow flex flex-col" id="body">
+          <TopNav />
+          <Switch>
+            <Route path="/" exact render={() => <Dashboard />} />
+            <Route path="/licence" component={Licence} />
+            <Route path="/admin" component={Admin} />
+            <Route path="/history" component={History} />
+            <Route path="/liabilities" component={Liabilities} />
+            <Route path="/audit" component={Audit} />
+            <Route path="/:address" render={props => <Dashboard address={props.match.params.address} />} />
+          </Switch>
+        </div>
+        <Modals />
       </div>
-      <Modals />
-    </div>
+    </ReactQueryCacheProvider>
   );
 };
