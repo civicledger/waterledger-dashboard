@@ -12,7 +12,6 @@ const zones = [
 
 export default ({ waterAccounts, disableForm = false, position, claimLicences }) => {
   const [code, setCode] = useState("");
-
   const positionClass = classNames("w-1/2 p-5 absolute ab-box", {
     "position-1": position === 1,
     "position-2": position === 2,
@@ -35,13 +34,15 @@ export default ({ waterAccounts, disableForm = false, position, claimLicences })
       <p>We have found the following water accounts</p>
 
       <div className="my-3 w-4/5 table">
-        {waterAccounts.map(wa => (
-          <div key={wa.waterAccountId} className="table-row">
-            <span className="table-cell p-1 text-left">{wa.waterAccountId}</span>
-            <span className="table-cell p-1 text-left">{zones[wa.zoneIndex]}</span>
-            <span className="table-cell p-1 text-right">{formatKilolitres(wa.allocation)}</span>
-          </div>
-        ))}
+        {!waterAccounts
+          ? ""
+          : waterAccounts.map(wa => (
+              <div key={wa.waterAccountId} className="table-row">
+                <span className="table-cell p-1 text-left">{wa.waterAccountId}</span>
+                <span className="table-cell p-1 text-left">{zones[wa.zoneIndex]}</span>
+                <span className="table-cell p-1 text-right">{formatKilolitres(wa.allocation)}</span>
+              </div>
+            ))}
       </div>
       <div>
         <input

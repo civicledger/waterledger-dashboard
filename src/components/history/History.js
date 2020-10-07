@@ -11,6 +11,7 @@ export default props => {
   useEffect(() => {
     const getTrades = async () => {
       setTrades(await orderHistorysvc.getHistory(10));
+      console.log(trades);
     };
     getTrades();
   }, []);
