@@ -13,19 +13,19 @@ export default class LicencesService extends BaseService {
 
   async apiGetLicenceByWaterAccountId(waterAccountId) {
     const params = { "waterAccounts.waterAccountId": waterAccountId, scheme: getInstanceIdentifier() };
-    const { data } = await axios.get(`${deployedContractJsonUrl}admin/licences`, { params });
+    const { data } = await axios.get(`${deployedContractJsonUrl}api/licences`, { params });
     return { licence: data.licences[0] };
   }
 
   async apiGetLicence(id) {
-    const { data } = await axios.get(`${deployedContractJsonUrl}admin/licences/${id}`);
+    const { data } = await axios.get(`${deployedContractJsonUrl}api/licences/${id}`);
     return data;
   }
 
   async apiActivateLicence(id, licence) {
     const patchData = { licence: { ...licence, identifier: getInstanceIdentifier(), migrated: true } };
 
-    await axios.patch(`${deployedContractJsonUrl}admin/licences/${id}`, patchData);
+    await axios.patch(`${deployedContractJsonUrl}api/licences/${id}`, patchData);
   }
 
   async getWaterAccounts() {

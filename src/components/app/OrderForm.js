@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import * as OrderActions from "../../redux/actions/orders";
 import { ORDER_TYPE_SELL } from "../../redux/actions/actionConstants";
-import { titleCase, formatKilolitres } from "../../utils/format";
+import { titleCase } from "../../utils/format";
 
 const zones = [
   "Barron A - Barron Catchment",
@@ -42,7 +42,7 @@ class OrderForm extends Component {
           <div className="flex text-steel-100 text-center">
             <div className="flex-1 text-left">{waterAccount.waterAccountId}</div>
             <div className="flex-2">{zones[waterAccount.zoneIndex]}</div>
-            <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance)}</div>
+            <div className="flex-1 text-right">{waterAccount.balance} ML</div>
           </div>
         </div>
 
