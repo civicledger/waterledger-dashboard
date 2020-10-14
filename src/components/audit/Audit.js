@@ -8,6 +8,7 @@ import { serviceLoader } from "../../services/serviceLoader";
 const orderBookService = serviceLoader("OrderBook");
 const historyService = serviceLoader("OrderHistory");
 const licenceService = serviceLoader("Licences");
+const zoneService = serviceLoader("Zones");
 
 export default props => {
   const [events, setEvents] = useState([]);
@@ -20,7 +21,8 @@ export default props => {
       const obEvents = await orderBookService.getPastEvents();
       const historyEvents = await historyService.getPastEvents();
       const licenceEvents = await licenceService.getPastEvents();
-      const events = [...historyEvents, ...obEvents, ...licenceEvents];
+      const zoneEvents = await zoneService.getPastEvents();
+      const events = [...historyEvents, ...obEvents, ...licenceEvents, ...zoneEvents];
       const eventTypes = events.reduce((types, { event }) => {
         if (!types.includes(event)) {
           types.push(event);
