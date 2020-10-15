@@ -34,8 +34,7 @@ export default class BaseService {
   }
 
   loadContract = async (contractName, identifier = false) => {
-    if (this.contract) return;
-
+    if (this.contract && !contractName === "Zone") return;
     if (!identifier) {
       identifier = getInstanceIdentifier();
     }
