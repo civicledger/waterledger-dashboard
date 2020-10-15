@@ -10,6 +10,7 @@ const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL
 
 export default class LicencesService extends BaseService {
   contractName = "Licences";
+  deploymentName = "licence";
 
   async apiGetLicenceByWaterAccountId(waterAccountId) {
     const params = { "waterAccounts.waterAccountId": waterAccountId, scheme: getInstanceIdentifier() };

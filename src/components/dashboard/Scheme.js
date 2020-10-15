@@ -10,12 +10,12 @@ import { serviceLoader } from "../../services/serviceLoader";
 const orderBookService = serviceLoader("OrderBook");
 
 export default props => {
-  const getScheme = async () => {
-    return await orderBookService.getScheme();
-  };
+  // const getScheme = async () => {
+  //   return await orderBookService.getScheme();
+  // };
 
   const waterAccounts = useSelector(state => state.waterAccounts);
-  const { data: scheme, isLoading } = useQuery("fetchScheme", getScheme);
+  const { data: scheme, isLoading } = useQuery("getScheme", () => orderBookService.getScheme());
 
   if (isLoading) return "";
 
