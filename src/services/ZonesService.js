@@ -7,9 +7,8 @@ require("dotenv").config();
 const apiUrl = `${process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL}api/zones/${getInstanceIdentifier()}`;
 
 export default class ZonesService extends BaseService {
-  contractName = "Zone";
   contract = null;
-  contractName = "Zone";
+  contractName = "Zones";
 
   getZoneBalanceFor = async (address, zoneIndex) => {
     await this.loadZoneContract();
