@@ -17,7 +17,7 @@ const getNetworkNameForId = id => {
 
 const getInstanceIdentifier = () => {
   const hostName = window.location.hostname;
-  if (hostName === "localhost") return "mdwss";
+  if (hostName === "localhost") return "demo";
 
   return hostName.split(".")[0];
 };
