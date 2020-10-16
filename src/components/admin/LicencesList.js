@@ -24,7 +24,7 @@ export default props => {
       </thead>
       <tbody>
         {props.licences.map(l => {
-          const isActiveLicence = l._id === activeLicence;
+          const isActiveLicence = l.id === activeLicence;
           const classes = { "font-bold": isActiveLicence };
           return (
             <tr key={l.accountId} className={classNames(classes)}>
@@ -38,7 +38,7 @@ export default props => {
                     className="text-sm text-green-600"
                     onClick={() => {
                       dispatch(setCurrentWaterAccount(l.waterAccounts[0].waterAccountId));
-                      dispatch(switchLicences(l._id));
+                      dispatch(switchLicences(l.id));
                       dispatch(loadWalletForCurrentLicence());
                     }}
                   >

@@ -3,7 +3,7 @@ import {
   SET_ACTIVE_WATER_ACCOUNT,
   SET_ACTIVE_LICENCE,
   RECEIVE_LICENCE,
-  RECEIVE_ZONE_BALANCE,
+  RECEIVE_ZONE_BALANCES,
 } from "../actions/actionConstants";
 
 export const licence = (state = localStorage.getItem("wlLicence") || null, action) => {
@@ -28,11 +28,9 @@ export const waterAccounts = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_WATER_ACCOUNTS:
       return action.payload;
-    case RECEIVE_ZONE_BALANCE:
+    case RECEIVE_ZONE_BALANCES:
       return state.map(wa => {
-        if (wa.zoneIndex === action.payload.zoneIndex) {
-          wa.balance = action.payload.balance;
-        }
+        wa.balance = action.payload[wa.zoneIndex];
         return wa;
       });
     default:

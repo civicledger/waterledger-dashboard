@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-import { RECEIVE_LICENCE, RECEIVE_ZONE_BALANCE, RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT } from "./actionConstants";
+import { RECEIVE_LICENCE, RECEIVE_ZONE_BALANCES, RECEIVE_WATER_ACCOUNTS, SET_ACTIVE_WATER_ACCOUNT } from "./actionConstants";
 
 import { web3 } from "../../utils/ethUtils";
 
@@ -11,7 +11,7 @@ import { receiveEthContext, addNotification, accountProgressAdded } from "./acti
 const zonesService = serviceLoader("Zones");
 const licencesService = serviceLoader("Licences");
 
-export const receiveZoneBalance = payload => ({ type: RECEIVE_ZONE_BALANCE, payload });
+export const receiveZoneBalances = payload => ({ type: RECEIVE_ZONE_BALANCES, payload });
 export const receiveLicence = id => ({ type: RECEIVE_LICENCE, id });
 export const setActiveWaterAccount = payload => ({ type: SET_ACTIVE_WATER_ACCOUNT, payload });
 export const receiveWaterAccounts = payload => ({ type: RECEIVE_WATER_ACCOUNTS, payload });
@@ -21,24 +21,24 @@ export function fetchWaterBalances() {
     const { ethContext, waterAccounts } = getState();
 
     waterAccounts.forEach(async wa => {
-      dispatch(fetchZoneBalance(ethContext.address, wa.zoneIndex));
+      dispatch(fetchZoneBalances(ethContext.address, wa.zoneIndex));
     });
   };
 }
 
-export function fetchZoneBalance(address, zoneIndex) {
+export function fetchZoneBalances(address) {
   return dispatch => {
-    return zonesService.getZoneBalanceFor(address, zoneIndex).then(
-      balance => dispatch(receiveZoneBalance({ balance, zoneIndex })),
+    return zonesService.getBalances(address).then(
+      balances => dispatch(receiveZoneBalances({ balances })),
       error => console.log("An error occurred.", error)
     );
   };
 }
 
-export const claimWaterAccountsForLicence = licence => {
+export const claimWaterAccountsForLicence = (licence, code) => {
   return async dispatch => {
-    const id = licence._id;
-
+    const id = licence.id;
+    console.log(code);
     const password = uuid();
 
     const account = web3.eth.accounts.create(uuid());
@@ -52,9 +52,9 @@ export const claimWaterAccountsForLicence = licence => {
 
     licence.ethAccount = account.address;
 
-    await licencesService.apiActivateLicence(id, licence);
-    dispatch(setCurrentWaterAccount(licence.waterAccounts[0].waterAccountId));
-    dispatch(receiveWaterAccounts(licence.waterAccounts));
+    await licencesService.apiActivateLicence(id, code);
+    dispatch(setCurrentWaterAccount(licence.accounts[0].waterAccount));
+    dispatch(receiveWaterAccounts(licence.accounts));
     dispatch(accountProgressAdded({ text: "Storing Account Details" }));
     web3.eth.defaultAccount = account.address;
 

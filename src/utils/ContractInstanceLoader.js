@@ -1,25 +1,49 @@
 import axios from "axios";
+import {serviceLoader} from '../services/serviceLoader';
 import { wrap } from "./ContractWrapper";
 
 require("dotenv").config();
 
-const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
+let globalInstances = {};
 
-export const loadInstance = async (contractName, identifier) => {
-  const identifierUrl = `${deployedContractJsonUrl}schemes/${identifier}`;
-
-  let response = null;
-  try {
-    response = await axios.get(identifierUrl);
-  } catch (error) {
-    console.log(error);
-  }
-  if (!response) return false;
-
-  contractName = contractName.toLowerCase();
-  contractName = contractName === "licences" ? "licence" : contractName;
-
-  const { address, abi } = response.data.scheme[`${contractName}Deployment`];
-
-  return wrap(abi, address);
+export const loadInstance = async (deploymentName) => {
+  const orderbookService = serviceLoader('OrderBook');
+  const scheme = await orderbookService.getScheme();
+  const {abi, address} = scheme[`${deploymentName}Deployment`];
+  const instance = wrap(abi, address);
+  globalInstances[deploymentName] = instance;
+  return globalInstances;
 };
+
+export default class ContractInstanceLoader {
+  static instances = {};
+
+  constructor() {
+    if (!ContractInstanceLoader._instance) {
+      ContractInstanceLoader._instance = this;
+    }
+    return ContractInstanceLoader._instance;
+  }
+
+  async getDeployment(deploymentName) {
+    if(!ContractInstanceLoader.instances[deploymentName]){
+      await this.loadAll();
+    }
+
+    if(ContractInstanceLoader.instances[deploymentName]){
+      return ContractInstanceLoader.instances[deploymentName];
+    }
+  }
+
+  async loadAll() {
+    const orderbookService = serviceLoader('OrderBook');
+    const scheme = await orderbookService.getScheme();
+    ['history', 'orderbook', 'licence', 'zones'].forEach(deploymentName => {
+      const {abi, address} = scheme[`${deploymentName}Deployment`];
+
+      const instance = wrap (abi, address);
+      globalInstances[deploymentName] = instance;
+      ContractInstanceLoader.instances[deploymentName] = instance;
+    });
+  }
+}

@@ -59,6 +59,7 @@ export const loadWalletForCurrentLicence = () => {
 
     if (!localStorage.getItem("wlLicence")) {
       licencesService.apiGetLicence(licenceId).then(({ licence }) => {
+        console.log(licence);
         dispatch(receiveLicence(licence.accountId));
         localStorage.setItem("wlLicence", licence.accountId);
       });

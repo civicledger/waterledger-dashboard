@@ -12,7 +12,7 @@ import {
 } from "./actionConstants";
 
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
-import { fetchZoneBalance } from "./waterLicences";
+import { fetchZoneBalances } from "./waterLicences";
 
 import { web3 } from "../../utils/ethUtils";
 import { errorMessage } from "../../utils/format";
@@ -206,7 +206,7 @@ export const submitSellOrder = (price, quantity) => {
 
             dispatch(fetchSellOrders());
             dispatch(fetchSellOrders());
-            dispatch(fetchZoneBalance(ethContext.address, zoneIndex));
+            dispatch(fetchZoneBalances(ethContext.address));
           });
         })
         .on("error", error => {

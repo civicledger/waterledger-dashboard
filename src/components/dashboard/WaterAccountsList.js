@@ -16,15 +16,15 @@ export default () => {
     <div className="table w-full text-sm">
       {waterAccounts.map(wa => (
         <div
-          key={wa.waterAccountId}
+          key={wa.waterAccount}
           className={classNames(
             "table-row row-cell text-steel-100 hover:text-steel-200 cursor-pointer flex ",
             { "bg-steel-700": activeWaterAccount === wa.waterAccountId },
             { "": activeWaterAccount !== wa.waterAccountId }
           )}
-          onClick={() => dispatch(setCurrentWaterAccount(wa.waterAccountId))}
+          onClick={() => dispatch(setCurrentWaterAccount(wa.waterAccount))}
         >
-          <span className="table-cell text-left p-2">{wa.waterAccountId}</span>
+          <span className="table-cell text-left p-2">{wa.waterAccount}</span>
           <span className="table-cell text-left p-2">{zones[wa.zoneIndex]}</span>
           <span className="table-cell text-left p-2">{formatKilolitres(wa.balance)}</span>
         </div>
