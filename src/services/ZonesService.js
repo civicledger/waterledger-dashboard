@@ -1,4 +1,6 @@
-export default class ZonesService {
+import BaseService from "./BaseService";
+
+export default class ZonesService extends BaseService{
   contract = "Zones";
   deploymentName = "zones";
 

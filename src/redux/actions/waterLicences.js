@@ -29,16 +29,16 @@ export function fetchWaterBalances() {
 export function fetchZoneBalances(address) {
   return dispatch => {
     return zonesService.getBalances(address).then(
-      balance => dispatch(receiveZoneBalances({ balances })),
+      balances => dispatch(receiveZoneBalances({ balances })),
       error => console.log("An error occurred.", error)
     );
   };
 }
 
-export const claimWaterAccountsForLicence = licence => {
+export const claimWaterAccountsForLicence = (licence, code) => {
   return async dispatch => {
-    const id = licence._id;
-
+    const id = licence.id;
+    console.log(code);
     const password = uuid();
 
     const account = web3.eth.accounts.create(uuid());
@@ -52,9 +52,9 @@ export const claimWaterAccountsForLicence = licence => {
 
     licence.ethAccount = account.address;
 
-    await licencesService.apiActivateLicence(id, licence);
-    dispatch(setCurrentWaterAccount(licence.waterAccounts[0].waterAccountId));
-    dispatch(receiveWaterAccounts(licence.waterAccounts));
+    await licencesService.apiActivateLicence(id, code);
+    dispatch(setCurrentWaterAccount(licence.accounts[0].waterAccount));
+    dispatch(receiveWaterAccounts(licence.accounts));
     dispatch(accountProgressAdded({ text: "Storing Account Details" }));
     web3.eth.defaultAccount = account.address;
 

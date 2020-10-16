@@ -36,9 +36,9 @@ export default ({ waterAccounts, disableForm = false, position, claimLicences })
 
       <div className="my-3 w-4/5 table">
         {waterAccounts.map(wa => (
-          <div key={wa.waterAccountId} className="table-row">
-            <span className="table-cell p-1 text-left">{wa.waterAccountId}</span>
-            <span className="table-cell p-1 text-left">{zones[wa.zoneIndex]}</span>
+          <div key={wa.id} className="table-row">
+            <span className="table-cell p-1 text-left">{wa.waterAccount}</span>
+            <span className="table-cell p-1 text-left">{wa.zone.name}</span>
             <span className="table-cell p-1 text-right">{formatKilolitres(wa.allocation)}</span>
           </div>
         ))}
@@ -55,7 +55,7 @@ export default ({ waterAccounts, disableForm = false, position, claimLicences })
           className={buttonClass}
           onClick={e => {
             e.preventDefault();
-            claimLicences();
+            claimLicences(code);
           }}
           disabled={disableForm}
         >

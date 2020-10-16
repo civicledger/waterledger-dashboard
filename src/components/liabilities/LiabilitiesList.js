@@ -26,7 +26,7 @@ export default ({ liabilities }) => {
 
       {liabilities.map(liability => {
         return (
-          <div className="table-row relative" key={liability._id}>
+          <div className="table-row relative" key={liability.id}>
             <div className="row-cell table-cell">{liability.from}</div>
             <div className="row-cell table-cell">{liability.to}</div>
             <div className="row-cell table-cell">{formatAmount(liability.amount)}</div>
