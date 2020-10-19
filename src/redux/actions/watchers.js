@@ -19,19 +19,17 @@ const licencesService = serviceLoader("Licences");
  * Instead they sets up watchers for specific websocket events
  */
 export const watchForLicenceCompletion = () => {
-  console.log('watching for licence completion');
   return async (dispatch, getState) => {
     const {
       ethContext: { address },
     } = getState();
 
     let events = await licencesService.getAllEvents();
-    console.log(address);
+
     try {
       events
         .LicenceAdded()
         .on("data", event => {
-          console.log(event);
           dispatch(accountProgressAdded({ text: "Account has been added" }));
           new Promise(r => setTimeout(r, 4000)).then(() => {
             dispatch(accountProgressAdded({ text: "Getting Water Account Details" }));

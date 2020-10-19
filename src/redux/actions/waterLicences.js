@@ -38,7 +38,7 @@ export function fetchZoneBalances(address) {
 export const claimWaterAccountsForLicence = (licence, code) => {
   return async dispatch => {
     const id = licence.id;
-    console.log(code);
+
     const password = uuid();
 
     const account = web3.eth.accounts.create(uuid());
@@ -86,15 +86,14 @@ export function fetchLicence() {
         response => {
           dispatch(receiveWaterAccounts(response));
           dispatch(fetchWaterBalances());
-          let waterAccountId = localStorage.getItem("wlWaterAccount");
-
-          const waterAccountFound = response.find(wa => wa.waterAccountId === waterAccountId);
+          let waterAccount = localStorage.getItem("wlWaterAccount");
+          const waterAccountFound = response.find(wa => wa.waterAccountId === waterAccount);
 
           if (!waterAccountFound) {
-            waterAccountId = response[0].waterAccountId;
+            waterAccount = response[0].waterAccount;
           }
 
-          dispatch(setCurrentWaterAccount(waterAccountId));
+          dispatch(setCurrentWaterAccount(waterAccount));
         },
         error => console.log("An error occurred.", error)
       );
@@ -102,15 +101,15 @@ export function fetchLicence() {
   };
 }
 
-export function setCurrentWaterAccount(waterAccountId) {
-  localStorage.setItem("wlWaterAccount", waterAccountId);
+export function setCurrentWaterAccount(waterAccount) {
+  localStorage.setItem("wlWaterAccount", waterAccount);
   return dispatch => {
     dispatch(
       addNotification({
         type: "success",
-        text: `Active water account set to ${waterAccountId}`,
+        text: `Active water account set to ${waterAccount}`,
       })
     );
-    dispatch(setActiveWaterAccount(waterAccountId));
+    dispatch(setActiveWaterAccount(waterAccount));
   };
 }

@@ -2,13 +2,6 @@ import React, { useState } from "react";
 import classNames from "classnames";
 
 import { formatKilolitres } from "../../../utils/format";
-const zones = [
-  "Barron A - Barron Catchment",
-  "Barron B - Tinaroo Dam",
-  "Barron C - Lake Tinaroo Ponded Area",
-  "Barron D - Lake Tinaroo Ponded Area",
-  "Barron E - Walsh & Mitchell Catchments",
-];
 
 export default ({ waterAccounts, disableForm = false, position, claimLicences }) => {
   const [code, setCode] = useState("");

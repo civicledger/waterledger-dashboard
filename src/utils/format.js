@@ -9,7 +9,8 @@ export const formatAmount = amountInDollars => {
 export const formatDate = utcDate => formatDistance(utcDate * 1000, new Date()) + " ago";
 
 export const formatKilolitres = kl => {
-  if (!kl) return;
+  if(kl === undefined) return;
+
   return `${kl / 1000} ML`;
 };
 

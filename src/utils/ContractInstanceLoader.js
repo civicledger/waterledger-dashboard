@@ -1,4 +1,3 @@
-import axios from "axios";
 import {serviceLoader} from '../services/serviceLoader';
 import { wrap } from "./ContractWrapper";
 

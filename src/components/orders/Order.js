@@ -7,16 +7,9 @@ import classNames from "classnames";
 const orderTypes = ["Offer", "Bid"];
 const orderTypesInternal = ["sell", "buy"];
 
-const zones = [
-  "Barron A - Barron Catchment",
-  "Barron B - Tinaroo Dam",
-  "Barron C - Lake Tinaroo Ponded Area",
-  "Barron D - Lake Tinaroo Ponded Area",
-  "Barron E - Walsh & Mitchell Catchments",
-];
 export default ({ order, showType = false, showTimestamp = false, ethContext: { address, isReadOnly }, highlightRow, deleteOrder }) => {
   const dispatch = useDispatch();
-  let { id, orderType: type, price, quantity, timeStamp } = order;
+  let { id, orderType: type, price, quantity, timeStamp, zoneName } = order;
 
   const typeInternal = orderTypesInternal[type];
   const matchingType = typeInternal === "buy" ? "sell" : "buy";
@@ -43,7 +36,7 @@ export default ({ order, showType = false, showTimestamp = false, ethContext: { 
       {showType && <td className="py-2 px-1">{orderTypes[type]}</td>}
       <td className="p-2">{formatAmount(price)}</td>
       <td className="p-2">{formatKilolitres(quantity)}</td>
-      <td className="p-2">{zones[order.zone]}</td>
+      <td className="p-2">{zoneName}</td>
       {showTimestamp && <td className="p-2">{formatRelativeDate(timeStamp)}</td>}
       <td width="30" className="p-2 pl-0">
         {isOwner && (
