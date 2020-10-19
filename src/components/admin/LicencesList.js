@@ -37,7 +37,7 @@ export default props => {
                   <button
                     className="text-sm text-green-600"
                     onClick={() => {
-                      dispatch(setCurrentWaterAccount(l.waterAccounts[0].waterAccountId));
+                      dispatch(setCurrentWaterAccount(l.waterAccounts[0].waterAccount));
                       dispatch(switchLicences(l.id));
                       dispatch(loadWalletForCurrentLicence());
                     }}

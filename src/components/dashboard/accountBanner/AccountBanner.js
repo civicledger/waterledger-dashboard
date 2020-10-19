@@ -46,8 +46,6 @@ export default () => {
   };
 
   const claimLicences = (code) => {
-    console.log('claiming licence');
-    console.log(licence);
     dispatch(claimWaterAccountsForLicence(licence, code));
     setWaClaimed(true);
     setPosition({ ...positions, waSearch: 1, waFound: 2, progress: 3 });
