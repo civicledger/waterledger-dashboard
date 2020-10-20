@@ -1,11 +1,12 @@
 import axios from "axios";
 import { getInstanceIdentifier } from "../utils/ethUtils";
-import { loadInstance } from "../utils/ContractInstanceLoader";
+import ContractInstanceLoader from "../utils/ContractInstanceLoader";
 
 require("dotenv").config();
 
 axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
 axios.defaults.headers.common["X-Scheme"] = getInstanceIdentifier();
+const instanceManager = new ContractInstanceLoader();
 
 export default class BaseService {
   axios = axios;
@@ -33,13 +34,8 @@ export default class BaseService {
     );
   }
 
-  loadContract = async (contractName, identifier = false) => {
-    if (this.contract) return;
-
-    if (!identifier) {
-      identifier = getInstanceIdentifier();
-    }
-    const instance = await loadInstance(contractName, identifier);
+  loadContract = async () => {
+    const instance = await instanceManager.getDeployment(this.deploymentName);
     this.contract = instance.proxyContract;
     this.wrapper = instance;
   };

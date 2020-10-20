@@ -22,13 +22,11 @@ export default props => {
 
   let activeWaterAccount = useSelector(state => state.activeWaterAccount);
   const waterAccounts = useSelector(state => state.waterAccounts);
-  activeWaterAccount = waterAccounts.find(wa => wa.waterAccountId === activeWaterAccount);
+  activeWaterAccount = waterAccounts.find(wa => wa.waterAccount === activeWaterAccount);
 
   const order = orders.find(o => o.id === acceptFormDetails.id);
 
   if (!order) return "";
-  console.log(acceptFormDetails);
-  console.log(activeWaterAccount);
   return (
     <div>
       <form className="" onSubmit={event => event.preventDefault()}>

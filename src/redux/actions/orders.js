@@ -12,7 +12,7 @@ import {
 } from "./actionConstants";
 
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
-import { fetchZoneBalance } from "./waterLicences";
+import { fetchZoneBalances } from "./waterLicences";
 
 import { web3 } from "../../utils/ethUtils";
 import { errorMessage } from "../../utils/format";
@@ -56,7 +56,6 @@ export function fetchBuyOrders(number = 10) {
     return orderService.getOrders("buy").then(
       response => dispatch(receiveBuyOrders(response)),
       error => {
-        console.log(error);
         dispatch(
           addNotification({
             type: "error",
@@ -90,7 +89,7 @@ export function fetchTrades(number = 10) {
 export const submitBuyOrder = (price, quantity) => {
   return (dispatch, getState) => {
     const { activeWaterAccount, waterAccounts } = getState();
-    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
+    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccount);
 
     orderService.addBuyOrder(price, quantity, zoneIndex).then(rawTransaction => {
       web3.eth
@@ -182,7 +181,7 @@ export const submitSellOrder = (price, quantity) => {
   return (dispatch, getState) => {
     const { activeWaterAccount, waterAccounts, ethContext } = getState();
 
-    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
+    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccount);
 
     orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {
       web3.eth
@@ -206,7 +205,7 @@ export const submitSellOrder = (price, quantity) => {
 
             dispatch(fetchSellOrders());
             dispatch(fetchSellOrders());
-            dispatch(fetchZoneBalance(ethContext.address, zoneIndex));
+            dispatch(fetchZoneBalances(ethContext.address));
           });
         })
         .on("error", error => {

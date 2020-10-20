@@ -2,6 +2,7 @@ import BaseService from "./BaseService";
 
 export default class OrderHistoryService extends BaseService {
   contractName = "History";
+  deploymentName = "history";
 
   async getHistory(number = 10) {
     await this.loadContract(this.contractName);

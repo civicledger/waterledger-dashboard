@@ -12,7 +12,9 @@ export const serviceLoader = service => {
   if(!service.includes('Service')) {
     service = `${service}Service`;
   }
+
   let singleton = singletons[service] || new services[service]();
   singletons[service] = singleton;
   return singleton;
 }
+

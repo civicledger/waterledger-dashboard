@@ -3,6 +3,7 @@ import { getInstanceIdentifier } from "../utils/ethUtils";
 
 export default class OrderBookService extends BaseService {
   contractName = "OrderBook";
+  deploymentName = "orderbook";
 
   sortCallbacks = {
     sell: (a, b) => Math.sign(b.price - a.price),

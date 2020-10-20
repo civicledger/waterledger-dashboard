@@ -28,9 +28,7 @@ export const watchForLicenceCompletion = () => {
 
     try {
       events
-        .LicenceAdded({
-          filter: { ethAccount: address },
-        })
+        .LicenceAdded()
         .on("data", event => {
           dispatch(accountProgressAdded({ text: "Account has been added" }));
           new Promise(r => setTimeout(r, 4000)).then(() => {
