@@ -12,6 +12,7 @@ const licenceService = serviceLoader("Licences");
 export default props => {
   const [events, setEvents] = useState([]);
   const [eventTypes, setEventTypes] = useState([]);
+  const [contractTypes, setContractTypes] = useState({});
   const [sortTimeDirection, setSortTimeDirection] = useState("newFirst");
   const [activeEventTypes, setActiveEventTypes] = useState([]);
 
@@ -21,6 +22,17 @@ export default props => {
       const historyEvents = await historyService.getPastEvents();
       const licenceEvents = await licenceService.getPastEvents();
       const events = [...historyEvents, ...obEvents, ...licenceEvents];
+
+      let contractTypes = {};
+      events.map(e => {
+        if (!contractTypes[e.contract]) {
+          contractTypes[e.contract] = [];
+          contractTypes[e.contract].push(e.event);
+        } else if (contractTypes[e.contract] !== e.event) {
+          contractTypes[e.contract].push(e.event);
+        }
+      });
+      setContractTypes(contractTypes);
       const eventTypes = events.reduce((types, { event }) => {
         if (!types.includes(event)) {
           types.push(event);
@@ -29,6 +41,7 @@ export default props => {
       }, []);
       eventTypes.sort((a, b) => a.localeCompare(b));
       setEventTypes(eventTypes);
+      console.log(eventTypes);
       setActiveEventTypes(eventTypes);
       setEvents(events);
     };
@@ -62,11 +75,16 @@ export default props => {
       <PageHeader header="Audit Trail" />
 
       <h3 className="mt-5 mb-2">Available Events</h3>
-      <ul>
-        {eventTypes.map(et => (
-          <EventType key={et} type={et} isActive={activeEventTypes.includes(et)} toggle={toggleEventType} />
-        ))}
-      </ul>
+      {Object.keys(contractTypes).map((contract, key) => {
+        return (
+          <ul key={key}>
+            <h1>{contract}</h1>
+            {contractTypes[contract].map((et, key) => {
+              return <EventType key={key} type={et} isActive={activeEventTypes.includes(et)} toggle={toggleEventType} />;
+            })}
+          </ul>
+        );
+      })}
 
       <EventsList events={filteredEvents} sortTimeDirection={sortTimeDirection} changeTimeSort={changeTimeSort} />
     </div>
