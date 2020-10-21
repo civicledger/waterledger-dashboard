@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 
 import Trade from "./Trade";
 
-export default ({ trades }) => (
+export default ({ trades, isLoading = false, limit = null }) => {
+
+  if(isLoading){
+    return <div>loading</div>;
+  }
+
+  return (
   <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-800 lg:p-5">
     <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Recent Trades</h2>
     <table className="table relative w-full transaction-list ">
@@ -35,4 +41,5 @@ export default ({ trades }) => (
       </Link>
     </div>
   </div>
-);
+
+)};

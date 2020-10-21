@@ -2,7 +2,10 @@ import React from "react";
 
 import { formatAmount, formatShortDateObject } from "../../utils/format";
 
-export default ({ liabilities }) => {
+export default ({ liabilities, isLoading }) => {
+  if (isLoading) {
+    return <div>loading</div>;
+  }
   return (
     <div className="table relative w-full transaction-list mt-5 bg-steel-800 rounded p-5">
       <h2 className="text-2xl mb-3">Your Liabilities</h2>

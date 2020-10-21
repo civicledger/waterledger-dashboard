@@ -4,14 +4,11 @@ export default class OrderHistoryService extends BaseService {
   contractName = "History";
   deploymentName = "history";
 
-  async getHistory(number = 10) {
-    await this.loadContract(this.contractName);
-    const history = await this.contract.getHistory(number);
-    return history;
-  }
+  async getHistory(address = false) {
+    const params = address ? {address} : {};
 
-  async getLicenceHistory(licenceAddress) {
-    await this.loadContract(this.contractName);
-    return await this.contract.getLicenceHistory(licenceAddress);
+    const { data } = await this.axios.get("trades", { params });
+    const { trades } = data;
+    return trades;
   }
 }

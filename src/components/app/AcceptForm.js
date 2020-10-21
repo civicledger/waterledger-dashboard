@@ -1,7 +1,8 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { formatAmount, formatKilolitres } from "../../utils/format";
-
+import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
+import { getOrders } from "../queries";
 import { acceptOrder } from "../../redux/actions/orders";
 import { setAcceptOrderModal } from "../../redux/actions/actions";
 
@@ -16,13 +17,18 @@ const zones = [
 export default props => {
   const dispatch = useDispatch();
   const acceptFormDetails = useSelector(state => state.acceptFormDetails);
-  const buys = useSelector(state => state.buys);
-  const sells = useSelector(state => state.sells);
-  const orders = [...buys, ...sells];
-
   let activeWaterAccount = useSelector(state => state.activeWaterAccount);
   const waterAccounts = useSelector(state => state.waterAccounts);
-  activeWaterAccount = waterAccounts.find(wa => wa.waterAccount === activeWaterAccount);
+
+  activeWaterAccount = waterAccounts.find(wa => wa.waterAccountId === activeWaterAccount);
+
+  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders);
+  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
+
+  if (buysLoading || sellsLoading) return "";
+
+  const orders = [...buys, ...sells];
+  if (orders === undefined || orders.length === 0) return "";
 
   const order = orders.find(o => o.id === acceptFormDetails.id);
 
@@ -37,7 +43,7 @@ export default props => {
             <h3 className="text-lg">Order Details</h3>
             <div className="flex mt-2">
               <div className="w-1/4">ID</div>
-              <div className="w-3/4">{order.id}</div>
+              <div className="w-3/4">{formatEthereumAddress(order.ethId)}</div>
             </div>
 
             <div className="flex mt-1">
@@ -57,7 +63,7 @@ export default props => {
 
             <div className="flex mt-3">
               <div className="w-1/4">Order Zone</div>
-              <div className="w-3/4">{zones[order.zone]}</div>
+              <div className="w-3/4">{order.zoneNameLong}</div>
             </div>
 
             <div className="flex mt-1">
@@ -67,7 +73,7 @@ export default props => {
 
             <div className="flex mt-1">
               <div className="w-1/4">Interzone</div>
-              <div className="w-3/4">{zones[activeWaterAccount.zoneIndex] === zones[order.zone] ? "No" : "Yes"}</div>
+              <div className="w-3/4">{zones[activeWaterAccount.zoneIndex] === order.zoneNameLong ? "No" : "Yes"}</div>
             </div>
           </div>
         </div>
@@ -78,7 +84,7 @@ export default props => {
           <button
             className="bg-sorange text-steel-100 p-2 px-3 rounded-sm"
             onClick={() => {
-              dispatch(acceptOrder(acceptFormDetails.id, activeWaterAccount.zoneIndex));
+              dispatch(acceptOrder(acceptFormDetails.ethId, activeWaterAccount.zoneIndex));
               dispatch(setAcceptOrderModal(false));
             }}
           >

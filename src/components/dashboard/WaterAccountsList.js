@@ -3,9 +3,7 @@ import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 import { formatKilolitres } from "../../utils/format";
-
 const zones = ["Barron A", "Barron B", "Barron C", "Barron D", "Barron E"];
-
 export default () => {
   const dispatch = useDispatch();
 
@@ -14,11 +12,11 @@ export default () => {
 
   return (
     <div className="table w-full text-sm">
-      {waterAccounts.map(wa => {
+      {waterAccounts.map((wa, index) => {
         wa.balance = wa.balance ?? 0;
         return (
           <div
-            key={wa.waterAccountId}
+            key={index}
             className={classNames(
               "table-row row-cell text-steel-100 hover:text-steel-200 cursor-pointer flex ",
               { "bg-steel-700": activeWaterAccount === wa.waterAccountId },
@@ -26,13 +24,12 @@ export default () => {
             )}
             onClick={() => dispatch(setCurrentWaterAccount(wa.waterAccount))}
           >
-            <span className="table-cell text-left p-2">{wa.waterAccountId}</span>
-            <span className="table-cell text-left p-2">{zones[wa.zoneIndex]}</span>
+            <span className="table-cell text-left p-2">{wa.waterAccount ?? wa.waterAccountId}</span>
+            <span className="table-cell text-left p-2">{wa.zoneName ?? zones[wa.zoneIndex]}</span>
             <span className="table-cell text-left p-2">{formatKilolitres(wa.balance)}</span>
           </div>
-        )
-      }
-    )}
+        );
+      })}
     </div>
   );
 };

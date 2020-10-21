@@ -9,7 +9,7 @@ const orderTypesInternal = ["sell", "buy"];
 
 export default ({ order, showType = false, showTimestamp = false, ethContext: { address, isReadOnly }, highlightRow, deleteOrder }) => {
   const dispatch = useDispatch();
-  let { id, orderType: type, price, quantity, timeStamp, zoneName } = order;
+  let { id, ethId, orderType: type, price, quantity, timeStamp, zoneName } = order;
 
   const typeInternal = orderTypesInternal[type];
   const matchingType = typeInternal === "buy" ? "sell" : "buy";
@@ -30,7 +30,7 @@ export default ({ order, showType = false, showTimestamp = false, ethContext: { 
       className={classNames(classNameObject)}
       onClick={() => {
         if (!highlightRow || isReadOnly) return;
-        dispatch(openAcceptOrder({ id, type: matchingType, price, quantity }));
+        dispatch(openAcceptOrder({ id, ethId, type: matchingType, price, quantity }));
       }}
     >
       {showType && <td className="py-2 px-1">{orderTypes[type]}</td>}

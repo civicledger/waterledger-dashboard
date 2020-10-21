@@ -28,7 +28,7 @@ class OrderForm extends Component {
     quantity = this.state.quantity ? this.state.quantity : quantity;
 
     const isSell = type === ORDER_TYPE_SELL;
-    const waterAccount = this.props.waterAccounts.find(wa => wa.waterAccount === this.props.activeWaterAccount) || {};
+    const waterAccount = this.props.waterAccounts.find(wa => wa.waterAccountId === this.props.activeWaterAccount) || {};
     const excessVolumeError = isSell && this.state.quantity > +waterAccount.balance;
 
     isReadOnly = isReadOnly || (!this.state.quantity && !quantity) || (!this.state.price && !price) || excessVolumeError;
@@ -40,7 +40,7 @@ class OrderForm extends Component {
         <div className="hidden lg:block p-3 rounded bg-steel-400 my-3">
           <h4 className="mb-2">Currently Trading As</h4>
           <div className="flex text-steel-100 text-center">
-            <div className="flex-1 text-left">{waterAccount.waterAccount}</div>
+            <div className="flex-1 text-left">{waterAccount.waterAccountId}</div>
             <div className="flex-2">{zones[waterAccount.zoneIndex]}</div>
             <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance)}</div>
           </div>

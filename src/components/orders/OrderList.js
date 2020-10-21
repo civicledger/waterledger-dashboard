@@ -2,10 +2,12 @@ import React from "react";
 import Order from "./Order";
 
 export default props => {
-  const { orders, showType = false, showTimestamp = false } = props;
+  const { orders, showType = false, showTimestamp = false, isLoading = false } = props;
   let firstValid = false;
   let firstValidSent = false;
   const columns = 3 + +showTimestamp + +showType;
+
+  if(isLoading) return <div>loading</div>;
 
   return (
     <table className="w-full order-list">

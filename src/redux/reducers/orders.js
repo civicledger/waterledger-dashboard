@@ -1,13 +1,4 @@
-import {
-  ADD_BUY_ORDER,
-  ADD_SELL_ORDER,
-  SELECT_ORDER_TYPE,
-  SET_ORDER_FORM_VALUES,
-  SET_ACCEPT_FORM_VALUES,
-  RECEIVE_BUY_ORDERS,
-  RECEIVE_SELL_ORDERS,
-  RECEIVE_TRADES,
-} from "../actions/actionConstants";
+import { SELECT_ORDER_TYPE, SET_ORDER_FORM_VALUES, SET_ACCEPT_FORM_VALUES } from "../actions/actionConstants";
 
 import initialState from "./initialState";
 
@@ -37,36 +28,5 @@ export const acceptFormDetails = (state = initialState.acceptFormDetails, action
       return { ...action.payload };
     default:
       return { ...state };
-  }
-};
-
-export const buys = (state = [], action) => {
-  switch (action.type) {
-    case RECEIVE_BUY_ORDERS:
-      return action.payload;
-    case ADD_BUY_ORDER:
-      return [...state, action.payload];
-    default:
-      return state;
-  }
-};
-
-export const trades = (state = [], action) => {
-  switch (action.type) {
-    case RECEIVE_TRADES:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-export const sells = (state = [], action) => {
-  switch (action.type) {
-    case RECEIVE_SELL_ORDERS:
-      return action.payload;
-    case ADD_SELL_ORDER:
-      return [...state, action.payload];
-    default:
-      return state;
   }
 };

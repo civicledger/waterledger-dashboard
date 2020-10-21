@@ -17,12 +17,9 @@ import TopNav from "./app/TopNav";
 import { ReactQueryCacheProvider, QueryCache } from "react-query";
 
 import { fetchEthContext, loadWalletForCurrentLicence } from "../redux/actions/actions";
-import { watchForMatchEvent, watchForNewOrders, watchForDeletion, watchForLicenceCompletion } from "../redux/actions/watchers";
-import { loadCurrentAuth } from "../redux/actions/auth";
-import { fetchLicence } from "../redux/actions/waterLicences";
-import { loadAdminLicences } from "../redux/actions/auth";
+import { watchForLicenceCompletion } from "../redux/actions/watchers";
 
-import { fetchBuyOrders, fetchSellOrders, fetchTrades } from "../redux/actions/orders";
+import { fetchLicence } from "../redux/actions/waterLicences";
 
 export default props => {
   const dispatch = useDispatch();
@@ -32,16 +29,8 @@ export default props => {
     const getData = async () => {
       dispatch(fetchEthContext());
       dispatch(loadWalletForCurrentLicence());
-      dispatch(loadCurrentAuth());
-      dispatch(watchForMatchEvent());
-      dispatch(watchForNewOrders());
       dispatch(fetchLicence());
-      dispatch(loadAdminLicences());
       dispatch(watchForLicenceCompletion());
-      dispatch(watchForDeletion());
-      dispatch(fetchBuyOrders());
-      dispatch(fetchSellOrders());
-      dispatch(fetchTrades());
     };
     getData();
   }, [dispatch]);
