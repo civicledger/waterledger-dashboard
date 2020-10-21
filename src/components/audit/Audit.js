@@ -12,9 +12,11 @@ const zonesService = serviceLoader("Zones");
 
 export default () => {
   const [events, setEvents] = useState([]);
+  const [eventTypes, setEventTypes] = useState([]);
   const [contractTypes, setContractTypes] = useState({});
   const [sortTimeDirection, setSortTimeDirection] = useState("newFirst");
   const [activeEventTypes, setActiveEventTypes] = useState([]);
+  const [allActive, setAllActive] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -44,6 +46,7 @@ export default () => {
       }, []);
 
       setActiveEventTypes(eventTypes);
+      setEventTypes(eventTypes);
       setEvents(events);
     };
     getData();
@@ -62,6 +65,16 @@ export default () => {
     setActiveEventTypes(activeEventTypes.filter(et => et !== type).map(et => et));
   };
 
+  const toggleAllEventsTypes = () => {
+    if (allActive) {
+      setActiveEventTypes([]);
+    } else {
+      setActiveEventTypes(eventTypes);
+    }
+
+    setAllActive(!allActive);
+  };
+
   events.sort((a, b) => {
     if (sortTimeDirection === "newFirst") {
       return b.time - a.time;
@@ -74,7 +87,8 @@ export default () => {
   return (
     <div className="p-10 flex-grow pb-5">
       <PageHeader header="Audit Trail" />
-      <div className="mb-10">
+      <div className="mt-10 mb-10">
+        <EventType eventName={"All Events"} isActive={allActive} toggle={toggleAllEventsTypes} />
         {Object.keys(contractTypes).map((contract, key) => {
           return (
             <ul key={key}>
