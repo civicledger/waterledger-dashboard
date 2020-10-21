@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 
-import { getOrders, getHistory } from '../queries';
+import { getOrders, getHistory } from "../queries";
 import TradesList from "../history/TradesList";
 import OrderList from "../orders/OrderList";
 import AccountBanner from "./accountBanner/AccountBanner";
@@ -17,11 +17,10 @@ import { openOrderForm, deleteOrder } from "../../redux/actions/orders";
 export default props => {
   const dispatch = useDispatch();
 
-  // const trades = useSelector(state => state.trades);
   const ethContext = useSelector(state => state.ethContext);
-  const { data: buyOrders, isLoading:buysLoading } = useQuery(["getOrders", "buy"], getOrders);
-  const { data: sellOrders, isLoading:sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
-  const { data: trades, isLoading:tradesLoading } = useQuery(["getTrades"], getHistory);
+  const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders);
+  const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], getHistory);
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
       <AccountBanner ethContext={ethContext} />
@@ -80,7 +79,7 @@ export default props => {
           </div>
         </div>
       </div>
-      <TradesList trades={trades} isLoading={tradesLoading} limit="10"/>
+      <TradesList trades={trades} isLoading={tradesLoading} limit="10" />
     </div>
   );
 };
