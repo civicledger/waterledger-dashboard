@@ -24,14 +24,14 @@ export default () => {
       const zonesEvents = await zonesService.getPastEvents();
       const events = [...historyEvents, ...obEvents, ...licencesEvents, ...zonesEvents];
 
-      const contractTypes = events.reduce((events, { contract, event }) => {
-        if (!events[contract]) {
-          events[contract] = [];
-          events[contract].push(event);
-        } else if (events[contract] !== event) {
-          events[contract].push(event);
+      const contractTypes = events.reduce((types, { contract, event }) => {
+        if (!types[contract]) {
+          types[contract] = [];
+          types[contract].push(event);
+        } else if (!types[contract].includes(event)) {
+          types[contract].push(event);
         }
-        return events;
+        return types;
       }, {});
       setContractTypes(contractTypes);
 
@@ -79,12 +79,12 @@ export default () => {
           return (
             <ul key={key}>
               <h3 className="text-xl mt-5 mb-2">{contract}</h3>
-              {contractTypes[contract].map((et, key) => {
-                const contractEvent = `${contract}-${et}`;
+              {contractTypes[contract].map((eventType, key) => {
+                const contractEvent = `${contract}-${eventType}`;
                 return (
                   <EventType
                     key={key}
-                    eventName={et}
+                    eventName={eventType}
                     type={contractEvent}
                     isActive={activeEventTypes.includes(contractEvent)}
                     toggle={toggleEventType}
