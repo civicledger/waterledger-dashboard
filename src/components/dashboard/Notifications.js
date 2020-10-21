@@ -41,7 +41,7 @@ const notificationItem = ({ id, type = "info", text }) => {
 const Notifications = ({ notifications }) => {
   if (!notifications.length) return "";
 
-  return <ul className="inline-flex flex-col absolute right-0 mr-5 mt-5 mb-5 items-end notifications">{notifications.map(notificationItem)}</ul>;
+  return <ul className="inline-flex fixed flex-col right-0 mr-5 mt-5 items-end notifications">{notifications.map(notificationItem)}</ul>;
 };
 
 export default Notifications;
