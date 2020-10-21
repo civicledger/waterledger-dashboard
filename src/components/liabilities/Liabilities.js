@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
+import { getLiabilities } from "../queries";
 
 import PageHeader from "../app/PageHeader";
-import LiabilityService from "../../services/LiabilityService";
 import LiabilitiesList from "./LiabilitiesList";
-const liabilitysvc = new LiabilityService();
 
 export default props => {
-  const [liabilities, setLiabilities] = useState([]);
-
-  useEffect(() => {
-    const getData = async () => {
-      setLiabilities(await liabilitysvc.apiGetLiabilities());
-    };
-    getData();
-  }, []);
-
+  const { data: liabilities, isLoading } = useQuery(["getLiabilities"], getLiabilities);
   return (
     <div className="p-5 lg:p-10 flex-grow pb-5">
       <PageHeader header="Liabilities" />
 
-      <LiabilitiesList liabilities={liabilities} />
+      <LiabilitiesList liabilities={liabilities} isLoading={isLoading} />
     </div>
   );
 };

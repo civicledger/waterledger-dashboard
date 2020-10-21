@@ -1,10 +1,4 @@
 import {
-  FETCH_BUY_ORDERS,
-  RECEIVE_BUY_ORDERS,
-  FETCH_SELL_ORDERS,
-  RECEIVE_SELL_ORDERS,
-  FETCH_TRADES,
-  RECEIVE_TRADES,
   MODAL_ORDER_FORM_SET,
   MODAL_ACCEPT_ORDER_SET,
   FETCH_WATER_ACCOUNTS,
@@ -17,18 +11,6 @@ import initialState from "./initialState";
 
 export const loading = (state = initialState.loading, action) => {
   switch (action.type) {
-    case FETCH_BUY_ORDERS:
-      return { ...state, buy: true };
-    case RECEIVE_BUY_ORDERS:
-      return { ...state, buy: false };
-    case FETCH_SELL_ORDERS:
-      return { ...state, sell: true };
-    case RECEIVE_SELL_ORDERS:
-      return { ...state, sell: false };
-    case FETCH_TRADES:
-      return { ...state, trades: true };
-    case RECEIVE_TRADES:
-      return { ...state, trades: false };
     case FETCH_WATER_ACCOUNTS:
       return { ...state, waterLicences: true };
     case RECEIVE_WATER_ACCOUNTS:

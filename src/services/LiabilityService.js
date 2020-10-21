@@ -1,13 +1,8 @@
-import axios from "axios";
+import BaseService from "./BaseService";
 
-require("dotenv").config();
-
-const deployedContractJsonUrl = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
-
-export default class LiabilityService {
-  async apiGetLiabilities() {
-    const accountId = localStorage.getItem("wlLicence");
-    const { data } = await axios.get(`${deployedContractJsonUrl}api/liabilities?accountId=${accountId}`);
+export default class LiabilityService extends BaseService {
+  async getLiabilities() {
+    const { data } = await this.axios.get("liabilities");
     return data.liabilities;
   }
 }

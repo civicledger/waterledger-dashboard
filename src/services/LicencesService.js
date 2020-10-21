@@ -1,40 +1,37 @@
-import axios from "axios";
-
 import BaseService from "./BaseService";
-
-require("dotenv").config();
 
 export default class LicencesService extends BaseService {
   contractName = "Licences";
   deploymentName = "licence";
 
   async apiGetLicenceByWaterAccount(waterAccount) {
-    const params = {waterAccount};
+    const params = { waterAccount };
 
-    try{
-      const { data } = await axios.get('onboarding/licences/', {params});
+    try {
+      const { data } = await this.axios.get("onboarding/licences/", { params });
       return data;
-    }catch(error) {
+    } catch (error) {
       console.log(error);
       return false;
     }
   }
 
   async apiGetLicence(id) {
-    const { data } = await axios.get(`licences/${id}`);
+    const { data } = await this.axios.get(`licences/${id}`);
     return data;
   }
 
   async apiActivateLicence(id, code) {
-    await axios.patch(`onboarding/${id}`, {code});
+    const { data } = await this.axios.patch(`onboarding/${id}`, { code });
+    localStorage.setItem("jwToken", data.token);
+    this.axios.defaults.headers.common.Authorization = `bearer ${data.token}`;
   }
 
   async getWaterAccounts() {
     const waterAccount = localStorage.getItem("wlWaterAccount");
 
-    if (!waterAccount) {
-      return [];
-    }
+    if (!waterAccount) return [];
+
     await this.loadContract("Licences");
 
     const licenceIndex = await this.contract.getLicenceIndexForWaterAccountId(waterAccount);
