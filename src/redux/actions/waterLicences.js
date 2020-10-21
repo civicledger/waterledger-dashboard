@@ -52,7 +52,7 @@ export const claimWaterAccountsForLicence = (licence, code) => {
 
     licence.ethAccount = account.address;
 
-    await licencesService.apiActivateLicence(id, code);
+    await licencesService.apiActivateLicence(id, code, account.address);
     dispatch(setCurrentWaterAccount(licence.accounts[0].waterAccount));
     dispatch(receiveWaterAccounts(licence.accounts));
     dispatch(accountProgressAdded({ text: "Storing Account Details" }));
