@@ -69,7 +69,6 @@ export const submitBuyOrder = (price, quantity) => {
 
 export const acceptOrder = (id, zone) => {
   return dispatch => {
-    console.log(id);
     orderService.acceptOrder(id, zone).then(rawTransaction => {
       web3.eth
         .sendSignedTransaction(rawTransaction)
