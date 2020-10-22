@@ -30,7 +30,7 @@ export const waterAccounts = (state = [], action) => {
       return action.payload;
     case RECEIVE_ZONE_BALANCES:
       return state.map(wa => {
-        wa.balance = action.payload[wa.zoneIndex];
+        wa.balance = action.payload.balances[wa.zoneIndex];
         return wa;
       });
     default:
