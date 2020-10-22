@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
 import { serviceLoader } from "../../services/serviceLoader";
 import WaterAccountsList from "../dashboard/WaterAccountsList";
 import OrderList from "../orders/OrderList";
 import TradesListHeader from "../history/TradesListHeader";
 import TradesList from "../history/TradesList";
+import { getOrders, getHistory } from "../queries";
 
-const historyService = serviceLoader("OrderHistory");
-const orderBookService = serviceLoader("OrderBook");
+const licencesService = serviceLoader("Licences");
 
 export default () => {
   const ethContext = useSelector(state => state.ethContext);
-
-  const [buys, setBuys] = useState([]);
-  const [sells, setSells] = useState([]);
-  const [trades, setTrades] = useState([]);
-
+  const [licence, setLicence] = useState({});
+  const licenceId = localStorage.getItem("wlCurrentLicence");
+  const waterAccount = localStorage.getItem("wlWaterAccount");
   useEffect(() => {
     const getData = async () => {
-      if (!ethContext.address) return;
-      setBuys(await orderBookService.getLicenceBuyOrders(ethContext.address, 100));
-      setSells(await orderBookService.getLicenceSellOrders(ethContext.address, 100));
-      setTrades(await historyService.getLicenceHistory(ethContext.address, 100));
+      if (!waterAccount) return;
+      const { licence } = await licencesService.apiGetLicenceByWaterAccount(waterAccount)
+      setLicence(licence);
+      
     };
     getData();
-  }, [ethContext]);
+  }, [waterAccount]);
+  
+  
+  if (!licence) return "";
+
+  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders);
+  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders);
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licence.ethAddress], getHistory);
+
+  if (buysLoading || sellsLoading || tradesLoading) return "";
 
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
