@@ -1,36 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
-import { serviceLoader } from "../../services/serviceLoader";
 import WaterAccountsList from "../dashboard/WaterAccountsList";
 import OrderList from "../orders/OrderList";
 import TradesListHeader from "../history/TradesListHeader";
 import TradesList from "../history/TradesList";
 import { getOrders, getHistory } from "../queries";
 
-const licencesService = serviceLoader("Licences");
 
 export default () => {
   const ethContext = useSelector(state => state.ethContext);
   const [licence, setLicence] = useState({});
   const licenceId = localStorage.getItem("wlCurrentLicence");
-  const waterAccount = localStorage.getItem("wlWaterAccount");
-  useEffect(() => {
-    const getData = async () => {
-      if (!waterAccount) return;
-      const { licence } = await licencesService.apiGetLicenceByWaterAccount(waterAccount)
-      setLicence(licence);
-      
-    };
-    getData();
-  }, [waterAccount]);
-  
   
   if (!licence) return "";
 
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders);
   const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders);
-  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licence.ethAddress], getHistory);
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], getHistory);
 
   if (buysLoading || sellsLoading || tradesLoading) return "";
 
