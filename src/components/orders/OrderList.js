@@ -7,7 +7,7 @@ export default props => {
   let firstValidSent = false;
   const columns = 3 + +showTimestamp + +showType;
 
-  if(isLoading) return <div>loading</div>;
+  if (orders === undefined && isLoading) return <div>loading</div>;
 
   return (
     <table className="w-full order-list">

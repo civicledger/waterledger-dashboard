@@ -120,7 +120,7 @@ export const submitSellOrder = (price, quantity) => {
   return (dispatch, getState) => {
     const { activeWaterAccount, waterAccounts, ethContext } = getState();
 
-    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccount);
+    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
 
     orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {
       web3.eth
