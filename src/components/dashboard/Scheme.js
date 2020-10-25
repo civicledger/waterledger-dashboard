@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 
+import { getScheme } from "../queries";
+
 import WaterAccountsList from "./WaterAccountsList";
 import { formatAmount, formatEthereumAddress } from "../../utils/format";
 import SchemeImage from "../../images/mdwss-rnd.jpg";
@@ -10,11 +12,16 @@ import { serviceLoader } from "../../services/serviceLoader";
 const orderBookService = serviceLoader("OrderBook");
 
 export default props => {
-
   const waterAccounts = useSelector(state => state.waterAccounts);
-  const { data: scheme, isLoading } = useQuery("getScheme", () => orderBookService.getScheme());
+  let { data: scheme, isLoading } = useQuery("getScheme", getScheme, {
+    cacheTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+  });
 
-  if (isLoading) return "";
+  if (scheme === undefined) scheme = { lastTradePrice: 0, name: "", orderbookDeployment: { address: "" } };
 
   return (
     <div className="flex-auto w-full flex-wrap lg:w-1/4 p-0 lg:p-5 steel-gradient mr-0 lg:mr-2 text-center flex flex-row lg:flex-col scheme-panel">
