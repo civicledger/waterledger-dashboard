@@ -7,17 +7,15 @@ import TradesListHeader from "../history/TradesListHeader";
 import TradesList from "../history/TradesList";
 import { getOrders, getHistory } from "../queries";
 
-
 export default () => {
   const ethContext = useSelector(state => state.ethContext);
-  const [licence, setLicence] = useState({});
-  const licenceId = localStorage.getItem("wlCurrentLicence");
-  
-  if (!licence) return "";
+  const licenceId = useSelector(state => state.activeLicence);
+  console.log(licenceId);
+  if (!licenceId) return "";
 
-  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders);
-  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders);
-  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], getHistory);
+  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders, { keepPreviousData: true });
+  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders, { keepPreviousData: true });
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], getHistory, { keepPreviousData: true });
 
   if (buysLoading || sellsLoading || tradesLoading) return "";
 

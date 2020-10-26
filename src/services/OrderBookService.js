@@ -20,8 +20,11 @@ export default class OrderBookService extends BaseService {
     return this.contract.address;
   }
 
-  async getOrders(type, ownerAddress = null) {
-    const params = { type, ownerAddress };
+  async getOrders(type, licenceId = null) {
+    let params = { type };
+    if (licenceId) {
+      params = { ...params, licenceId };
+    }
     const { data } = await this.axios.get("orders", { params });
     const { orders } = data;
     orders.sort(this.sortCallbacks[type]);
