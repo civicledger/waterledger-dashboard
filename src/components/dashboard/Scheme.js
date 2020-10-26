@@ -8,12 +8,9 @@ import WaterAccountsList from "./WaterAccountsList";
 import { formatAmount, formatEthereumAddress } from "../../utils/format";
 import SchemeImage from "../../images/mdwss-rnd.jpg";
 
-import { serviceLoader } from "../../services/serviceLoader";
-const orderBookService = serviceLoader("OrderBook");
-
 export default props => {
   const waterAccounts = useSelector(state => state.waterAccounts);
-  let { data: scheme, isLoading } = useQuery("getScheme", getScheme, {
+  let { data: scheme } = useQuery("getScheme", getScheme, {
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnMount: false,
