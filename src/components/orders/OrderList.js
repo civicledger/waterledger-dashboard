@@ -3,8 +3,6 @@ import Order from "./Order";
 
 export default props => {
   const { orders, showType = false, showTimestamp = false, isLoading = false } = props;
-  let firstValid = false;
-  let firstValidSent = false;
   const columns = 3 + +showTimestamp + +showType;
 
   if (orders === undefined && isLoading) return <div>loading</div>;
@@ -30,11 +28,7 @@ export default props => {
           </tr>
         )}
         {orders.map((order, index) => {
-          if (!firstValidSent && order.owner !== props.ethContext.address) {
-            firstValidSent = true;
-            firstValid = index;
-          }
-          return <Order order={order} key={index} highlightRow={firstValid === index} {...props} />;
+          return <Order order={order} key={index} highlightRow={true} {...props} />;
         })}
       </tbody>
     </table>

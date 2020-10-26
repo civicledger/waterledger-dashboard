@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import WaterAccountsList from "../dashboard/WaterAccountsList";
@@ -10,7 +10,7 @@ import { getOrders, getHistory } from "../queries";
 export default () => {
   const ethContext = useSelector(state => state.ethContext);
   const licenceId = useSelector(state => state.activeLicence);
-  console.log(licenceId);
+
   if (!licenceId) return "";
 
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders, { keepPreviousData: true });
