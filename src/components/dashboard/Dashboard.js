@@ -18,9 +18,9 @@ export default props => {
   const dispatch = useDispatch();
 
   const ethContext = useSelector(state => state.ethContext);
-  const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders);
-  const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
-  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], getHistory);
+  const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders, { keepPreviousData: true });
+  const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders, { keepPreviousData: true });
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], getHistory, { keepPreviousData: true });
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
       <AccountBanner ethContext={ethContext} />
@@ -40,18 +40,7 @@ export default props => {
 
                   <OrderList orders={buyOrders} ethContext={ethContext} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} />
                   {ethContext.isSignedIn && (
-                    <OrderButton
-                      type="buy"
-                      openOrderForm={() =>
-                        dispatch(
-                          openOrderForm({
-                            type: "buy",
-                            price: "",
-                            quantity: "",
-                          })
-                        )
-                      }
-                    />
+                    <OrderButton type="buy" openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))} />
                   )}
                 </div>
 
@@ -60,18 +49,7 @@ export default props => {
 
                   <OrderList orders={sellOrders} ethContext={ethContext} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} />
                   {ethContext.isSignedIn && (
-                    <OrderButton
-                      type="sell"
-                      openOrderForm={() =>
-                        dispatch(
-                          openOrderForm({
-                            type: "sell",
-                            price: "",
-                            quantity: "",
-                          })
-                        )
-                      }
-                    />
+                    <OrderButton type="sell" openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))} />
                   )}
                 </div>
               </div>

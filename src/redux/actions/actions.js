@@ -2,6 +2,7 @@ import { RECEIVE_ETH_CONTEXT, ADD_NOTIFICATION, REMOVE_NOTIFICATION, MODAL_ACCEP
 
 import { ethProviderStatus, web3 } from "../../utils/ethUtils";
 import { receiveLicence } from "./waterLicences";
+import { setActiveLicence } from "./auth";
 import { serviceLoader } from "../../services/serviceLoader";
 const licencesService = serviceLoader("Licences");
 
@@ -53,6 +54,8 @@ export const loadWalletForCurrentLicence = () => {
       dispatch(elementVisibilityShowAccountBanner(true));
       return;
     }
+
+    dispatch(setActiveLicence(licenceId));
     const status = {};
     const password = localStorage.getItem("walletPassword");
     const wallet = web3.eth.accounts.wallet.load(password, "wl-wallet");

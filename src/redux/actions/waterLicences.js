@@ -7,6 +7,7 @@ import { web3 } from "../../utils/ethUtils";
 import { serviceLoader } from "../../services/serviceLoader";
 
 import { receiveEthContext, addNotification, accountProgressAdded } from "./actions";
+import { setActiveLicence } from "./auth";
 
 const zonesService = serviceLoader("Zones");
 const licencesService = serviceLoader("Licences");
@@ -52,7 +53,7 @@ export const claimWaterAccountsForLicence = (licence, code) => {
 
     licence.ethAccount = account.address;
 
-    await licencesService.apiActivateLicence(id, code);
+    await licencesService.apiActivateLicence(id, code, account.address);
     dispatch(setCurrentWaterAccount(licence.accounts[0].waterAccount));
     dispatch(receiveWaterAccounts(licence.accounts));
     dispatch(accountProgressAdded({ text: "Storing Account Details" }));
@@ -74,6 +75,8 @@ export const claimWaterAccountsForLicence = (licence, code) => {
     localStorage.setItem("wlLicence", licences.accountId);
     localStorage.setItem("wlLicences", JSON.stringify(licences));
     localStorage.setItem("wlCurrentLicence", id);
+    dispatch(setActiveLicence(id));
+
     dispatch(accountProgressAdded({ text: "Updating Water AccountBalances" }));
     dispatch(fetchWaterBalances());
   };

@@ -1,6 +1,7 @@
 import React from "react";
-
 import { formatAmount, formatShortDateObject } from "../../utils/format";
+
+const statuses = ["Cancelled", "Pending", "Paid", "Finalised"];
 
 export default ({ liabilities, isLoading }) => {
   if (isLoading) {
@@ -30,11 +31,11 @@ export default ({ liabilities, isLoading }) => {
       {liabilities.map(liability => {
         return (
           <div className="table-row relative" key={liability.id}>
-            <div className="row-cell table-cell">{liability.from}</div>
-            <div className="row-cell table-cell">{liability.to}</div>
-            <div className="row-cell table-cell">{formatAmount(liability.amount)}</div>
-            <div className="row-cell table-cell">{liability.status}</div>
-            <div className="hidden xl:table-cell row-cell-r text-steel-300">{formatShortDateObject(new Date(liability.timestamp))}</div>
+            <div className="row-cell table-cell">{liability.seller}</div>
+            <div className="row-cell table-cell">{liability.buyer}</div>
+            <div className="row-cell table-cell">{formatAmount(liability.price)}</div>
+            <div className="row-cell table-cell">{statuses[liability.status]}</div>
+            <div className="hidden xl:table-cell row-cell-r text-steel-300">{formatShortDateObject(liability.createdAt)}</div>
           </div>
         );
       })}

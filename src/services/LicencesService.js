@@ -21,8 +21,8 @@ export default class LicencesService extends BaseService {
     return data;
   }
 
-  async apiActivateLicence(id, code) {
-    const { data } = await this.axios.patch(`onboarding/${id}`, { code });
+  async apiActivateLicence(id, code, ethAddress) {
+    const { data } = await this.axios.patch(`onboarding/${id}`, { code, ethAddress });
     localStorage.setItem("jwToken", data.token);
     this.axios.defaults.headers.common.Authorization = `bearer ${data.token}`;
   }

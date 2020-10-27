@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { serviceLoader } from "../../services/serviceLoader";
+import { useQuery } from "react-query";
 import WaterAccountsList from "../dashboard/WaterAccountsList";
 import OrderList from "../orders/OrderList";
 import TradesListHeader from "../history/TradesListHeader";
 import TradesList from "../history/TradesList";
-
-const historyService = serviceLoader("OrderHistory");
-const orderBookService = serviceLoader("OrderBook");
+import { getOrders, getHistory } from "../queries";
 
 export default () => {
   const ethContext = useSelector(state => state.ethContext);
+  const licenceId = useSelector(state => state.activeLicence);
 
-  const [buys, setBuys] = useState([]);
-  const [sells, setSells] = useState([]);
-  const [trades, setTrades] = useState([]);
+  if (!licenceId) return "";
 
-  useEffect(() => {
-    const getData = async () => {
-      if (!ethContext.address) return;
-      setBuys(await orderBookService.getLicenceBuyOrders(ethContext.address, 100));
-      setSells(await orderBookService.getLicenceSellOrders(ethContext.address, 100));
-      setTrades(await historyService.getLicenceHistory(ethContext.address, 100));
-    };
-    getData();
-  }, [ethContext]);
+  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders, { keepPreviousData: true });
+  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders, { keepPreviousData: true });
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], getHistory, { keepPreviousData: true });
+
+  if (buysLoading || sellsLoading || tradesLoading) return "";
 
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
