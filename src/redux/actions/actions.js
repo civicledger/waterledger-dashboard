@@ -42,7 +42,7 @@ export const addNotification = payload => {
     dispatch(createNotification(payload));
     setTimeout(() => {
       dispatch(removeNotification(payload.id));
-    }, 10000);
+    }, 100000000);
   };
 };
 
