@@ -25,7 +25,7 @@ const notificationIcon = type => {
 };
 
 const notificationItem = ({ id, type = "info", text }) => {
-  const classes = classNames("hidden lg:inline-flex mt-3 p-3 shadow bg-steel-700 rounded border", {
+  const classes = classNames("inline-flex mx-5 mt-3 p-3 shadow bg-steel-700 rounded border", {
     "border-green-500": type === "success",
     "border-blue-500": type === "info",
     "border-red-500": type === "error",
@@ -41,7 +41,11 @@ const notificationItem = ({ id, type = "info", text }) => {
 const Notifications = ({ notifications }) => {
   if (!notifications.length) return "";
 
-  return <ul className="inline-flex fixed flex-col right-0 mr-5 mt-5 items-end notifications">{notifications.map(notificationItem)}</ul>;
+  return (
+    <ul className="inline-flex fixed flex-col right-0 sm:mx-5 lg:mr-5 mt-20 md:mt-32 lg:mt-5 items-end notifications">
+      {notifications.map(notificationItem)}
+    </ul>
+  );
 };
 
 export default Notifications;
