@@ -27,7 +27,7 @@ export default ({ order, showType = false, showTimestamp = false, ethContext: { 
     <tr
       className={classNames(classNameObject)}
       onClick={() => {
-        if (!highlightRow || isReadOnly) return;
+        if (!highlightRow || isReadOnly || isOwner) return;
         dispatch(openAcceptOrder({ id, ethId, type, price, quantity }));
       }}
     >
