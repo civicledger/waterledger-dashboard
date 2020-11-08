@@ -1,4 +1,4 @@
-import { RECEIVE_AUTH, RECEIVE_ETH_CONTEXT, RECEIVE_LICENCES, RECEIVE_ADMIN_LICENCES, SET_ACTIVE_LICENCE } from "../actions/actionConstants";
+import { RECEIVE_AUTH, RECEIVE_ETH_CONTEXT } from "../actions/actionConstants";
 
 import { combineReducers } from "redux";
 
@@ -6,7 +6,7 @@ import { defaultEthProviderStatus } from "../../utils/ethUtils";
 
 import { orderFormDetails, acceptFormDetails } from "./orders";
 import { loading, modals, notifications, elementVisibility } from "./uiState";
-import { waterAccounts, activeWaterAccount, licence } from "./waterLicences";
+import { activeWaterAccount, licence } from "./waterLicences";
 import { accountProgress } from "./progress";
 
 export const ethContext = (state = defaultEthProviderStatus, action) => {
@@ -27,33 +27,6 @@ export const auth = (state = false, action) => {
   }
 };
 
-export const licences = (state = [], action) => {
-  switch (action.type) {
-    case RECEIVE_LICENCES:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-export const adminLicences = (state = [], action) => {
-  switch (action.type) {
-    case RECEIVE_ADMIN_LICENCES:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-export const activeLicence = (state = null, action) => {
-  switch (action.type) {
-    case SET_ACTIVE_LICENCE:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
 const rootReducer = combineReducers({
   orderFormDetails,
   acceptFormDetails,
@@ -62,11 +35,8 @@ const rootReducer = combineReducers({
   modals,
   notifications,
   activeWaterAccount,
-  waterAccounts,
-  adminLicences,
   licence,
   auth,
-  activeLicence,
   accountProgress,
   elementVisibility,
 });

@@ -11,15 +11,13 @@ import Modals from "./app/Modals";
 
 import Liabilities from "./liabilities/Liabilities";
 import Licence from "./licence/Licence";
-import Admin from "./admin/Admin";
 import TopNav from "./app/TopNav";
 
-import { ReactQueryCacheProvider, QueryCache } from "react-query";
+import { ReactQueryCacheProvider } from "react-query";
+import { queryCache } from "./queries";
 
 import { fetchEthContext, loadWalletForCurrentLicence } from "../redux/actions/actions";
 import { watchForLicenceCompletion } from "../redux/actions/watchers";
-
-import { fetchLicence } from "../redux/actions/waterLicences";
 
 export default props => {
   const dispatch = useDispatch();
@@ -29,14 +27,13 @@ export default props => {
     const getData = async () => {
       dispatch(fetchEthContext());
       dispatch(loadWalletForCurrentLicence());
-      dispatch(fetchLicence());
       dispatch(watchForLicenceCompletion());
     };
     getData();
   }, [dispatch]);
 
   return (
-    <ReactQueryCacheProvider queryCache={new QueryCache()}>
+    <ReactQueryCacheProvider queryCache={queryCache}>
       <div className="flex min-h-screen bg-steel-900 text-steel-100">
         <Sidebar />
         <Notifications notifications={notifications} />
@@ -45,7 +42,6 @@ export default props => {
           <Switch>
             <Route path="/" exact render={() => <Dashboard />} />
             <Route path="/licence" component={Licence} />
-            <Route path="/admin" component={Admin} />
             <Route path="/history" component={History} />
             <Route path="/liabilities" component={Liabilities} />
             <Route path="/audit" component={Audit} />

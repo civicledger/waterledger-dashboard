@@ -26,7 +26,7 @@ export default () => {
   const [licence, setLicence] = useState(null);
 
   const getLicence = async waterAccount => {
-    const { licence } = await licencesService.apiGetLicenceByWaterAccount(waterAccount);
+    const licence = await licencesService.getLicenceByWaterAccount(waterAccount);
 
     if (!licence) {
       setSearchError("No matching water accounts found. Are you sure this is a valid Water Account ID?");
@@ -45,7 +45,7 @@ export default () => {
     setLicence(licence);
   };
 
-  const claimLicences = (code) => {
+  const claimLicences = code => {
     dispatch(claimWaterAccountsForLicence(licence, code));
     setWaClaimed(true);
     setPosition({ ...positions, waSearch: 1, waFound: 2, progress: 3 });

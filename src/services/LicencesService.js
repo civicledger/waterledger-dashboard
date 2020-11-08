@@ -4,25 +4,29 @@ export default class LicencesService extends BaseService {
   contractName = "Licences";
   deploymentName = "licence";
 
-  async apiGetLicenceByWaterAccount(waterAccount) {
+  async getLicenceByWaterAccount(waterAccount) {
     const params = { waterAccount };
 
     try {
-      const { data } = await this.axios.get("onboarding/licences/", { params });
-      return data;
+      const { data } = await this.axios.get("licences/", { params });
+      return data.licences[0];
     } catch (error) {
       console.log(error);
       return false;
     }
   }
 
-  async apiGetLicence(id) {
+  async getLicence() {
+    const id = localStorage.getItem("wl-licence");
+    if (!id) {
+      return;
+    }
     const { data } = await this.axios.get(`licences/${id}`);
-    return data;
+    return data.licence;
   }
 
   async apiActivateLicence(id, code, ethAddress) {
-    const { data } = await this.axios.patch(`onboarding/${id}`, { code, ethAddress });
+    const { data } = await this.axios.patch(`licences/${id}`, { code, ethAddress });
     localStorage.setItem("jwToken", data.token);
     this.axios.defaults.headers.common.Authorization = `bearer ${data.token}`;
   }
