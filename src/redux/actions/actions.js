@@ -1,10 +1,6 @@
 import { RECEIVE_ETH_CONTEXT, ADD_NOTIFICATION, REMOVE_NOTIFICATION, MODAL_ACCEPT_ORDER_SET, MODAL_ORDER_FORM_SET } from "./actionConstants";
 
 import { ethProviderStatus, web3 } from "../../utils/ethUtils";
-import { receiveLicence } from "./waterLicences";
-import { setActiveLicence } from "./auth";
-import { serviceLoader } from "../../services/serviceLoader";
-const licencesService = serviceLoader("Licences");
 
 export function fetchEthContext() {
   return dispatch => {
@@ -48,33 +44,24 @@ export const addNotification = payload => {
 
 export const loadWalletForCurrentLicence = () => {
   return dispatch => {
-    const licenceId = localStorage.getItem("wlCurrentLicence");
+    const licenceId = localStorage.getItem("wl-licence");
 
     if (!licenceId) {
       dispatch(elementVisibilityShowAccountBanner(true));
       return;
     }
 
-    dispatch(setActiveLicence(licenceId));
     const status = {};
-    const password = localStorage.getItem("walletPassword");
+    const password = localStorage.getItem("wl-walletPassword");
     const wallet = web3.eth.accounts.wallet.load(password, "wl-wallet");
 
-    if (!localStorage.getItem("wlLicence")) {
-      licencesService.apiGetLicence(licenceId).then(({ licence }) => {
-        dispatch(receiveLicence(licence.accountId));
-        localStorage.setItem("wlLicence", licence.accountId);
-      });
-    }
-
-    const index = localStorage.getItem(`${licenceId}-wlAccountIndex`);
-    status.address = wallet[index].address;
+    status.address = wallet[0].address;
     status.walletAccountsAvailable = wallet.length > 0;
     status.isReadOnly = false;
     status.hasLocalStorageWallet = true;
     status.isSignedIn = true;
     status.canSignIn = true;
     dispatch(receiveEthContext(status));
-    web3.eth.defaultAccount = wallet[index].address;
+    web3.eth.defaultAccount = wallet[0].address;
   };
 };

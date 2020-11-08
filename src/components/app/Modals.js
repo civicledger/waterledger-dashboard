@@ -14,11 +14,11 @@ export default () => {
   const dispatch = useDispatch();
   const modals = useSelector(state => state.modals);
 
-  const placeOrder = ({ type, price, quantity }) => {
+  const placeOrder = ({ type, price, quantity, zoneIndex }) => {
     if (type === "sell") {
-      dispatch(submitSellOrder(price, quantity));
+      dispatch(submitSellOrder(price, quantity, zoneIndex));
     } else {
-      dispatch(submitBuyOrder(price, quantity));
+      dispatch(submitBuyOrder(price, quantity, zoneIndex));
     }
     dispatch(setOrderFormModal(false));
   };

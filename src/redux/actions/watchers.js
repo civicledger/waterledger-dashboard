@@ -1,4 +1,3 @@
-import { fetchLicence } from "./waterLicences";
 import { accountProgressCompleted, accountProgressAdded, elementVisibilityShowButtons, elementVisibilityShowAccountBanner } from "./actions";
 
 import { serviceLoader } from "../../services/serviceLoader";
@@ -39,8 +38,6 @@ export const watchForLicenceCompletion = () => {
         .on("data", async event => {
           dispatch(accountProgressAdded({ text: "Licence Creation Completed" }));
           dispatch(accountProgressCompleted());
-          dispatch(fetchLicence());
-
           await new Promise(r => setTimeout(r, 2000));
           dispatch(elementVisibilityShowButtons(true));
           await new Promise(r => setTimeout(r, 7000));

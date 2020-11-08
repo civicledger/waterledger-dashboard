@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 
 import { getScheme } from "../queries";
@@ -9,7 +8,6 @@ import { formatAmount, formatEthereumAddress } from "../../utils/format";
 import SchemeImage from "../../images/mdwss-rnd.jpg";
 
 export default props => {
-  const waterAccounts = useSelector(state => state.waterAccounts);
   let { data: scheme } = useQuery("getScheme", getScheme, {
     cacheTime: Infinity,
     staleTime: Infinity,
@@ -38,9 +36,6 @@ export default props => {
         </div>
       </div>
       <div className="w-full mb-5 lg:mb-0">
-        {waterAccounts.length > 0 && (
-          <h4 className="text-left mt-5 ml-2 font-semibold lg:font-normal lg:ml-0 lg:mt-0 lg:text-center">Your Water Accounts</h4>
-        )}
         <WaterAccountsList />
       </div>
     </div>

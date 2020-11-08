@@ -63,10 +63,11 @@ const ethProviderStatus = async () => {
   status.startBlock = await web3.eth.getBlockNumber();
   status.networkId = await web3.eth.net.getId();
 
-  const licenceId = localStorage.getItem("wlCurrentLicence");
+  const licenceId = localStorage.getItem("wl-licence");
 
   if (licenceId) {
-    const wallet = web3.eth.accounts.wallet.load(licenceId, `${licenceId}_wl-wallet`);
+    const walletPassword = localStorage.getItem("wl-walletPassword");
+    const wallet = web3.eth.accounts.wallet.load(walletPassword, "wl-wallet");
     status.address = wallet[0].address;
     status.ethBalance = Number(await web3.eth.getBalance(status.address));
     status.walletAccountsAvailable = wallet.length > 0;
@@ -78,19 +79,6 @@ const ethProviderStatus = async () => {
   }
   status.statusLoaded = true;
   return status;
-
-  // status.ethBalance = !!accountAddress ? Number(await web3.eth.getBalance(accountAddress)) : 0;
-
-  // if (!web3.eth.defaultAccount) {
-  //   web3.eth.defaultAccount = accountAddress;
-  // }
-
-  // status.hasLocalStorageWallet = Boolean(localStorage.getItem("waterLedgerWallet"));
-  // status.isSignedIn = status.hasLocalStorageWallet && status.walletAccountsAvailable;
-  // status.canSignIn = status.hasLocalStorageWallet && !status.walletAccountsAvailable;
-  // status.isReadOnly = status.canSignIn || !status.hasLocalStorageWallet;
-  // status.statusLoaded = true;
-  // return status;
 };
 
 export {

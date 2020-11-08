@@ -1,7 +1,6 @@
 import { CONFIRM_ORDER, SELECT_ORDER_TYPE, SET_ORDER_FORM_VALUES, SET_ACCEPT_FORM_VALUES } from "./actionConstants";
 
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
-import { fetchZoneBalances } from "./waterLicences";
 
 import { web3 } from "../../utils/ethUtils";
 import { errorMessage } from "../../utils/format";
@@ -30,11 +29,8 @@ export const openAcceptOrder = acceptForm => {
   };
 };
 
-export const submitBuyOrder = (price, quantity) => {
-  return (dispatch, getState) => {
-    const { activeWaterAccount, waterAccounts } = getState();
-    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
-
+export const submitBuyOrder = (price, quantity, zoneIndex) => {
+  return dispatch => {
     orderService.addBuyOrder(price, quantity, zoneIndex).then(rawTransaction => {
       web3.eth
         .sendSignedTransaction(rawTransaction)
@@ -116,12 +112,8 @@ export const deleteOrder = id => {
   };
 };
 
-export const submitSellOrder = (price, quantity) => {
-  return (dispatch, getState) => {
-    const { activeWaterAccount, waterAccounts, ethContext } = getState();
-
-    const { zoneIndex } = waterAccounts.find(l => activeWaterAccount === l.waterAccountId);
-
+export const submitSellOrder = (price, quantity, zoneIndex) => {
+  return dispatch => {
     orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {
       web3.eth
         .sendSignedTransaction(rawTransaction)
@@ -141,8 +133,6 @@ export const submitSellOrder = (price, quantity) => {
                 text: "Your sell order has been confirmed",
               })
             );
-
-            dispatch(fetchZoneBalances(ethContext.address));
           });
         })
         .on("error", error => {

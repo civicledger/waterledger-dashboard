@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
-import { getOrders } from "../queries";
+import { getOrders, getLicence } from "../queries";
 import { acceptOrder } from "../../redux/actions/orders";
 import { setAcceptOrderModal } from "../../redux/actions/actions";
 
@@ -17,13 +17,15 @@ const zones = [
 export default props => {
   const dispatch = useDispatch();
   const acceptFormDetails = useSelector(state => state.acceptFormDetails);
-  let activeWaterAccount = useSelector(state => state.activeWaterAccount);
-  const waterAccounts = useSelector(state => state.waterAccounts);
+  const currentWaterAccount = useSelector(state => state.activeWaterAccount);
 
-  activeWaterAccount = waterAccounts.find(wa => wa.waterAccountId === activeWaterAccount);
-
+  const { data: licence } = useQuery("getLicence", getLicence, { keepPreviousData: true });
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders);
   const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
+
+  if (!licence) return "";
+
+  const activeWaterAccount = licence.accounts.find(wa => wa.waterAccount === currentWaterAccount);
 
   if (buysLoading || sellsLoading) return "";
 

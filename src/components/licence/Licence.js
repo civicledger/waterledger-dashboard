@@ -9,7 +9,7 @@ import { getOrders, getHistory } from "../queries";
 
 export default () => {
   const ethContext = useSelector(state => state.ethContext);
-  const licenceId = useSelector(state => state.activeLicence);
+  const licenceId = useSelector(state => state.licence);
 
   if (!licenceId) return "";
 
