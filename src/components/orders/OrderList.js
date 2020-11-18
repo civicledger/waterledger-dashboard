@@ -12,7 +12,7 @@ export default props => {
       <thead>
         <tr className="text-left bg-steel-700">
           {showType && <th className="p-2 pb-0">Type</th>}
-          <th className="p-2">Price</th>
+          <th className="p-2">Price / ML</th>
           <th className="p-2">Volume</th>
           <th className="p-2">Zone</th>
           {showTimestamp && <th className="p-2">Mined</th>}

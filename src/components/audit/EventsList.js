@@ -25,7 +25,7 @@ export default ({ events, sortTimeDirection, changeTimeSort }) => {
             <th className="p-3 text-left cursor-pointer relative w-1/6" onClick={() => changeTimeSort()}>
               Time <i className={timeIconClass}></i>
             </th>
-            <th className=" w-1/12"></th>
+            <th className=" w-1/12">Verify</th>
           </tr>
         </thead>
         <tbody>
