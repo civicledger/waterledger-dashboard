@@ -70,12 +70,12 @@ export default props => {
 
             <div className="flex mt-1">
               <div className="w-1/4">Your Zone</div>
-              <div className="w-3/4">{zones[activeWaterAccount.zoneIndex]}</div>
+              <div className="w-3/4">{activeWaterAccount.zone.longName}</div>
             </div>
 
             <div className="flex mt-1">
               <div className="w-1/4">Interzone</div>
-              <div className="w-3/4">{zones[activeWaterAccount.zoneIndex] === order.zoneNameLong ? "No" : "Yes"}</div>
+              <div className="w-3/4">{activeWaterAccount.zone.longName === order.zoneNameLong ? "No" : "Yes"}</div>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default props => {
           <button
             className="bg-sorange text-steel-100 p-2 px-3 rounded-sm"
             onClick={() => {
-              dispatch(acceptOrder(acceptFormDetails.ethId, activeWaterAccount.zoneIndex));
+              dispatch(acceptOrder(acceptFormDetails.ethId, activeWaterAccount.zone.zoneIndex));
               dispatch(setAcceptOrderModal(false));
             }}
           >

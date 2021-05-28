@@ -5,7 +5,7 @@ export const licence = (state = localStorage.getItem("wl-licence") || null, acti
     case RECEIVE_LICENCE:
       return action.value;
     default:
-      return { ...state };
+      return state;
   }
 };
 

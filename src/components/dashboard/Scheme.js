@@ -9,10 +9,6 @@ import SchemeImage from "../../images/mdwss-rnd.jpg";
 
 export default props => {
   let { data: scheme } = useQuery("getScheme", getScheme, {
-    cacheTime: Infinity,
-    staleTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
 
@@ -26,7 +22,7 @@ export default props => {
 
       <div className="w-2/3 lg:w-full lg:flex-grow lg:mt-5">
         <div className="my-4 text-lg lg:text-xl scheme-name mt-0">{scheme.name}</div>
-        Last Traded Price
+        Last Traded Price / ML
         <div className="txt-xl lg:text-4xl">{formatAmount(scheme.lastTradedPrice ?? 0)}</div>
         <div className="mb-3 text-xs text-steel-300 hidden lg:block">
           <span className="inline-block py-1 px-2 border rounded border-steel-300">

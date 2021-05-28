@@ -18,9 +18,9 @@ export default class LicencesService extends BaseService {
 
   async getLicence() {
     const id = localStorage.getItem("wl-licence");
-    if (!id) {
-      return;
-    }
+
+    if (!id) return;
+
     const { data } = await this.axios.get(`licences/${id}`);
     return data.licence;
   }
