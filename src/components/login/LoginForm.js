@@ -7,8 +7,8 @@ import * as Yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import { ACTIONS, LoginContext } from "../../redux/reducers/login";
 
-import UserService from "../../services/UserService";
-const userService = new UserService();
+import UsersService from "../../services/UsersService";
+const usersService = new UsersService();
 
 const LoginForm = () => {
   const { dispatch } = useContext(LoginContext);
@@ -30,11 +30,11 @@ const LoginForm = () => {
         validationSchema={validate}
         onSubmit={({ email, password }, actions) => {
           actions.setSubmitting(true);
-          userService
-            .logIn(email, password)
+          usersService
+            .login(email, password)
             .then(response => {
               dispatch({ type: ACTIONS.SET_USER, payload: { ...response.data, loggedIn: true } });
-              userService.saveUser(response.data);
+              usersService.saveUser(response.data);
               history.push("/");
             })
             .catch(({ response }) => {
