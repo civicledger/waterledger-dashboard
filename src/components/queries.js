@@ -21,7 +21,6 @@ export const getScheme = async () => {
 };
 
 export const getLicence = async () => {
-  console.log("Getting Licence");
   return await licenceService.getLicence();
 };
 
