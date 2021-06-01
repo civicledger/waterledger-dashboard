@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Switch } from "react-router-dom";
@@ -8,6 +8,7 @@ import History from "./history/History";
 import Notifications from "./dashboard/Notifications";
 import Audit from "./audit/Audit";
 import Modals from "./app/Modals";
+import LoginModal from "./app/LoginModal";
 
 import Liabilities from "./liabilities/Liabilities";
 import Licence from "./licence/Licence";
@@ -22,6 +23,7 @@ import { watchForLicenceCompletion } from "../redux/actions/watchers";
 export default props => {
   const dispatch = useDispatch();
   const notifications = useSelector(state => state.notifications);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -35,7 +37,7 @@ export default props => {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
       <div className="flex min-h-screen bg-steel-900 text-steel-100">
-        <Sidebar />
+        <Sidebar open={open} setOpen={setOpen} />
         <Notifications notifications={notifications} />
         <div className="flex-grow flex flex-col" id="body">
           <TopNav />
