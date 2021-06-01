@@ -1,16 +1,16 @@
 import React from "react";
+
 import { useContext, useState } from "react";
 import { Formik, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 
 import { Link, useHistory } from "react-router-dom";
 import { ACTIONS, LoginContext } from "../../redux/reducers/login";
-import RouteTransition from "./RouteTransition";
 
 import UserService from "../../services/UserService";
 const userService = new UserService();
 
-const Login = () => {
+const LoginForm = () => {
   const { dispatch } = useContext(LoginContext);
   const history = useHistory();
   const [formErrors, setFormErrors] = useState([]);
@@ -21,9 +21,7 @@ const Login = () => {
   });
 
   return (
-    <RouteTransition>
-      <h2 className="text-2xl font-semibold mb-5">Log In</h2>
-
+    <div className="p-5 lg:p-10 flex-grow pb-5">
       <Formik
         initialValues={{
           email: "",
@@ -135,8 +133,8 @@ const Login = () => {
           </Form>
         )}
       </Formik>
-    </RouteTransition>
+    </div>
   );
 };
 
-export default Login;
+export default LoginForm;

@@ -7,8 +7,8 @@ import Dashboard from "./dashboard/Dashboard";
 import History from "./history/History";
 import Notifications from "./dashboard/Notifications";
 import Audit from "./audit/Audit";
+import Login from "./login/Login";
 import Modals from "./app/Modals";
-import LoginModal from "./app/LoginModal";
 
 import Liabilities from "./liabilities/Liabilities";
 import Licence from "./licence/Licence";
@@ -47,6 +47,7 @@ export default props => {
             <Route path="/history" component={History} />
             <Route path="/liabilities" component={Liabilities} />
             <Route path="/audit" component={Audit} />
+            <Route path="/login" component={Login} />
             <Route path="/:address" render={props => <Dashboard address={props.match.params.address} />} />
           </Switch>
         </div>
