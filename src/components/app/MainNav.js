@@ -1,9 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-const MainNav = ({ ethContext, auth }) => (
+import LoginModal from "./LoginModal";
+
+const MainNav = ({ ethContext, auth, open, setOpen }) => (
   <ul className="list-reset text-center">
+    <LoginModal open={open} setOpen={setOpen} />
     <li>
       <NavLink to="/" exact className="main-nav">
         <i className="fal fa-chart-pie fa-fw menu-icon"></i>
@@ -39,6 +42,12 @@ const MainNav = ({ ethContext, auth }) => (
         <i className="fal fa-history fa-fw menu-icon"></i>
         <div className="text-xs">AUDIT</div>
       </NavLink>
+    </li>
+    <li>
+      <button to="./" className="outline-none pl-0 text-centre text-steel-100 pb-0" onClick={() => setOpen(true)}>
+        <i className="fal fa-2x fa-sign-in menu-icon"></i>
+        <div className="text-xs">LOGIN</div>
+      </button>
     </li>
     {auth && (
       <Fragment>
