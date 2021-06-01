@@ -1,27 +1,26 @@
-import React from "react";
-
-import { useContext, useState } from "react";
-import { Formik, ErrorMessage, Form } from "formik";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 
-import { Link, useHistory } from "react-router-dom";
-import { ACTIONS, LoginContext } from "../../redux/reducers/login";
+import { serviceLoader } from "../../services/serviceLoader";
+// import FormSuccess from "../common/form/FormSuccess";
+// import FormError from "../common/form/FormError";
 
-import UsersService from "../../services/UsersService";
-const usersService = new UsersService();
+const usersService = serviceLoader("Users");
 
 const LoginForm = () => {
-  const { dispatch } = useContext(LoginContext);
-  const history = useHistory();
-  const [formErrors, setFormErrors] = useState([]);
-
   const validate = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
 
+  const [success, setSuccess] = useState(null);
+  const [formErrors, setFormErrors] = useState([]);
+  const history = useHistory();
+
   return (
-    <div className="p-5 lg:p-10 flex-grow pb-5">
+    <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-800 lg:p-5">
       <Formik
         initialValues={{
           email: "",
@@ -32,22 +31,27 @@ const LoginForm = () => {
           actions.setSubmitting(true);
           usersService
             .login(email, password)
-            .then(response => {
-              dispatch({ type: ACTIONS.SET_USER, payload: { ...response.data, loggedIn: true } });
-              usersService.saveUser(response.data);
-              history.push("/");
+            .then(() => {
+              setSuccess(true);
+              actions.resetForm();
+              setTimeout(() => {
+                history.push("/");
+              }, 3000);
             })
             .catch(({ response }) => {
-              const errors = response.data.errors.map(error => error.message);
-              setFormErrors(errors);
+              if (response.data.errors) {
+                setFormErrors(response.data.errors.map(({ message }) => message));
+              }
             })
             .finally(() => {
               actions.setSubmitting(false);
             });
         }}
       >
-        {props => (
+        {({ values }) => (
           <Form>
+            {/* <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to log in - errors occurred" /> */}
+            {/* <FormSuccess show={success}>Log in success! Sending you to your dashboard.</FormSuccess> */}
             <div className="mb-10">
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="mt-5 md:mt-0 md:col-span-3">
@@ -68,18 +72,7 @@ const LoginForm = () => {
                           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                             Email
                           </label>
-                          <div className="mt-1 flex rounded-md shadow-sm text-gray-900">
-                            <input
-                              onChange={props.handleChange}
-                              onBlur={props.handleBlur}
-                              value={props.email}
-                              type="text"
-                              name="email"
-                              id="email"
-                              className="p-2 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                              placeholder=""
-                            />
-                          </div>
+                          <Field type="email" name="email" className="input text-steel-900 rounded" />
                           <ErrorMessage component="p" className="sm:text-xs text-red-600 pt-2" name="email" />
                         </div>
                       </div>
@@ -89,18 +82,7 @@ const LoginForm = () => {
                           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                             Password
                           </label>
-                          <div className="mt-1 flex rounded-md shadow-sm text-gray-900">
-                            <input
-                              onChange={props.handleChange}
-                              onBlur={props.handleBlur}
-                              value={props.password}
-                              type="password"
-                              name="password"
-                              id="password"
-                              className="p-2 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                              placeholder=""
-                            />
-                          </div>
+                          <Field type="password" name="password" className="input text-steel-900 rounded mb-5" />
                           <ErrorMessage component="p" className="sm:text-xs text-red-600 pt-2" name="password" />
                         </div>
                       </div>

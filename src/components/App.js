@@ -42,7 +42,7 @@ export default props => {
         <div className="flex-grow flex flex-col" id="body">
           <TopNav />
           <Switch>
-            <Route path="/" exact render={() => <Dashboard />} />
+            <Route path="/" exact component={Dashboard} />
             <Route path="/licence" component={Licence} />
             <Route path="/history" component={History} />
             <Route path="/liabilities" component={Liabilities} />
