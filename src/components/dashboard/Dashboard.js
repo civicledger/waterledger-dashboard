@@ -6,7 +6,6 @@ import { getOrders, getHistory } from "../queries";
 import TradesList from "../history/TradesList";
 import OrderList from "../orders/OrderList";
 import AccountBanner from "./accountBanner/AccountBanner";
-import LoginModal from "../app/LoginModal";
 import Scheme from "./Scheme";
 
 import Graph from "./Graph";
@@ -17,6 +16,7 @@ import { openOrderForm, deleteOrder } from "../../redux/actions/orders";
 
 export default props => {
   const dispatch = useDispatch();
+
   const ethContext = useSelector(state => state.ethContext);
   const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders, { keepPreviousData: true });
   const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders, { keepPreviousData: true });

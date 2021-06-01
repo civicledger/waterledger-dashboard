@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 
 export default () => {
-  const [open, setOpen] = useState(false);
   return (
     <div className="hidden lg:flex lg:w-40 bg-steel-800 open" id="menu">
       <div className="flex flex-col w-full">
@@ -13,7 +12,7 @@ export default () => {
         </a>
 
         <div className="flex-shrink">
-          <MainNav open={open} setOpen={setOpen} />
+          <MainNav />
         </div>
 
         <div className="flex-1 p-5"></div>
