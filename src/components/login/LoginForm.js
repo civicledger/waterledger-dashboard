@@ -20,7 +20,7 @@ const LoginForm = () => {
   const history = useHistory();
 
   return (
-    <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-800 lg:p-5">
+    <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-900 lg:p-5">
       <Formik
         initialValues={{
           email: "",
@@ -51,11 +51,11 @@ const LoginForm = () => {
       >
         {() => {
           return (
-            <Form>
+            <Form className="mt-10">
               {/* <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to log in - errors occurred" /> */}
               {/* <FormSuccess show={success}>Log in success! Sending you to your dashboard.</FormSuccess> */}
-              <div className="grid grid-cols-1 gap-5">
-                <div className="col-span-1 p-5 bg-steel-500 rounded">
+              <div className="grid grid-cols-4 gap-5">
+                <div className="col-start-2 col-span-2 p-5 bg-steel-500 rounded">
                   <label htmlFor="email" className="text-steel-300 my-2 font-semibold">
                     Email
                   </label>
@@ -67,7 +67,7 @@ const LoginForm = () => {
                   <Field type="password" name="password" autoComplete="signup-password" className="input text-steel-900 rounded mb-5" />
                   <ErrorMessage component="p" className="mb-3" name="password" />
 
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 flex items-center">
+                  <div className="py-3 bg-gray-50 text-right sm:px-1 flex items-center">
                     <div className="flex-shrink flex">
                       <div className="flex-shrink justify-center py-2 pr-2 text-sm text-indigo-400">Not a member?</div>
                       <Link
