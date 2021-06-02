@@ -4,8 +4,8 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 
 import { serviceLoader } from "../../services/serviceLoader";
-// import FormSuccess from "../common/form/FormSuccess";
-// import FormError from "../common/form/FormError";
+import FormSuccess from "../common/form/FormSuccess";
+import FormError from "../common/form/FormError";
 
 const authService = serviceLoader("Auth");
 
@@ -28,6 +28,7 @@ const LoginForm = () => {
         }}
         validationSchema={validate}
         onSubmit={({ email, password }, actions) => {
+          setFormErrors([]);
           actions.setSubmitting(true);
           authService
             .authorise(email, password)
@@ -52,8 +53,8 @@ const LoginForm = () => {
         {() => {
           return (
             <Form className="mt-10">
-              {/* <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to log in - errors occurred" /> */}
-              {/* <FormSuccess show={success}>Log in success! Sending you to your dashboard.</FormSuccess> */}
+              <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to log in - errors occurred" />
+              <FormSuccess show={success}>Log in success! Sending you to your dashboard.</FormSuccess>
               <div className="grid grid-cols-4 gap-5">
                 <div className="col-start-2 col-span-2 p-5 bg-steel-500 rounded">
                   <label htmlFor="email" className="text-steel-300 my-2 font-semibold">
