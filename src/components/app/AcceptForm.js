@@ -6,14 +6,6 @@ import { getOrders, getLicence } from "../queries";
 import { acceptOrder } from "../../redux/actions/orders";
 import { setAcceptOrderModal } from "../../redux/actions/actions";
 
-const zones = [
-  "Barron A - Barron Catchment",
-  "Barron B - Tinaroo Dam",
-  "Barron C - Lake Tinaroo Ponded Area",
-  "Barron D - Lake Tinaroo Ponded Area",
-  "Barron E - Walsh & Mitchell Catchments",
-];
-
 export default props => {
   const dispatch = useDispatch();
   const acceptFormDetails = useSelector(state => state.acceptFormDetails);
