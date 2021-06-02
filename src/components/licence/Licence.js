@@ -12,7 +12,6 @@ export default () => {
   const licenceId = useSelector(state => state.licence);
 
   if (!licenceId) return "";
-  console.log(licenceId);
 
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders, { keepPreviousData: true });
   const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders, { keepPreviousData: true });

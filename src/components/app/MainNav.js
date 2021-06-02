@@ -28,6 +28,17 @@ const MainNav = ({ ethContext, auth }) => (
       </Fragment>
     )}
 
+    {!ethContext.address && (
+      <>
+        <li>
+          <NavLink to="/signup" className="main-nav pb-0">
+            <i className="fal fa-user-plus fa-fw menu-icon"></i>
+            <div className="text-xs">SIGNUP</div>
+          </NavLink>
+        </li>
+      </>
+    )}
+
     <li>
       <NavLink to="/history" className="main-nav text-steel-100 pb-0">
         <i className="fal fa-clipboard-list fa-fw menu-icon"></i>
@@ -48,16 +59,6 @@ const MainNav = ({ ethContext, auth }) => (
         </NavLink>
       </li>
     )}
-    {auth && (
-      <Fragment>
-        <li>
-          <NavLink to="/admin" className="main-nav pb-0">
-            <i className="fal fa-users fa-fw menu-icon"></i>
-          </NavLink>
-        </li>
-      </Fragment>
-    )}
-
     {ethContext.address && (
       <Fragment>
         <li>
