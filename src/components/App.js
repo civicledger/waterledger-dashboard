@@ -23,7 +23,6 @@ import { watchForLicenceCompletion } from "../redux/actions/watchers";
 export default props => {
   const dispatch = useDispatch();
   const notifications = useSelector(state => state.notifications);
-  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -37,7 +36,7 @@ export default props => {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
       <div className="flex min-h-screen bg-steel-900 text-steel-100">
-        <Sidebar open={open} setOpen={setOpen} />
+        <Sidebar />
         <Notifications notifications={notifications} />
         <div className="flex-grow flex flex-col" id="body">
           <TopNav />

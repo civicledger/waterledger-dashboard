@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-const MainNav = ({ ethContext, auth, open, setOpen }) => (
+const MainNav = ({ ethContext, auth }) => (
   <ul className="list-reset text-center">
     <li>
       <NavLink to="/" exact className="main-nav">
