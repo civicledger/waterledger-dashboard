@@ -4,9 +4,8 @@ import OrderHistoryService from "./OrderHistoryService";
 import LicencesService from "./LicencesService";
 import AuthService from "./AuthService";
 import LiabilityService from "./LiabilityService";
-import UsersService from "./UsersService";
 
-const services = { OrderBookService, ZonesService, OrderHistoryService, LicencesService, AuthService, LiabilityService, UsersService };
+const services = { OrderBookService, ZonesService, OrderHistoryService, LicencesService, AuthService, LiabilityService };
 
 let singletons = {};
 

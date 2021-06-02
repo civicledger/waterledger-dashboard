@@ -7,7 +7,7 @@ import { serviceLoader } from "../../services/serviceLoader";
 // import FormSuccess from "../common/form/FormSuccess";
 // import FormError from "../common/form/FormError";
 
-const usersService = serviceLoader("Users");
+const authService = serviceLoader("Auth");
 
 const LoginForm = () => {
   const validate = Yup.object({
@@ -29,9 +29,10 @@ const LoginForm = () => {
         validationSchema={validate}
         onSubmit={({ email, password }, actions) => {
           actions.setSubmitting(true);
-          usersService
-            .login(email, password)
-            .then(() => {
+          authService
+            .authorise(email, password)
+            .then(({ token }) => {
+              authService.setToken(token);
               setSuccess(true);
               actions.resetForm();
               setTimeout(() => {
@@ -48,7 +49,7 @@ const LoginForm = () => {
             });
         }}
       >
-        {({ values }) => {
+        {() => {
           return (
             <Form>
               {/* <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to log in - errors occurred" /> */}
