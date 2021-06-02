@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Switch } from "react-router-dom";
@@ -49,7 +49,6 @@ export default props => {
             <Route path="/audit" component={Audit} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
-            <Route path="/:address" render={props => <Dashboard address={props.match.params.address} />} />
           </Switch>
         </div>
         <Modals />
