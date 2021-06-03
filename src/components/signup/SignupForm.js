@@ -5,15 +5,13 @@ import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
-import UserService from "../../services/UserService";
+import { userService } from "../../services/UserService";
 
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
 
 import { getScheme } from "../queries";
-
-const userService = new UserService();
 
 const SignupForm = () => {
   const validate = Yup.object({
