@@ -62,7 +62,7 @@ const SignupForm = () => {
           user.licence = { licence, schemeId: scheme.id, accounts };
 
           userService
-            .signup({ ...user })
+            .signup(user)
             .then(() => {
               setSuccess(true);
               actions.resetForm();
