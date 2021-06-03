@@ -21,9 +21,9 @@ export default props => {
     login: { loggedIn },
   } = useContext(UserContext);
 
-  const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders, { keepPreviousData: true });
-  const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders, { keepPreviousData: true });
-  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], getHistory, { keepPreviousData: true });
+  const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], () => getOrders("buy", null), { keepPreviousData: true });
+  const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], () => getOrders("sell", null), { keepPreviousData: true });
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], () => getHistory(null), { keepPreviousData: true });
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
       <AccountBanner />

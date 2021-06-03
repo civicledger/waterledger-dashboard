@@ -1,6 +1,6 @@
 import { QueryCache } from "react-query";
 
-// import { orderService } from "../services/OrderService";
+import { orderService } from "../services/OrderService";
 import { schemeService } from "../services/SchemeService";
 import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
@@ -8,13 +8,13 @@ import { licenceService } from "../services/LicenceService";
 
 export const queryCache = new QueryCache();
 
-export const getOrders = async (key, type, licenceId = false) => {
-  return [];
-  // return await orderService.getOrders(type, licenceId);
+export const getOrders = async (type, licenceId = false) => {
+  const { data } = await orderService.getAll({ type, licenceId });
+  return data.orders;
 };
 
-export const getHistory = async (key, scheme, licenceId = false) => {
-  const { data } = await historyService.getAll();
+export const getHistory = async (licenceId = false) => {
+  const { data } = await historyService.getAll({ licenceId });
   return data.trades;
 };
 
@@ -24,7 +24,6 @@ export const getScheme = async () => {
 };
 
 export const getLicence = async id => {
-  console.trace();
   const { data } = await licenceService.getOne(id);
   return data.licence;
 };

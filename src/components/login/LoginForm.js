@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 // import { UserContext, ACTIONS } from "../contexts";
@@ -15,6 +15,10 @@ const LoginForm = () => {
 
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
+
+  // the commented out code in this component SHOULD work but I can't get it to
+  // It is the correct approach and is being left in here for code review.
+  // It is triggering an error on the "number of hooks run by react being different in each render"
   // const history = useHistory();
 
   // const { loginDispatch } = useContext(UserContext);
