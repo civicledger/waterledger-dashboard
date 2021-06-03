@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
+
 import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
 import { getOrders, getLicence } from "../queries";
+import { UserContext } from "../contexts";
 import { acceptOrder } from "../../redux/actions/orders";
 import { setAcceptOrderModal } from "../../redux/actions/actions";
 
 export default props => {
   const dispatch = useDispatch();
   const acceptFormDetails = useSelector(state => state.acceptFormDetails);
-  const currentWaterAccount = useSelector(state => state.activeWaterAccount);
+  const {
+    login: { activeWaterAccount, licenceId },
+  } = useContext(UserContext);
 
-  const { data: licence } = useQuery("getLicence", getLicence, { keepPreviousData: true });
+  if (!activeWaterAccount) return "";
+  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders);
   const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
 
   if (!licence) return "";
-
-  const activeWaterAccount = licence.accounts.find(wa => wa.waterAccount === currentWaterAccount);
 
   if (buysLoading || sellsLoading) return "";
 

@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
 import { useQuery } from "react-query";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { getLicence } from "../queries";
+import { UserContext, ACTIONS } from "../contexts";
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 import { formatKilolitres } from "../../utils/format";
 
 export default () => {
   const dispatch = useDispatch();
-  const activeWaterAccount = useSelector(state => state.activeWaterAccount);
-  const { data: licence } = useQuery("getLicence", getLicence, { keepPreviousData: true });
 
-  if (!activeWaterAccount) return "";
+  const { login, loginDispatch } = useContext(UserContext);
+  if (!login.licenceId) return "";
+
+  const { data: licence } = useQuery(["getLicence", login.licenceId], () => getLicence(login.licenceId), { keepPreviousData: true });
 
   if (!licence) {
     return (
@@ -37,10 +39,13 @@ export default () => {
               key={index}
               className={classNames(
                 "table-row row-cell text-steel-100 hover:text-steel-200 cursor-pointer flex ",
-                { "bg-steel-700": activeWaterAccount === wa.waterAccount },
-                { "": activeWaterAccount !== wa.waterAccount }
+                { "bg-steel-700": login.activeWaterAccount === wa.id },
+                { "": login.activeWaterAccount !== wa.id }
               )}
-              onClick={() => dispatch(setCurrentWaterAccount(wa.waterAccount))}
+              onClick={() => {
+                loginDispatch({ type: ACTIONS.SET_ACTIVE_WATER_ACCOUNT, payload: wa.id });
+                dispatch(setCurrentWaterAccount(wa.waterAccount));
+              }}
             >
               <span className="table-cell text-left p-2">{wa.waterAccount}</span>
               <span className="table-cell text-left p-2">{wa.zone.shortName}</span>

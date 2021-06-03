@@ -1,18 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import WaterAccountsList from "../dashboard/WaterAccountsList";
 import OrderList from "../orders/OrderList";
 import TradesListHeader from "../history/TradesListHeader";
 import TradesList from "../history/TradesList";
 import { getOrders, getHistory } from "../queries";
+import { UserContext } from "../contexts";
 
 export default () => {
-  const ethContext = useSelector(state => state.ethContext);
-  const licenceId = useSelector(state => state.licence);
-
-  if (!licenceId) return "";
-
+  const {
+    login: { licenceId },
+  } = useContext(UserContext);
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders, { keepPreviousData: true });
   const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders, { keepPreviousData: true });
   const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], getHistory, { keepPreviousData: true });
@@ -42,13 +40,13 @@ export default () => {
               <div className="flex items-baseline">
                 <h2 className="flex-grow inline-block text-steel-300 text-xl mb-3 font-semibold">Bids</h2>
               </div>
-              <OrderList orders={buys} ethContext={ethContext} type="buy" />
+              <OrderList orders={buys} type="buy" />
             </div>
 
             <div className="flex-1 mt-3 xl:ml-1 xl:mt-0">
               <div className="flex flex-col items-baseline">
                 <h2 className="flex-grow inline-block text-steel-300 text-xl mb-3 font-semibold">Offers</h2>
-                <OrderList orders={sells} ethContext={ethContext} type="sell" />
+                <OrderList orders={sells} type="sell" />
               </div>
             </div>
           </div>

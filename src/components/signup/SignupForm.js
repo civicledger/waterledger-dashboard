@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
-import { serviceLoader } from "../../services/serviceLoader";
+import UserService from "../../services/UserService";
 
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
@@ -13,7 +13,7 @@ import AccountRow from "./AccountRow";
 
 import { getScheme } from "../queries";
 
-const usersService = serviceLoader("Users");
+const userService = new UserService();
 
 const SignupForm = () => {
   const validate = Yup.object({
@@ -61,8 +61,8 @@ const SignupForm = () => {
           accounts.pop();
           user.licence = { licence, schemeId: scheme.id, accounts };
 
-          usersService
-            .createUser(user)
+          userService
+            .signup({ ...user })
             .then(() => {
               setSuccess(true);
               actions.resetForm();

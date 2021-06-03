@@ -5,9 +5,7 @@ import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actio
 import { web3 } from "../../utils/ethUtils";
 import { errorMessage } from "../../utils/format";
 
-import { serviceLoader } from "../../services/serviceLoader";
-
-const orderService = serviceLoader("OrderBook");
+import { orderService } from "../../services/OrderService";
 
 export const confirmOrder = id => ({ type: CONFIRM_ORDER, id });
 export const selectOrderType = type => ({ type: SELECT_ORDER_TYPE, selected: type });
@@ -29,37 +27,27 @@ export const openAcceptOrder = acceptForm => {
   };
 };
 
-export const submitBuyOrder = (price, quantity, zoneIndex) => {
+export const submitOrder = order => {
   return dispatch => {
-    orderService.addBuyOrder(price, quantity, zoneIndex).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(
-            addNotification({
-              id: `added-${hash}`,
-              text: "Your buy order is being added",
-            })
-          );
-          orderService.awaitConfirmationForHash(hash).then(receipt => {
-            dispatch(
-              addNotification({
-                id: `confirmed-${hash}`,
-                type: "success",
-                text: "Your buy order has been confirmed",
-              })
-            );
-          });
-        })
-        .on("error", function (error) {
-          dispatch(
-            addNotification({
-              type: "error",
-              text: errorMessage(error),
-            })
-          );
-        });
-    });
+    orderService
+      .create(order)
+      .then(response => {
+        dispatch(
+          addNotification({
+            id: `confirmed-${response.id}`,
+            type: "success",
+            text: `Your ${order.type} order has been confirmed`,
+          })
+        );
+      })
+      .error("error", function (error) {
+        dispatch(
+          addNotification({
+            type: "error",
+            text: errorMessage(error),
+          })
+        );
+      });
   };
 };
 
@@ -101,41 +89,6 @@ export const deleteOrder = id => {
           });
         })
         .on("error", function (error) {
-          dispatch(
-            addNotification({
-              type: "error",
-              text: errorMessage(error),
-            })
-          );
-        });
-    });
-  };
-};
-
-export const submitSellOrder = (price, quantity, zoneIndex) => {
-  return dispatch => {
-    orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(
-            addNotification({
-              id: `added-${hash}`,
-              text: "Your sell order is being added",
-            })
-          );
-
-          orderService.awaitConfirmationForHash(hash).then(receipt => {
-            dispatch(
-              addNotification({
-                id: `confirmed-${hash}`,
-                type: "success",
-                text: "Your sell order has been confirmed",
-              })
-            );
-          });
-        })
-        .on("error", error => {
           dispatch(
             addNotification({
               type: "error",

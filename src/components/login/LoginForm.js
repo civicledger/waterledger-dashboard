@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
-
-import { serviceLoader } from "../../services/serviceLoader";
+// import { UserContext, ACTIONS } from "../contexts";
+import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
-
-const authService = serviceLoader("Auth");
 
 const LoginForm = () => {
   const validate = Yup.object({
@@ -17,7 +15,9 @@ const LoginForm = () => {
 
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
-  const history = useHistory();
+  // const history = useHistory();
+
+  // const { loginDispatch } = useContext(UserContext);
 
   return (
     <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-900 lg:p-5">
@@ -30,20 +30,33 @@ const LoginForm = () => {
         onSubmit={({ email, password }, actions) => {
           setFormErrors([]);
           actions.setSubmitting(true);
-          authService
-            .authorise(email, password)
-            .then(({ token }) => {
-              authService.setToken(token);
+          userService
+            .login(email, password)
+            .then(({ data }) => {
+              const { user, token } = data;
+              const licences = user.licences;
+              delete user.licences;
+
+              const userData = {
+                user,
+                token,
+                licenceId: licences[0].id,
+                activeWaterAccount: licences[0].accounts[0].id,
+              };
+
+              // loginDispatch({ type: ACTIONS.LOG_IN_USER, payload: { ...userData } });
+              userService.saveLocalUser(userData);
+
               setSuccess(true);
               actions.resetForm();
               setTimeout(() => {
-                history.push("/");
+                window.location = "/";
               }, 3000);
             })
             .catch(({ response }) => {
-              if (response.data.errors) {
-                setFormErrors(response.data.errors.map(({ message }) => message));
-              }
+              // if (response.data.errors) {
+              //   setFormErrors(response.data.errors.map(({ message }) => message));
+              // }
             })
             .finally(() => {
               actions.setSubmitting(false);
