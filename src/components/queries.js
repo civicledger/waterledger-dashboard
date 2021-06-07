@@ -1,27 +1,31 @@
 import { QueryCache } from "react-query";
 
-import { serviceLoader } from "../services/serviceLoader";
-const orderbookService = serviceLoader("OrderBook");
-const historyService = serviceLoader("OrderHistory");
-const liabilityService = serviceLoader("Liability");
-const licenceService = serviceLoader("Licences");
+import { orderService } from "../services/OrderService";
+import { schemeService } from "../services/SchemeService";
+import { liabilityService } from "../services/LiabilityService";
+import { historyService } from "../services/HistoryService";
+import { licenceService } from "../services/LicenceService";
 
 export const queryCache = new QueryCache();
 
-export const getOrders = async (key, type, licenceId = false) => {
-  return await orderbookService.getOrders(type, licenceId);
+export const getOrders = async (type, licenceId = false) => {
+  const { data } = await orderService.getAll({ type, licenceId });
+  return data.orders;
 };
 
-export const getHistory = async (key, licenceId = false) => {
-  return await historyService.getHistory(licenceId);
+export const getHistory = async (licenceId = false) => {
+  const { data } = await historyService.getAll({ licenceId });
+  return data.trades;
 };
 
 export const getScheme = async () => {
-  return await orderbookService.getScheme();
+  const { data } = await schemeService.getCurrentScheme();
+  return data.scheme;
 };
 
-export const getLicence = async () => {
-  return await licenceService.getLicence();
+export const getLicence = async id => {
+  const { data } = await licenceService.getOne(id);
+  return data.licence;
 };
 
 export const getLiabilities = async () => {

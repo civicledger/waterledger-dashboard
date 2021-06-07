@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 
 import PageHeader from "../app/PageHeader";
 import EventsList from "./EventsList";
 import EventTypesSelector from "./EventTypesSelector";
 
-import { serviceLoader } from "../../services/serviceLoader";
-const orderBookService = serviceLoader("OrderBook");
-const historyService = serviceLoader("OrderHistory");
-const licencesService = serviceLoader("Licences");
-const zonesService = serviceLoader("Zones");
+import { getScheme } from "../queries";
+import AuditService from "../../services/AuditService";
 
 export default () => {
   const [events, setEvents] = useState([]);
@@ -17,14 +15,18 @@ export default () => {
   const [sortTimeDirection, setSortTimeDirection] = useState("newFirst");
   const [activeEventTypes, setActiveEventTypes] = useState([]);
 
+  const { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
+
   useEffect(() => {
     const getData = async () => {
-      const obEvents = await orderBookService.getPastEvents();
-      const historyEvents = await historyService.getPastEvents();
-      const licencesEvents = await licencesService.getPastEvents();
-      const zonesEvents = await zonesService.getPastEvents();
-      const events = [...historyEvents, ...obEvents, ...licencesEvents, ...zonesEvents];
+      if (!scheme) return;
+      const auditService = new AuditService(scheme);
+      const obEvents = await auditService.getOrderbookPastEvents();
+      const zonesEvents = await auditService.getZonesPastEvents();
+      const historyEvents = await auditService.getHistoryPastEvents();
+      const licenceEvents = await auditService.getLicencePastEvents();
 
+      const events = [...historyEvents, ...obEvents, ...licenceEvents, ...zonesEvents];
       const contractTypes = events.reduce((types, { contract, event }) => {
         if (!types[contract]) types[contract] = [];
         if (types[contract].includes(event)) return types;
@@ -32,7 +34,6 @@ export default () => {
         return types;
       }, {});
       setContractTypes(contractTypes);
-
       const eventTypes = events.reduce((types, { contract, event }) => {
         const contractEvent = `${contract}-${event}`;
         if (!types.includes(contractEvent)) {
@@ -40,13 +41,12 @@ export default () => {
         }
         return types;
       }, []);
-
       setActiveEventTypes(eventTypes);
       setEventTypes(eventTypes);
       setEvents(events);
     };
     getData();
-  }, []);
+  }, [scheme]);
 
   const changeTimeSort = () => {
     const newSort = sortTimeDirection === "newFirst" ? "oldFirst" : "newFirst";

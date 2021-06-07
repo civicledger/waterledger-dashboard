@@ -2,12 +2,9 @@ import { CONFIRM_ORDER, SELECT_ORDER_TYPE, SET_ORDER_FORM_VALUES, SET_ACCEPT_FOR
 
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
 
-import { web3 } from "../../utils/ethUtils";
 import { errorMessage } from "../../utils/format";
 
-import { serviceLoader } from "../../services/serviceLoader";
-
-const orderService = serviceLoader("OrderBook");
+import { orderService } from "../../services/OrderService";
 
 export const confirmOrder = id => ({ type: CONFIRM_ORDER, id });
 export const selectOrderType = type => ({ type: SELECT_ORDER_TYPE, selected: type });
@@ -29,120 +26,80 @@ export const openAcceptOrder = acceptForm => {
   };
 };
 
-export const submitBuyOrder = (price, quantity, zoneIndex) => {
+export const submitOrder = order => {
   return dispatch => {
-    orderService.addBuyOrder(price, quantity, zoneIndex).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(
-            addNotification({
-              id: `added-${hash}`,
-              text: "Your buy order is being added",
-            })
-          );
-          orderService.awaitConfirmationForHash(hash).then(receipt => {
-            dispatch(
-              addNotification({
-                id: `confirmed-${hash}`,
-                type: "success",
-                text: "Your buy order has been confirmed",
-              })
-            );
-          });
-        })
-        .on("error", function (error) {
-          dispatch(
-            addNotification({
-              type: "error",
-              text: errorMessage(error),
-            })
-          );
-        });
-    });
+    orderService
+      .create(order)
+      .then(response => {
+        dispatch(
+          addNotification({
+            id: `confirmed-${response.id}`,
+            type: "success",
+            text: `Your ${order.type} order has been confirmed`,
+          })
+        );
+      })
+      .error("error", function (error) {
+        dispatch(
+          addNotification({
+            type: "error",
+            text: errorMessage(error),
+          })
+        );
+      });
   };
 };
 
 export const acceptOrder = (id, zone) => {
   return dispatch => {
     orderService.acceptOrder(id, zone).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(addNotification({ id: `accepted-${hash}`, text: "Order has been accepted" }));
-        })
-        .on("error", function (error) {
-          dispatch(addNotification({ type: "error", text: errorMessage(error) }));
-        });
+      // web3.eth
+      //   .sendSignedTransaction(rawTransaction)
+      //   .on("transactionHash", hash => {
+      //     dispatch(addNotification({ id: `accepted-${hash}`, text: "Order has been accepted" }));
+      //   })
+      //   .on("error", function (error) {
+      //     dispatch(addNotification({ type: "error", text: errorMessage(error) }));
+      //   });
     });
   };
 };
 
 export const deleteOrder = id => {
   return dispatch => {
-    orderService.deleteOrder(id).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(
-            addNotification({
-              id: `added-${hash}`,
-              text: "Order is being removed",
-            })
-          );
-          orderService.awaitConfirmationForHash(hash).then(() => {
-            dispatch(
-              addNotification({
-                id: `confirmed-${hash}`,
-                type: "success",
-                text: "Your order has been removed",
-              })
-            );
-          });
-        })
-        .on("error", function (error) {
-          dispatch(
-            addNotification({
-              type: "error",
-              text: errorMessage(error),
-            })
-          );
-        });
-    });
-  };
-};
-
-export const submitSellOrder = (price, quantity, zoneIndex) => {
-  return dispatch => {
-    orderService.addSellOrder(price, quantity, zoneIndex).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(
-            addNotification({
-              id: `added-${hash}`,
-              text: "Your sell order is being added",
-            })
-          );
-
-          orderService.awaitConfirmationForHash(hash).then(receipt => {
-            dispatch(
-              addNotification({
-                id: `confirmed-${hash}`,
-                type: "success",
-                text: "Your sell order has been confirmed",
-              })
-            );
-          });
-        })
-        .on("error", error => {
-          dispatch(
-            addNotification({
-              type: "error",
-              text: errorMessage(error),
-            })
-          );
-        });
-    });
+    dispatch(
+      addNotification({
+        text: "Deletion of orders is not currently supported",
+      })
+    );
+    // orderService.deleteOrder(id).then(rawTransaction => {
+    //   web3.eth
+    //     .sendSignedTransaction(rawTransaction)
+    //     .on("transactionHash", hash => {
+    //       dispatch(
+    //         addNotification({
+    //           id: `added-${hash}`,
+    //           text: "Order is being removed",
+    //         })
+    //       );
+    //       orderService.awaitConfirmationForHash(hash).then(() => {
+    //         dispatch(
+    //           addNotification({
+    //             id: `confirmed-${hash}`,
+    //             type: "success",
+    //             text: "Your order has been removed",
+    //           })
+    //         );
+    //       });
+    //     })
+    //     .on("error", function (error) {
+    //       dispatch(
+    //         addNotification({
+    //           type: "error",
+    //           text: errorMessage(error),
+    //         })
+    //       );
+    //     });
+    // });
   };
 };

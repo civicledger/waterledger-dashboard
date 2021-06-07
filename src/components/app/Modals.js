@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setOrderFormModal, setAcceptOrderModal } from "../../redux/actions/actions";
-import { submitBuyOrder, submitSellOrder } from "../../redux/actions/orders";
+import { submitOrder } from "../../redux/actions/orders";
 
 import Modal from "../common/modal/Modal";
 import ModalHeader from "../common/modal/ModalHeader";
@@ -14,12 +14,8 @@ export default () => {
   const dispatch = useDispatch();
   const modals = useSelector(state => state.modals);
 
-  const placeOrder = ({ type, price, quantity, zoneIndex }) => {
-    if (type === "sell") {
-      dispatch(submitSellOrder(price, quantity, zoneIndex));
-    } else {
-      dispatch(submitBuyOrder(price, quantity, zoneIndex));
-    }
+  const placeOrder = ({ waterAccountId, type, price, quantity }) => {
+    dispatch(submitOrder(waterAccountId, type, price, quantity));
     dispatch(setOrderFormModal(false));
   };
 

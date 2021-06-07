@@ -11,7 +11,6 @@ export default props => {
   let { data: scheme } = useQuery("getScheme", getScheme, {
     keepPreviousData: true,
   });
-
   if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };
 
   return (

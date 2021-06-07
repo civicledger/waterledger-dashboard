@@ -1,27 +1,28 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
 import { getLicence } from "../queries";
+import { UserContext } from "../contexts";
 
 export default props => {
-  const activeWaterAccount = useSelector(state => state.activeWaterAccount);
   const orderFormDetails = useSelector(state => state.orderFormDetails);
-
+  const {
+    login: { activeWaterAccount, licenceId },
+  } = useContext(UserContext);
   const { type } = orderFormDetails;
 
   const [price, setPrice] = useState(orderFormDetails.price || "");
   const [quantity, setQuantity] = useState(orderFormDetails.quantity || "");
-
-  const { data: licence } = useQuery("getLicence", getLicence, { keepPreviousData: true });
+  if (!licenceId) return "";
+  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
   if (!licence) return "";
 
   const isSell = type === "sell";
-  const waterAccount = licence.accounts.find(wa => wa.waterAccount === activeWaterAccount);
 
+  const waterAccount = licence.accounts.find(wa => wa.id === activeWaterAccount);
   const excessVolumeError = isSell && quantity > waterAccount.balance;
-
   const isReadOnly = !quantity || !price || excessVolumeError;
 
   let bgColor = isReadOnly ? "gray" : isSell ? "red" : "green";
@@ -55,7 +56,7 @@ export default props => {
         type="submit"
         className={`btn-${bgColor} w-full`}
         onClick={() => {
-          props.placeOrder({ price, quantity, type, zoneIndex: waterAccount.zone.zoneIndex });
+          props.placeOrder({ waterAccountId: waterAccount.id, price, quantity, type });
           setPrice("");
           setQuantity("");
         }}

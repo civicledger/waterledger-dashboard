@@ -1,27 +1,10 @@
-import { RECEIVE_ETH_CONTEXT, ADD_NOTIFICATION, REMOVE_NOTIFICATION, MODAL_ACCEPT_ORDER_SET, MODAL_ORDER_FORM_SET } from "./actionConstants";
-
-import { ethProviderStatus, web3 } from "../../utils/ethUtils";
-
-export function fetchEthContext() {
-  return dispatch => {
-    return ethProviderStatus().then(
-      response => dispatch(receiveEthContext(response)),
-      error => console.log("An error occurred.", error)
-    );
-  };
-}
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, MODAL_ACCEPT_ORDER_SET, MODAL_ORDER_FORM_SET } from "./actionConstants";
 
 export const createNotification = payload => ({ type: ADD_NOTIFICATION, payload });
 export const removeNotification = value => ({ type: REMOVE_NOTIFICATION, value });
 
 export const setOrderFormModal = (value = true) => ({ type: MODAL_ORDER_FORM_SET, value });
 export const setAcceptOrderModal = (value = true) => ({ type: MODAL_ACCEPT_ORDER_SET, value });
-export const receiveEthContext = payload => ({ type: RECEIVE_ETH_CONTEXT, payload });
-
-export const accountProgressAdded = payload => ({ type: "ADD_ACCOUNT_PROGRESS", payload });
-export const accountProgressAdditionFlight = id => ({ type: "ADD_ACCOUNT_PROGRESS_FLIGHT", id });
-export const accountProgressAdditionCompleted = id => ({ type: "ADD_ACCOUNT_PROGRESS_COMPLETED", id });
-export const accountProgressCompleted = () => ({ type: "ACCOUNT_LICENCE_COMPLETED" });
 
 export const elementVisibilityShowButtons = value => ({
   type: "SET_SHOW_BUTTONS",
@@ -39,29 +22,5 @@ export const addNotification = payload => {
     setTimeout(() => {
       dispatch(removeNotification(payload.id));
     }, 10000);
-  };
-};
-
-export const loadWalletForCurrentLicence = () => {
-  return dispatch => {
-    const licenceId = localStorage.getItem("wl-licence");
-
-    if (!licenceId) {
-      dispatch(elementVisibilityShowAccountBanner(true));
-      return;
-    }
-
-    const status = {};
-    const password = localStorage.getItem("wl-walletPassword");
-    const wallet = web3.eth.accounts.wallet.load(password, "wl-wallet");
-
-    status.address = wallet[0].address;
-    status.walletAccountsAvailable = wallet.length > 0;
-    status.isReadOnly = false;
-    status.hasLocalStorageWallet = true;
-    status.isSignedIn = true;
-    status.canSignIn = true;
-    dispatch(receiveEthContext(status));
-    web3.eth.defaultAccount = wallet[0].address;
   };
 };

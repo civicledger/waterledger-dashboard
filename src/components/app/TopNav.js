@@ -1,13 +1,16 @@
-import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
+import React, { Fragment, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 
+import { UserContext } from "../contexts";
+
 import waterLedgerLogo from "../../images/waterledger-logo.svg";
 
-const TopNav = ({ ethContext }) => {
+const TopNav = () => {
   const [hideMenu, setHideMenu] = useState(true);
-
+  const {
+    login: { loggedIn },
+  } = useContext(UserContext);
   const toggleMenu = () => setHideMenu(!hideMenu);
 
   return (
@@ -37,7 +40,7 @@ const TopNav = ({ ethContext }) => {
             <i className="fal fa-history fa-fw menu-icon"></i>
           </NavLink>
         </li>
-        {ethContext.address && (
+        {loggedIn && (
           <Fragment>
             <li className="mt-4 mr-3">
               <NavLink to="/licence" onClick={toggleMenu}>
@@ -64,6 +67,4 @@ const TopNav = ({ ethContext }) => {
   );
 };
 
-const mapStateToProps = ({ ethContext }) => ({ ethContext });
-
-export default connect(mapStateToProps)(TopNav);
+export default TopNav;
