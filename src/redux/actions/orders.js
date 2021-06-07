@@ -2,7 +2,6 @@ import { CONFIRM_ORDER, SELECT_ORDER_TYPE, SET_ORDER_FORM_VALUES, SET_ACCEPT_FOR
 
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
 
-import { web3 } from "../../utils/ethUtils";
 import { errorMessage } from "../../utils/format";
 
 import { orderService } from "../../services/OrderService";
@@ -54,14 +53,14 @@ export const submitOrder = order => {
 export const acceptOrder = (id, zone) => {
   return dispatch => {
     orderService.acceptOrder(id, zone).then(rawTransaction => {
-      web3.eth
-        .sendSignedTransaction(rawTransaction)
-        .on("transactionHash", hash => {
-          dispatch(addNotification({ id: `accepted-${hash}`, text: "Order has been accepted" }));
-        })
-        .on("error", function (error) {
-          dispatch(addNotification({ type: "error", text: errorMessage(error) }));
-        });
+      // web3.eth
+      //   .sendSignedTransaction(rawTransaction)
+      //   .on("transactionHash", hash => {
+      //     dispatch(addNotification({ id: `accepted-${hash}`, text: "Order has been accepted" }));
+      //   })
+      //   .on("error", function (error) {
+      //     dispatch(addNotification({ type: "error", text: errorMessage(error) }));
+      //   });
     });
   };
 };

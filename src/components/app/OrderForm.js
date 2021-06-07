@@ -7,7 +7,6 @@ import { getLicence } from "../queries";
 import { UserContext } from "../contexts";
 
 export default props => {
-  // const activeWaterAccount = useSelector(state => state.activeWaterAccount);
   const orderFormDetails = useSelector(state => state.orderFormDetails);
   const {
     login: { activeWaterAccount, licenceId },
