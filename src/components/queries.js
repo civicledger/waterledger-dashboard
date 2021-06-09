@@ -8,12 +8,12 @@ import { licenceService } from "../services/LicenceService";
 
 export const queryCache = new QueryCache();
 
-export const getOrders = async (type, licenceId = false) => {
+export const getOrders = async (type, licenceId = null) => {
   const { data } = await orderService.getAll({ type, licenceId });
   return data.orders;
 };
 
-export const getHistory = async (licenceId = false) => {
+export const getHistory = async (licenceId = null) => {
   const { data } = await historyService.getAll({ licenceId });
   return data.trades;
 };
@@ -29,5 +29,6 @@ export const getLicence = async id => {
 };
 
 export const getLiabilities = async () => {
-  return await liabilityService.getLiabilities();
+  const { data } = await liabilityService.getAll();
+  return data.liabilities;
 };
