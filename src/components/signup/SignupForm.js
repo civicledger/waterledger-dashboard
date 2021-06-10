@@ -72,6 +72,7 @@ const SignupForm = () => {
               if (response.data.errors) {
                 setFormErrors(response.data.errors.map(({ message }) => message));
               }
+              console.error(response);
             })
             .finally(() => {
               actions.setSubmitting(false);
@@ -83,7 +84,7 @@ const SignupForm = () => {
             <Form className="mt-5">
               <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to create account - errors occurred" />
 
-              <FormSuccess show={success}>Your account has been created. Sending you to the login page.</FormSuccess>
+              <FormSuccess show={success}>Your account has been created and is pending approval. Sending you to the login page.</FormSuccess>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="p-5 bg-steel-500 rounded">

@@ -17,8 +17,8 @@ export default props => {
 
   if (!activeWaterAccount) return "";
   const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
-  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy"], getOrders);
-  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], getOrders);
+  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy"], () => getOrders("buy"));
+  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], () => getOrders("sell"));
 
   if (!licence) return "";
 

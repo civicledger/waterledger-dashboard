@@ -11,9 +11,13 @@ export default () => {
   const {
     login: { licenceId },
   } = useContext(UserContext);
-  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], getOrders, { keepPreviousData: true });
-  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], getOrders, { keepPreviousData: true });
-  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], getHistory, { keepPreviousData: true });
+  const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy", licenceId], () => getOrders("buy", licenceId), {
+    keepPreviousData: true,
+  });
+  const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell", licenceId], () => getOrders("sell", licenceId), {
+    keepPreviousData: true,
+  });
+  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades", licenceId], () => getHistory(licenceId), { keepPreviousData: true });
 
   if (buysLoading || sellsLoading || tradesLoading) return "";
 
