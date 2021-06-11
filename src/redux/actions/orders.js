@@ -39,7 +39,7 @@ export const submitOrder = order => {
           })
         );
       })
-      .error("error", function (error) {
+      .catch("error", function (error) {
         dispatch(
           addNotification({
             type: "error",

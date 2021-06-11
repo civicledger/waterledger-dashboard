@@ -6,12 +6,13 @@ import classNames from "classnames";
 
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
-export default ({ order, showType = false, showTimestamp = false, ethContext: { address, isReadOnly }, highlightRow, deleteOrder }) => {
+export default ({ order, showType = false, showTimestamp = false, highlightRow, deleteOrder, waterAccounts }) => {
   const dispatch = useDispatch();
 
-  let { id, ethId, type, price, quantity, ethAccount, createdAt, zoneName } = order;
+  let { id, ethId, type, price, quantity, createdAt, zoneName, accountId } = order;
 
-  const isOwner = address === ethAccount;
+  const isOwner = waterAccounts.find(({ id }) => id === accountId);
+  const isReadOnly = false;
 
   const classNameObject = {
     "order-row": true,
