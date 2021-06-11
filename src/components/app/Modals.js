@@ -15,7 +15,7 @@ export default () => {
   const modals = useSelector(state => state.modals);
 
   const placeOrder = ({ waterAccountId, type, price, quantity }) => {
-    dispatch(submitOrder(waterAccountId, type, price, quantity));
+    dispatch(submitOrder({ waterAccountId, type, price, quantity: quantity * 1000 }));
     dispatch(setOrderFormModal(false));
   };
 

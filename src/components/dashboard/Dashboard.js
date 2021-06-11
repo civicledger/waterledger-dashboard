@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 
-import { getOrders, getHistory } from "../queries";
+import { getOrders, getHistory, getLicence } from "../queries";
 import TradesList from "../history/TradesList";
 import OrderList from "../orders/OrderList";
 import AccountBanner from "./AccountBanner";
@@ -18,12 +18,16 @@ import { UserContext } from "../contexts";
 export default props => {
   const dispatch = useDispatch();
   const {
-    login: { loggedIn },
+    login: { loggedIn, licenceId },
   } = useContext(UserContext);
 
   const { data: buyOrders, isLoading: buysLoading } = useQuery(["getOrders", "buy"], () => getOrders("buy", null), { keepPreviousData: true });
   const { data: sellOrders, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], () => getOrders("sell", null), { keepPreviousData: true });
   const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], () => getHistory(null), { keepPreviousData: true });
+  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
+
+  const waterAccounts = licence ? licence.accounts : [];
+
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
       <AccountBanner />
@@ -41,14 +45,14 @@ export default props => {
                 <div className="flex-1 p-0 pt-3 lg:p-5 rounded bg-steel-800">
                   <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Bids</h2>
 
-                  <OrderList orders={buyOrders} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} />
+                  <OrderList orders={buyOrders} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} waterAccounts={waterAccounts} />
                   {loggedIn && <OrderButton type="buy" openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))} />}
                 </div>
 
                 <div className="rounded mr-0 lg:mr-1 flex-1 p-0 pt-3 lg:p-5 mt-3 xl:ml-1 xl:mt-0 bg-steel-800">
                   <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Offers</h2>
 
-                  <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} />
+                  <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} waterAccounts={waterAccounts} />
                   {loggedIn && <OrderButton type="sell" openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))} />}
                 </div>
               </div>
