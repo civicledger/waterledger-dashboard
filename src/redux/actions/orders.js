@@ -2,6 +2,7 @@ import { CONFIRM_ORDER, SELECT_ORDER_TYPE, SET_ORDER_FORM_VALUES, SET_ACCEPT_FOR
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
 import { errorMessage } from "../../utils/format";
 import { orderService } from "../../services/OrderService";
+import { acceptanceService } from "../../services/AcceptanceService";
 
 export const confirmOrder = id => ({ type: CONFIRM_ORDER, id });
 export const selectOrderType = type => ({ type: SELECT_ORDER_TYPE, selected: type });
@@ -47,17 +48,16 @@ export const submitOrder = order => {
   };
 };
 
-export const acceptOrder = (id, zone) => {
+export const acceptOrder = order => {
   return dispatch => {
-    orderService.acceptOrder(id, zone).then(rawTransaction => {
-      // web3.eth
-      //   .sendSignedTransaction(rawTransaction)
-      //   .on("transactionHash", hash => {
-      //     dispatch(addNotification({ id: `accepted-${hash}`, text: "Order has been accepted" }));
-      //   })
-      //   .on("error", function (error) {
-      //     dispatch(addNotification({ type: "error", text: errorMessage(error) }));
-      //   });
+    acceptanceService.create(order).then(response => {
+      dispatch(
+        addNotification({
+          id: `confirmed-${response.id}`,
+          type: "success",
+          text: `Your trade has been approved`,
+        })
+      );
     });
   };
 };

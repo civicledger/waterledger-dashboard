@@ -1,7 +1,10 @@
 import axios from "axios";
 import { getInstanceIdentifier } from "../utils/ethUtils";
+import { interceptResponse, interceptRequest } from "../utils/interceptors";
 
 axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
+axios.interceptors.request.use(interceptRequest);
+axios.interceptors.response.use(interceptResponse);
 
 export default class BaseService {
   create(data) {
