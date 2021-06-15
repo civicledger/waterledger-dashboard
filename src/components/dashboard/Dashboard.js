@@ -31,16 +31,16 @@ export default props => {
   return (
     <div className="py-5 px-5 lg:px-10 pb-5">
       <AccountBanner />
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-5">
         <div className="cols-span-1">
           <Scheme />
         </div>
 
-        <div className="col-span-3">
+        <div className="lg:col-span-3">
           <Graph />
 
           <h2 className="lg:ml-2 pb-3 lg:pb-6 text-2xl">Order Book</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3">
             <div className="p-0 pt-3 lg:p-5 rounded bg-steel-800">
               <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Bids</h2>
 
@@ -48,7 +48,7 @@ export default props => {
               {loggedIn && <OrderButton type="buy" openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))} />}
             </div>
 
-            <div className="rounded mr-0 lg:mr-1 p-0 pt-3 lg:p-5 mt-3 xl:ml-1 xl:mt-0 bg-steel-800">
+            <div className="p-0 pt-3 lg:p-5 rounded bg-steel-800">
               <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Offers</h2>
 
               <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} waterAccounts={waterAccounts} />
