@@ -18,15 +18,15 @@ export default () => {
 
   if (!licence) {
     return (
-      <div className="text-sm">
+      <div className="table w-full text-sm">
         <span className="table-cell text-center p-2">No Water Accounts Found</span>
       </div>
     );
   }
 
   return (
-    <div className="text-sm">
-      <h4 className="text-left mt-5 ml-2 font-semibold lg:font-normal lg:ml-0 lg:mt-0 lg:text-center">Your Water Accounts</h4>
+    <div className="table w-full text-sm my-56">
+      <h4 className="text-left mt-5 font-semibold lg:font-normal lg:ml-0 lg:mt-0 lg:text-center">Your Water Accounts</h4>
 
       {licence.accounts
         .sort((a, b) => {

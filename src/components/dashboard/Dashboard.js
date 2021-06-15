@@ -29,7 +29,7 @@ export default props => {
   const waterAccounts = licence ? licence.accounts : [];
 
   return (
-    <div className="grid grid-cols-12 py-5 px-5 lg:px-10 pb-5">
+    <div className="grid grid-flow-row auto-rows-max grid-cols-12 grid-rows-8 py-5 px-5 lg:px-10 pb-5">
       <div className="col-span-12">
         <AccountBanner />
       </div>
@@ -38,22 +38,22 @@ export default props => {
       </div>
       <div className="col-span-12 lg:col-span-9">
         <Graph />
-      </div>
-      <div className="col-span-12 xl:col-span-9 xl:col-start-4">
-        <h2 className="lg:ml-2 pb-3 lg:pb-6 text-2xl">Order Book</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2 lg:col-span-1 p-0 pt-3 lg:p-5 rounded bg-steel-800">
-            <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Bids</h2>
+        <div className="col-span-12 lg:col-span-9 lg:col-start-4">
+          <h2 className="lg:ml-2 pb-3 lg:pb-6 text-2xl">Order Book</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-2 lg:col-span-1 p-0 pt-3 lg:p-5 rounded bg-steel-800">
+              <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Bids</h2>
 
-            <OrderList orders={buyOrders} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} waterAccounts={waterAccounts} />
-            {loggedIn && <OrderButton type="buy" openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))} />}
-          </div>
+              <OrderList orders={buyOrders} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} waterAccounts={waterAccounts} />
+              {loggedIn && <OrderButton type="buy" openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))} />}
+            </div>
 
-          <div className="col-span-2 lg:col-span-1 p-0 pt-3 lg:p-5 rounded bg-steel-800">
-            <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Offers</h2>
+            <div className="col-span-2 lg:col-span-1 p-0 pt-3 lg:p-5 rounded bg-steel-800">
+              <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Offers</h2>
 
-            <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} waterAccounts={waterAccounts} />
-            {loggedIn && <OrderButton type="sell" openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))} />}
+              <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} waterAccounts={waterAccounts} />
+              {loggedIn && <OrderButton type="sell" openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))} />}
+            </div>
           </div>
         </div>
       </div>
