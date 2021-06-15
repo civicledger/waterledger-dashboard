@@ -33,10 +33,10 @@ export default props => {
       <div className="col-span-12">
         <AccountBanner />
       </div>
-      <div className="lg:flex col-span-12 lg:col-span-3">
+      <div className="lg:flex col-span-12 lg:col-span-4 xl:col-span-3">
         <Scheme />
       </div>
-      <div className="col-span-12 lg:col-span-9">
+      <div className="col-span-12 lg:col-span-8 xl:col-span-9">
         <Graph />
         <div className="col-span-12 lg:col-span-9 lg:col-start-4">
           <h2 className="lg:ml-2 pb-3 lg:pb-6 text-2xl">Order Book</h2>
