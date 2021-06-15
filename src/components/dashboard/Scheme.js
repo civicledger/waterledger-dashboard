@@ -20,9 +20,9 @@ export default props => {
       </div>
 
       <div className="w-full mt-5">
-        <div className="my-4 text-lg lg:text-xl scheme-name mt-0">{scheme.name}</div>
+        <div className="my-4 text-xl scheme-name mt-0">{scheme.name}</div>
         Last Traded Price / ML
-        <div className="txt-xl lg:text-4xl">{formatAmount(scheme.lastTradedPrice ?? 0)}</div>
+        <div className="text-4xl">{formatAmount(scheme.lastTradedPrice ?? 0)}</div>
         <div className="mb-3 text-xs text-steel-300 hidden block">
           <span className="inline-block py-1 px-2 border rounded border-steel-300">
             <i className="text-xs mr-2 fab fa-ethereum"></i>
