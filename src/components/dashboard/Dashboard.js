@@ -29,14 +29,14 @@ export default props => {
   const waterAccounts = licence ? licence.accounts : [];
 
   return (
-    <div className="grid grid-flow-row auto-rows-max grid-cols-12 grid-rows-8 py-5 px-5 lg:px-10 pb-5">
-      <div className="col-span-12">
+    <div className="grid grid-rows-12 auto-rows-max grid-cols-12 grid-rows-8 py-5 px-5 lg:px-10 pb-5">
+      <div className="col-span-12 lg:row-span-1">
         <AccountBanner />
       </div>
-      <div className="col-span-12 lg:col-span-3">
+      <div className="lg:flex col-span-12 lg:row-span-9 lg:col-span-3">
         <Scheme />
       </div>
-      <div className="col-span-12 lg:col-span-9">
+      <div className="col-span-12 lg:row-span-9 lg:col-span-9">
         <Graph />
         <div className="col-span-12 lg:col-span-9 lg:col-start-4">
           <h2 className="lg:ml-2 pb-3 lg:pb-6 text-2xl">Order Book</h2>
@@ -57,7 +57,7 @@ export default props => {
           </div>
         </div>
       </div>
-      <div className="col-span-12">
+      <div className="col-span-12 lg:row-span-2">
         <TradesList className="col-span-12" trades={trades} isLoading={tradesLoading} limit="10" />
       </div>
     </div>
