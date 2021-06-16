@@ -5,13 +5,13 @@ export default () => {
   return (
     <div className="bg-steel-700 mb-8 rounded p-5 grid grid-cols-3">
       <h2 className="ml-5 col-span-2">
-        You are not logged in. Please{" "}
+        You are not logged in. Please
         <Link to="/login" className="text-steel-300 hover:text-indigo-300">
           {" "}
           login{" "}
         </Link>
         or
-        <Link to="/sign up" className="text-steel-300 hover:text-indigo-500">
+        <Link to="/signup" className="text-steel-300 hover:text-indigo-500">
           {" "}
           sign up{" "}
         </Link>
