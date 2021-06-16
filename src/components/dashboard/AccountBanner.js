@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default () => {
   return (
     <div className="bg-steel-700 mb-10 rounded p-5">
-      <h2 className="ml-2 pb-6">You are not logged in. Please login or signup to start using Water Ledger dashboard.</h2>
+      <h2 className="ml-2 pb-6">You are not logged in. Please login or sign up to start using Water Ledger dashboard.</h2>
       <div className="text-right">
         <Link
           to="/login"
