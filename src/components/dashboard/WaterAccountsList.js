@@ -25,8 +25,8 @@ export default () => {
   }
 
   return (
-    <div className="table w-full text-sm">
-      <h4 className="text-left mt-5 font-semibold lg:font-normal lg:mt-0 lg:text-center">Your Water Accounts</h4>
+    <div className="table w-full text-sm p-4">
+      <h4 className="text-lg scheme-name text-left mt-5 mb-3 lg:mt-0">Your Water Accounts</h4>
 
       {licence.accounts
         .sort((a, b) => {
