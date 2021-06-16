@@ -9,14 +9,14 @@ export default () => {
         <Link
           to="/login"
           type="submit"
-          className="py-2 px-4 text-sm font-medium rounded-sm text-steel-white bg-steel-200 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="py-2 px-4 font-medium rounded-sm text-steel-white bg-steel-200 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           <i className="fal fa-sign-in mr-2"></i>Log In
         </Link>
         <Link
           to="/signup"
           type="submit"
-          className="py-2 px-4 text-sm font-medium rounded-sm text-steel-white bg-steel-200 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-4"
+          className="py-2 px-4 font-medium rounded-sm text-steel-white bg-steel-200 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-4"
         >
           <i className="fal fa-user-plus mr-2"></i>Sign Up
         </Link>
