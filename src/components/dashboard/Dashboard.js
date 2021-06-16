@@ -37,10 +37,10 @@ export default props => {
         <Graph />
       </div>
       <div className="col-span-8 lg:col-span-6">
-        <h2 className="text-2xl">Order Book</h2>
+        <h2 className="px-5 text-2xl">Order Book</h2>
       </div>
       <div className="col-span-8 lg:col-span-3">
-        <div className="p-0 lg:p-5 rounded bg-steel-800">
+        <div className="p-5 rounded bg-steel-800">
           <h2 className="text-xl mb-3 font-semibold">Bids</h2>
 
           <OrderList orders={buyOrders} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} waterAccounts={waterAccounts} />
@@ -49,8 +49,8 @@ export default props => {
       </div>
 
       <div className="col-span-8 lg:col-span-3">
-        <div className="p-0 lg:p-5 rounded bg-steel-800">
-          <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Offers</h2>
+        <div className="p-5 rounded bg-steel-800">
+          <h2 className="text-xl mb-3 font-semibold">Offers</h2>
 
           <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} waterAccounts={waterAccounts} />
           {loggedIn && <OrderButton type="sell" openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))} />}
