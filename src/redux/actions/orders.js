@@ -1,6 +1,9 @@
 import { CONFIRM_ORDER, SELECT_ORDER_TYPE, SET_ORDER_FORM_VALUES, SET_ACCEPT_FORM_VALUES } from "./actionConstants";
+
 import { addNotification, setOrderFormModal, setAcceptOrderModal } from "./actions";
+
 import { errorMessage } from "../../utils/format";
+
 import { orderService } from "../../services/OrderService";
 import { acceptanceService } from "../../services/AcceptanceService";
 
@@ -64,24 +67,39 @@ export const acceptOrder = order => {
 
 export const deleteOrder = id => {
   return dispatch => {
-    orderService
-      .delete(id)
-      .then(transaction => {
-        dispatch(
-          addNotification({
-            id: `added-${transaction.data.receipt.hash}`,
-            type: "success",
-            text: "Order is being removed",
-          })
-        );
+    dispatch(
+      addNotification({
+        text: "Deletion of orders is not currently supported",
       })
-      .catch(error => {
-        dispatch(
-          addNotification({
-            type: "error",
-            text: errorMessage(error),
-          })
-        );
-      });
+    );
+    // orderService.deleteOrder(id).then(rawTransaction => {
+    //   web3.eth
+    //     .sendSignedTransaction(rawTransaction)
+    //     .on("transactionHash", hash => {
+    //       dispatch(
+    //         addNotification({
+    //           id: `added-${hash}`,
+    //           text: "Order is being removed",
+    //         })
+    //       );
+    //       orderService.awaitConfirmationForHash(hash).then(() => {
+    //         dispatch(
+    //           addNotification({
+    //             id: `confirmed-${hash}`,
+    //             type: "success",
+    //             text: "Your order has been removed",
+    //           })
+    //         );
+    //       });
+    //     })
+    //     .on("error", function (error) {
+    //       dispatch(
+    //         addNotification({
+    //           type: "error",
+    //           text: errorMessage(error),
+    //         })
+    //       );
+    //     });
+    // });
   };
 };

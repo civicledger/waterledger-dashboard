@@ -22,11 +22,6 @@ export default class BaseService {
     return await axios.get(`${this.entity}/${id}`, { headers });
   }
 
-  async delete(id) {
-    const headers = this.getHeaders();
-    return await axios.delete(`${this.entity}/${id}`, { headers });
-  }
-
   getHeaders() {
     const token = localStorage.getItem("token");
     return { Authorization: `Bearer ${token}`, "x-scheme": getInstanceIdentifier() };
