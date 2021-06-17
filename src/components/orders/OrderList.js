@@ -22,7 +22,7 @@ export default props => {
       <tbody>
         {orders.length === 0 && (
           <tr>
-            <td colSpan={columns} className="text-center p-5 pt-10">
+            <td colSpan={columns} className="text-center p-5">
               No Orders Currently Available
             </td>
           </tr>

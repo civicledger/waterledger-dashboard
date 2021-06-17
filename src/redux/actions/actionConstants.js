@@ -31,7 +31,5 @@ export const MODAL_ACCEPT_ORDER_SET = "MODAL_ACCEPT_ORDER_SET";
 export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
 export const REMOVE_NOTIFICATION = "REMOVE_NOTIFICATION";
 
-export const WATCH_EVENT_MATCH = "WATCH_EVENT_MATCH";
-
 export const ORDER_TYPE_SELL = "sell";
 export const ORDER_TYPE_BUY = "buy";

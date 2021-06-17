@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
-// import { UserContext, ACTIONS } from "../contexts";
 import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
@@ -20,8 +19,6 @@ const LoginForm = () => {
   // It is the correct approach and is being left in here for code review.
   // It is triggering an error on the "number of hooks run by react being different in each render"
   // const history = useHistory();
-
-  // const { loginDispatch } = useContext(UserContext);
 
   return (
     <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-900 lg:p-5">
@@ -57,7 +54,8 @@ const LoginForm = () => {
                 window.location = "/";
               }, 3000);
             })
-            .catch(({ response }) => {
+            .catch(error => {
+              console.error(error);
               // if (response.data.errors) {
               //   setFormErrors(response.data.errors.map(({ message }) => message));
               // }

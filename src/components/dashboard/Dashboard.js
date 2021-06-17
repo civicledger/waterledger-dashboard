@@ -27,6 +27,7 @@ export default props => {
   const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
 
   const waterAccounts = licence ? licence.accounts : [];
+  const isPending = licence?.status === 1;
 
   return (
     <div className="py-5 px-5 lg:px-10 flex-grow pb-5">
@@ -46,14 +47,26 @@ export default props => {
                   <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Bids</h2>
 
                   <OrderList orders={buyOrders} type="buy" deleteOrder={deleteOrder} isLoading={buysLoading} waterAccounts={waterAccounts} />
-                  {loggedIn && <OrderButton type="buy" openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))} />}
+                  {loggedIn && (
+                    <OrderButton
+                      type="buy"
+                      isPending={isPending}
+                      openOrderForm={() => dispatch(openOrderForm({ type: "buy", price: "", quantity: "" }))}
+                    />
+                  )}
                 </div>
 
                 <div className="rounded mr-0 lg:mr-1 flex-1 p-0 pt-3 lg:p-5 mt-3 xl:ml-1 xl:mt-0 bg-steel-800">
                   <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Offers</h2>
 
                   <OrderList orders={sellOrders} type="sell" deleteOrder={deleteOrder} isLoading={sellsLoading} waterAccounts={waterAccounts} />
-                  {loggedIn && <OrderButton type="sell" openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))} />}
+                  {loggedIn && (
+                    <OrderButton
+                      type="sell"
+                      isPending={isPending}
+                      openOrderForm={() => dispatch(openOrderForm({ type: "sell", price: "", quantity: "" }))}
+                    />
+                  )}
                 </div>
               </div>
             </div>

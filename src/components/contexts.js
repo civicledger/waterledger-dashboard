@@ -9,7 +9,13 @@ export const ACTIONS = {
   SET_LICENCE_ID: "SET_LICENCE_ID",
 };
 
-export const defaultUserState = { user: null, token: null, licenceId: null, activeWaterAccount: null, loggedIn: false };
+export const defaultUserState = {
+  user: null,
+  token: null,
+  licenceId: null,
+  activeWaterAccount: null,
+  loggedIn: false,
+};
 
 export const userReducer = (state = defaultUserState, { type, payload }) => {
   switch (type) {

@@ -15,6 +15,7 @@ export default () => {
   if (!login.licenceId) return "";
 
   const { data: licence } = useQuery(["getLicence", login.licenceId], () => getLicence(login.licenceId), { keepPreviousData: true });
+  const isPending = licence?.status === 1;
 
   if (!licence) {
     return (
@@ -49,7 +50,7 @@ export default () => {
             >
               <span className="table-cell text-left p-2">{wa.waterAccount}</span>
               <span className="table-cell text-left p-2">{wa.zone.shortName}</span>
-              <span className="table-cell text-left p-2">{formatKilolitres(wa.balance)}</span>
+              <span className="table-cell text-left p-2">{isPending ? "pending" : formatKilolitres(wa.balance)}</span>
             </div>
           );
         })}

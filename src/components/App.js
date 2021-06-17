@@ -21,8 +21,8 @@ import { queryCache } from "./queries";
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
-  const notifications = useSelector(state => state.notifications);
 
+  const notifications = useSelector(state => state.notifications);
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
       <UserContext.Provider value={{ login, loginDispatch }}>
