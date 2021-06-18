@@ -32,7 +32,7 @@ export default props => {
 
   return (
     <div className="grid gap-4 grid-cols-8 lg:p-5">
-      <AccountBanner />
+      {!loggedIn && <AccountBanner />}
       <Scheme />
       <div className="col-span-8 lg:col-span-6">
         <Graph />
