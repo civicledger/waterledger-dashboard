@@ -9,7 +9,9 @@ import Notifications from "./dashboard/Notifications";
 import Audit from "./audit/Audit";
 import Signup from "./signup/Signup";
 import Login from "./login/Login";
+import Logout from "./logout/Logout";
 import Modals from "./app/Modals";
+import Watchers from "./Watchers";
 import UserService from "../services/UserService";
 
 import Liabilities from "./liabilities/Liabilities";
@@ -26,6 +28,7 @@ export default props => {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
       <UserContext.Provider value={{ login, loginDispatch }}>
+        <Watchers />
         <div className="flex min-h-screen bg-steel-900 text-steel-100">
           <Sidebar />
           <Notifications notifications={notifications} />
@@ -39,6 +42,7 @@ export default props => {
               <Route path="/audit" component={Audit} />
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
             </Switch>
           </div>
           <Modals />

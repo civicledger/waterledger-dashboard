@@ -24,7 +24,7 @@ export default ({ trades, isLoading = false, limit = null }) => {
         <tbody>
           {trades.length === 0 && (
             <tr>
-              <td colSpan="5" className="p-5 pb-0 text-center">
+              <td colSpan="5" className="p-4 py-3 text-center">
                 No Trades have been recorded
               </td>
             </tr>
@@ -36,7 +36,7 @@ export default ({ trades, isLoading = false, limit = null }) => {
       </table>
       <div className="flex justify-end">
         {limit && (
-          <Link to="/history" className="no-underline text-right p-2 px-3 mt-5 border-steel-300 text-steel-300 rounded">
+          <Link to="/history" className="no-underline text-right p-4 py-3 mt-5 border-steel-300 text-steel-300 rounded">
             See All <i className="fal fa-arrow-right fa-fw"></i>
           </Link>
         )}
