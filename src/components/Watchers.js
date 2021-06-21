@@ -11,7 +11,6 @@ const Watchers = () => {
 
   useEffect(() => {
     socket.on("LicenceCompleted", () => {
-      console.log("licence complete event received");
       dispatch(addNotification({ text: "Your licence has been approved and you can now trade" }));
     });
   }, [socket, dispatch]);
