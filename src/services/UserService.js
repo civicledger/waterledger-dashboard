@@ -1,6 +1,9 @@
 import axios from "axios";
 import BaseService from "./BaseService";
+import SocketService from "./SocketService";
+import { getInstanceIdentifier } from "../utils/ethUtils";
 
+const socketService = SocketService.getInstance();
 axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
 
 export default class UserService extends BaseService {
@@ -32,12 +35,15 @@ export default class UserService extends BaseService {
     const licenceId = localStorage.getItem("licenceId");
     const token = localStorage.getItem("token");
     const activeWaterAccount = localStorage.getItem("activeWaterAccount");
+
     if (!userString || userString === "undefined" || !token) {
       return { user: null, token: null, licenceId: null, activeWaterAccount: null, loggedIn: false };
     }
     const user = JSON.parse(userString);
 
     user.createdAt = new Date(user.createdAt);
+    socketService.emit("RegisterLicence", licenceId);
+    socketService.emit("JoinScheme", getInstanceIdentifier());
 
     return { user, licenceId, token, activeWaterAccount, loggedIn: true };
   }

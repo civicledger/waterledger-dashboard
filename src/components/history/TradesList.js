@@ -9,7 +9,7 @@ export default ({ trades, isLoading = false, limit = null }) => {
   }
 
   return (
-    <div className="p-0 lg:p-5 -mt-4 rounded bg-steel-800">
+    <div className="p-0 lg:p-5 rounded bg-steel-800">
       <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Recent Trades</h2>
       <table className="table relative w-full transaction-list ">
         <thead>
@@ -24,7 +24,7 @@ export default ({ trades, isLoading = false, limit = null }) => {
         <tbody>
           {trades.length === 0 && (
             <tr>
-              <td colSpan="5" className="p-5 pb-0 text-center">
+              <td colSpan="5" className="p-4 py-3 text-center">
                 No Trades have been recorded
               </td>
             </tr>
@@ -34,10 +34,12 @@ export default ({ trades, isLoading = false, limit = null }) => {
           ))}
         </tbody>
       </table>
-      <div className="w-full flex justify-end">
-        <Link to="/history" className="no-underline text-right mr-3 mb-3 p-2 px-3 mt-5 border-steel-300 text-steel-300 rounded">
-          See All <i className="fal fa-arrow-right fa-fw"></i>
-        </Link>
+      <div className="flex justify-end">
+        {limit && (
+          <Link to="/history" className="no-underline text-right p-4 py-3 mt-5 border-steel-300 text-steel-300 rounded">
+            See All <i className="fal fa-arrow-right fa-fw"></i>
+          </Link>
+        )}
       </div>
     </div>
   );

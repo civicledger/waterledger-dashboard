@@ -14,7 +14,7 @@ export default props => {
   if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };
 
   return (
-    <div className="col-span-8 flex flex-col justify-between steel-gradient mb-4 rounded text-center lg:row-span-4 lg:col-span-2">
+    <div className="col-span-8 flex flex-col justify-between steel-gradient rounded text-center lg:row-span-3 lg:col-span-2">
       <div className="w-full">
         <div className="p-5">
           <img src={SchemeImage} className="border border-steel-100 mx-auto" style={{ borderRadius: "500px" }} alt={scheme.name} />
