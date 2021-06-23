@@ -13,7 +13,7 @@ const Watchers = () => {
     socket.on("LicenceCompleted", () => {
       dispatch(addNotification({ text: "Your licence has been approved and you can now trade" }));
     });
-  }, [socket, dispatch]);
+  }, [dispatch]);
 
   return "";
 };
