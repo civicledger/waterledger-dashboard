@@ -27,7 +27,7 @@ export default ({ eventTypes, contractTypes, activeEventTypes, setActiveEventTyp
       <EventType eventName={"All Events"} isActive={allActive} toggle={toggleAllEventsTypes} />
       {Object.keys(contractTypes).map((contract, key) => {
         return (
-          <ul key={key}>
+          <ul key={key} className="leading-7">
             <h3 className="text-xl mt-5 mb-2">{contract}</h3>
             {contractTypes[contract].map((eventType, key) => {
               const contractEvent = `${contract}-${eventType}`;

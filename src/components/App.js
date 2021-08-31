@@ -32,7 +32,7 @@ export default props => {
         <div className="flex min-h-screen bg-steel-900 text-steel-100">
           <Sidebar />
           <Notifications notifications={notifications} />
-          <div className="flex-grow flex flex-col" id="body">
+          <div className="flex-grow flex overflow-hidden flex-col" id="body">
             <TopNav />
             <Switch>
               <Route path="/" exact component={Dashboard} />

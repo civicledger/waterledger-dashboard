@@ -121,12 +121,24 @@ h4 {
   border-right-width: 1px;
 }
 
-.transaction-list {
-  border-spacing: 0 0.25rem;
-}
-
 .main-nav {
   @apply .block .mb-8 .text-steel-100 .no-underline .text-4xl;
+}
+
+.top-nav {
+  @apply .block .p-2 .text-steel-100 .no-underline .text-lg;
+}
+
+.top-nav.active {
+  border-color: #1ba9be;
+  border-width: 0px;
+  border-right-width: 3px;
+  border-left-width: 3px;
+  color: #1ba9be;
+}
+
+.top-nav.active i {
+  color: #1ba9be;
 }
 
 .input {
