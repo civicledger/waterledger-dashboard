@@ -37,10 +37,10 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
       <td className="p-4 py-3">{zoneName}</td>
       {showTimestamp && <td className="p-4 py-3">{formatShortDateObject(createdAt)}</td>}
       <td width="30" className="p-4 py-3">
-        <i className="fal fa-times-square font-red-500 fa-fw delete-order" onClick={(e) => {
+        {isOwner && <i className="fal fa-times-square font-red-500 fa-fw delete-order" onClick={(e) => {
           e.stopPropagation()
           dispatch(deleteOrder(id))
-        }}></i> 
+        }}></i>}
       </td>
     </tr>
   );
