@@ -18,7 +18,7 @@ const TopNav = () => {
       <div className="flex-shrink p-3">
         <img src={waterLedgerLogo} alt="Water Ledger logo" className="w-12 " />
       </div>
-      <div className="flex-1 text-3xl text-white font-thin uppercase">
+      <div className="flex-1 text-3xl text-white font-extralight uppercase">
         <span className="font-semibold">Water</span> Ledger
       </div>
       <div className="flex-shrink text-white">

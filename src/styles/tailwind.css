@@ -122,11 +122,11 @@ h4 {
 }
 
 .main-nav {
-  @apply .block .mb-8 .text-steel-100 .no-underline .text-4xl;
+  @apply block mb-8 text-steel-100 no-underline text-4xl;
 }
 
 .top-nav {
-  @apply .block .p-2 .text-steel-100 .no-underline .text-lg;
+  @apply block p-2 text-steel-100 no-underline text-lg;
 }
 
 .top-nav.active {
@@ -142,47 +142,47 @@ h4 {
 }
 
 .input {
-  @apply .border .w-full .mb-3 .mt-1 .p-2 .outline-none .rounded;
+  @apply border w-full mb-3 mt-1 p-2 outline-none rounded;
 }
 
 .input:focus {
-  @apply .outline-none;
+  @apply outline-none;
 }
 
 .buy-sell-selectors {
-  @apply .w-1/2 .font-semibold .cursor-pointer;
+  @apply w-1/2 font-semibold cursor-pointer;
 }
 
 .btn {
-  @apply .py-2 .px-3 .text-center .rounded-sm .border .cursor-pointer;
+  @apply py-2 px-3 text-center rounded-sm border cursor-pointer;
 }
 
 .btn-blue {
-  @apply .btn .bg-blue-500 .text-blue-200 .border-blue-700;
+  @apply btn bg-blue-500 text-blue-200 border-blue-700;
 }
 
 .btn-blue:hover {
-  @apply .bg-blue-700;
+  @apply bg-blue-700;
 }
 
 .btn-red {
-  @apply .btn .bg-red-500 .text-red-200 .border-red-700;
+  @apply btn bg-red-500 text-red-200 border-red-700;
 }
 
 .btn-red:hover {
-  @apply .bg-red-700;
+  @apply bg-red-700;
 }
 
 .btn-green {
-  @apply .btn .bg-green-500 .text-green-200 .border-green-700;
+  @apply btn bg-green-500 text-green-200 border-green-700;
 }
 
 .btn-green:hover {
-  @apply .bg-green-700;
+  @apply bg-green-700;
 }
 
 .btn-gray {
-  @apply .btn .bg-gray-500 .text-gray-100 .border-gray-700;
+  @apply btn bg-gray-500 text-gray-100 border-gray-700;
 }
 
 .main-nav.active {
@@ -202,16 +202,16 @@ h4 {
 }
 
 .row-cell {
-  @apply .border-b .p-2;
+  @apply border-b p-2;
   border-color: #5c2655;
 }
 
 .row-cell-l {
-  @apply .row-cell .border-r-0;
+  @apply row-cell border-r-0;
 }
 
 .row-cell-r {
-  @apply .row-cell .p-2;
+  @apply row-cell p-2;
 }
 
 .order-row .delete-order {
@@ -242,7 +242,7 @@ h4 {
 }
 
 .summary-icon-box {
-  @apply .flex-shrink .p-3 .mr-5 .bg-blue-500 .text-blue-100 .rounded;
+  @apply flex-shrink p-3 mr-5 bg-blue-500 text-blue-100 rounded;
 }
 
 #close-button {
