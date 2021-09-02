@@ -10,7 +10,7 @@ const FormError = ({ show, title, errors }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="mb-5 p-5 bg-red-200 rounded-md border-red-400 text-red-600"
+          className="mb-5 p-5 bg-steel-700 text-red-500 border rounded border-red-500"
         >
           <h4 className="mb-2 text-md font-semibold">{title}</h4>
           <ul>
