@@ -1,4 +1,5 @@
 import React from "react";
+import { useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
 import { formatAmount, formatShortDateObject, formatKilolitres } from "../../utils/format";
@@ -8,6 +9,7 @@ const orderTypes = { buy: "Offer", sell: "Bid" };
 
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending }) => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   let { id, ethId, price, quantity, createdAt, zoneName, accountId } = order;
 
@@ -43,6 +45,9 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
             onClick={e => {
               e.stopPropagation();
               dispatch(deleteOrder(id));
+              setTimeout(() => {
+                queryClient.invalidateQueries(["getOrders"]);
+              }, 3000);
             }}
           ></i>
         )}
