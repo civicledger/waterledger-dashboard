@@ -1,4 +1,5 @@
 import React from "react";
+import { useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
 import { formatAmount, formatShortDateObject, formatKilolitres } from "../../utils/format";
@@ -8,6 +9,7 @@ const orderTypes = { buy: "Offer", sell: "Bid" };
 
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending }) => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   let { id, ethId, price, quantity, createdAt, zoneName, accountId } = order;
 
@@ -37,7 +39,18 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
       <td className="p-4 py-3">{zoneName}</td>
       {showTimestamp && <td className="p-4 py-3">{formatShortDateObject(createdAt)}</td>}
       <td width="30" className="p-4 py-3">
-        {isOwner && <i className="fal fa-times-square font-red-500 fa-fw delete-order" onClick={() => dispatch(deleteOrder(id))}></i>}
+        {isOwner && (
+          <i
+            className="fal fa-times-square font-red-500 fa-fw delete-order"
+            onClick={e => {
+              e.stopPropagation();
+              dispatch(deleteOrder(id));
+              setTimeout(() => {
+                queryClient.invalidateQueries(["getOrders"]);
+              }, 3000);
+            }}
+          ></i>
+        )}
       </td>
     </tr>
   );

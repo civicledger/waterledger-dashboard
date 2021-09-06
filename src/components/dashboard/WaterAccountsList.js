@@ -17,13 +17,7 @@ export default () => {
   const { data: licence } = useQuery(["getLicence", login.licenceId], () => getLicence(login.licenceId), { keepPreviousData: true });
   const isPending = licence?.status === 1;
 
-  if (!licence) {
-    return (
-      <div className="table w-full text-sm">
-        <span className="table-cell text-center p-2">No Water Accounts Found</span>
-      </div>
-    );
-  }
+  if (!licence) return <></>;
 
   return (
     <div>

@@ -7,7 +7,7 @@ import OrderButton from "../dashboard/OrderButton";
 import { getOrders } from "../queries";
 
 export default props => {
-  const { type, isPending, licenceId = null, showType = false, showTimestamp = false } = props;
+  const { type, isPending, licenceId = null, showType = false, showTimestamp = false, waterAccounts = [] } = props;
   const columns = 3 + +showTimestamp + +showType;
 
   const { data: orders, isLoading } = useQuery(["getOrders", type], () => getOrders(type, licenceId), { keepPreviousData: true });
@@ -36,7 +36,7 @@ export default props => {
             </tr>
           )}
           {orders.map((order, index) => {
-            return <Order order={order} key={index} highlightRow={true} type={type} isPending={isPending} />;
+            return <Order order={order} key={index} highlightRow={true} type={type} isPending={isPending} waterAccounts={waterAccounts} />;
           })}
         </tbody>
       </table>
