@@ -41,6 +41,12 @@ const TopNav = () => {
             Audit
           </NavLink>
         </li>
+        <li>
+          <NavLink className="top-nav" to="/history" onClick={toggleMenu}>
+            <i className="fal fa-clipboard-list fa-fw menu-icon ml-2" />
+            Trades
+          </NavLink>
+        </li>
         {loggedIn && (
           <Fragment>
             <li>
@@ -55,14 +61,33 @@ const TopNav = () => {
                 Liabilities
               </NavLink>
             </li>
+
+            <li>
+              <NavLink className="top-nav" to="/logout" onClick={toggleMenu}>
+                <i className="fal fa-sign-out fa-fw  menu-icon mr-2" />
+                Logout
+              </NavLink>
+            </li>
           </Fragment>
         )}
-        <li>
-          <NavLink className="top-nav" to="/history" onClick={toggleMenu}>
-            <i className="fal fa-clipboard-list fa-fw menu-icon ml-2" />
-            Trades
-          </NavLink>
-        </li>
+
+        {!loggedIn && (
+          <Fragment>
+            <li>
+              <NavLink className="top-nav" to="/signup" onClick={toggleMenu}>
+                <i className="fal fa-user-plus fa-fw  menu-icon mr-2" />
+                Signup
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink className="top-nav" to="/login" onClick={toggleMenu}>
+                <i className="fal fa-sign-in fa-fw menu-icon mr-2" />
+                Log In
+              </NavLink>
+            </li>
+          </Fragment>
+        )}
       </ul>
     </div>
   );
