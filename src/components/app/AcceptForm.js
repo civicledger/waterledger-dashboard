@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
@@ -10,6 +10,7 @@ import { setAcceptOrderModal } from "../../redux/actions/actions";
 
 export default props => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const acceptFormDetails = useSelector(state => state.acceptFormDetails);
   const {
     login: { activeWaterAccount, licenceId },
@@ -85,6 +86,9 @@ export default props => {
             onClick={() => {
               dispatch(acceptOrder({ orderId: order.id, waterAccountId: activeAccount.id }));
               dispatch(setAcceptOrderModal(false));
+              setTimeout(() => {
+                queryClient.invalidateQueries(["getScheme"]);
+              }, 3000);
             }}
           >
             <i className="fal fa-check-circle mr-1"></i> Accept Order

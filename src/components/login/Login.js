@@ -4,7 +4,7 @@ import LoginForm from "./LoginForm";
 
 const Login = () => {
   return (
-    <div className="lg:p-10 flex-grow">
+    <div className="p-5 lg:p-10 flex-grow pb-5">
       <PageHeader header="Log In to your Water Ledger Trading Account" />
       <LoginForm />
     </div>
