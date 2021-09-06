@@ -11,7 +11,6 @@ import Signup from "./signup/Signup";
 import Login from "./login/Login";
 import Logout from "./logout/Logout";
 import Modals from "./app/Modals";
-import Watchers from "./Watchers";
 import UserService from "../services/UserService";
 
 import Liabilities from "./liabilities/Liabilities";
@@ -30,7 +29,6 @@ export default props => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider value={{ login, loginDispatch }}>
-        <Watchers />
         <div className="flex min-h-screen bg-steel-900 text-steel-100">
           <Sidebar />
           <Notifications notifications={notifications} />
