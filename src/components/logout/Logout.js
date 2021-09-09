@@ -12,7 +12,7 @@ const Logout = () => {
   }, 3000);
 
   return (
-    <div className="lg:p-10 flex-grow">
+    <div className="p-5 lg:p-10 flex-grow pb-5">
       <PageHeader header="Log out of your Water Ledger Trading Account" />
 
       <div className="m-10">
