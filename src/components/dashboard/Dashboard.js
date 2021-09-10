@@ -17,7 +17,7 @@ export default () => {
   } = useContext(UserContext);
 
   const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], () => getHistory(null), { keepPreviousData: true });
-  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
+  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true, enabled: !!licenceId });
 
   const waterAccounts = licence ? licence.accounts : [];
   const isPending = licence?.status === 1;
