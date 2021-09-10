@@ -35,13 +35,13 @@ export default () => {
       <div className="col-span-8 lg:col-span-3 p-5 rounded bg-steel-800">
         <h2 className="text-xl mb-3 font-semibold">Bids</h2>
 
-        <OrderList type="buy" isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} />
+        <OrderList type="buy" isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} button={true} />
       </div>
 
       <div className="col-span-8 lg:col-span-3 p-5 rounded bg-steel-800">
         <h2 className="text-xl mb-3 font-semibold">Offers</h2>
 
-        <OrderList type="sell" isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} />
+        <OrderList type="sell" isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} button={true} />
       </div>
       <div className="col-span-8">
         <TradesList trades={trades} isLoading={tradesLoading} limit="10" />
