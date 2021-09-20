@@ -7,51 +7,51 @@ const data = [
     color: "hsl(189, 70%, 50%)",
     data: [
       {
-        x: "September",
+        x: "Sep 2020",
         y: 101,
       },
       {
-        x: "October",
+        x: "Oct 2020",
         y: 110,
       },
       {
-        x: "November",
+        x: "Nov 2020",
         y: 100,
       },
       {
-        x: "December",
+        x: "Dec 2020",
         y: 141,
       },
       {
-        x: "January",
+        x: "Jan 2021",
         y: 150,
       },
       {
-        x: "February",
+        x: "Feb 2021",
         y: 158,
       },
       {
-        x: "March",
+        x: "Mar 2021",
         y: 160,
       },
       {
-        x: "April",
+        x: "Apr 2021",
         y: 155,
       },
       {
-        x: "May",
+        x: "May 2021",
         y: 150,
       },
       {
-        x: "June",
+        x: "Jun 2021",
         y: 160,
       },
       {
-        x: "July",
+        x: "Jul 2021",
         y: 160,
       },
       {
-        x: "August",
+        x: "Aug 2021",
         y: 170,
       },
     ],
@@ -61,51 +61,51 @@ const data = [
     color: "hsl(53, 70%, 50%)",
     data: [
       {
-        x: "September",
+        x: "Sep 2020",
         y: 100,
       },
       {
-        x: "October",
+        x: "Oct 2020",
         y: 90,
       },
       {
-        x: "November",
+        x: "Nov 2020",
         y: 93,
       },
       {
-        x: "December",
+        x: "Dec 2020",
         y: 79,
       },
       {
-        x: "January",
+        x: "Jan 2021",
         y: 133,
       },
       {
-        x: "February",
+        x: "Feb 2021",
         y: 145,
       },
       {
-        x: "March",
+        x: "Mar 2021",
         y: 148,
       },
       {
-        x: "April",
+        x: "Apr 2021",
         y: 150,
       },
       {
-        x: "May",
+        x: "May 2021",
         y: 141,
       },
       {
-        x: "June",
+        x: "Jun 2021",
         y: 142,
       },
       {
-        x: "July",
+        x: "Jul 2021",
         y: 150,
       },
       {
-        x: "August",
+        x: "Aug 2021",
         y: 130,
       },
     ],
@@ -115,51 +115,51 @@ const data = [
     color: "hsl(145, 70%, 50%)",
     data: [
       {
-        x: "September",
+        x: "Sep 2020",
         y: 150,
       },
       {
-        x: "October",
+        x: "Oct 2020",
         y: 115,
       },
       {
-        x: "November",
+        x: "Nov 2020",
         y: 120,
       },
       {
-        x: "December",
+        x: "Dec 2020",
         y: 150,
       },
       {
-        x: "January",
+        x: "Jan 2021",
         y: 170,
       },
       {
-        x: "February",
+        x: "Feb 2021",
         y: 168,
       },
       {
-        x: "March",
+        x: "Mar 2021",
         y: 167,
       },
       {
-        x: "April",
+        x: "Apr 2021",
         y: 159,
       },
       {
-        x: "May",
+        x: "May 2021",
         y: 157,
       },
       {
-        x: "June",
+        x: "Jun 2021",
         y: 172,
       },
       {
-        x: "July",
+        x: "Jul 2021",
         y: 164,
       },
       {
-        x: "August",
+        x: "Aug 2021",
         y: 183,
       },
     ],
@@ -227,7 +227,6 @@ export default () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Price in $/ML",
           legendOffset: 50,
           legendPosition: "middle",
         }}
@@ -240,7 +239,7 @@ export default () => {
         useMesh={true}
         legends={[
           {
-            anchor: "bottom-right",
+            anchor: "top-right",
             direction: "column",
             justify: false,
             translateX: 115,
