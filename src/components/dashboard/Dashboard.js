@@ -27,6 +27,7 @@ export default () => {
       <AccountBanner pending={isPending} loggedIn={loggedIn} />
       <Scheme />
       <div className="col-span-8 lg:col-span-6">
+        <h2 className="px-5 pb-4 text-2xl">Historical Prices</h2>
         <Graph />
       </div>
       <div className="col-span-8 lg:col-span-6">
