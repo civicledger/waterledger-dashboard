@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { useState } from "react";
 import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
-import { useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -10,6 +9,7 @@ import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
+import { queryClient } from "../App";
 
 const SignupForm = () => {
   const validate = Yup.object({
@@ -21,7 +21,7 @@ const SignupForm = () => {
     name: Yup.string().required("Name is required"),
     licence: Yup.string().required("Your licence is required"),
   });
-  const queryClient = useQueryClient();
+
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const history = useHistory();

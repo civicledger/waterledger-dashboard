@@ -20,7 +20,7 @@ import TopNav from "./app/TopNav";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { getScheme, queryCache } from "./queries";
 
-const queryClient = new QueryClient({ queryCache });
+export const queryClient = new QueryClient({ queryCache });
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
