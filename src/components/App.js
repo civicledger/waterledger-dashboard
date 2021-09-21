@@ -18,12 +18,13 @@ import Licence from "./licence/Licence";
 import TopNav from "./app/TopNav";
 
 import { QueryClient, QueryClientProvider } from "react-query";
-import { queryCache } from "./queries";
+import { getScheme, queryCache } from "./queries";
 
 const queryClient = new QueryClient({ queryCache });
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
+  queryClient.prefetchQuery("getScheme", getScheme);
 
   const notifications = useSelector(state => state.notifications);
   return (

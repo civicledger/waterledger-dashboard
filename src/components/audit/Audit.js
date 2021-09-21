@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQueryClient } from "react-query";
 
 import PageHeader from "../app/PageHeader";
 import EventsList from "./EventsList";
 import EventTypesSelector from "./EventTypesSelector";
 
-import { getScheme } from "../queries";
 import AuditService from "../../services/AuditService";
 
 export default () => {
@@ -15,7 +14,8 @@ export default () => {
   const [sortTimeDirection, setSortTimeDirection] = useState("newFirst");
   const [activeEventTypes, setActiveEventTypes] = useState([]);
 
-  const { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
+  const queryClient = useQueryClient();
+  const scheme = queryClient.getQueryData("getScheme");
 
   useEffect(() => {
     const getData = async () => {
