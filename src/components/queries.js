@@ -1,4 +1,4 @@
-import { QueryCache, QueryClient } from "react-query";
+import { QueryClient } from "react-query";
 
 import { orderService } from "../services/OrderService";
 import { schemeService } from "../services/SchemeService";
