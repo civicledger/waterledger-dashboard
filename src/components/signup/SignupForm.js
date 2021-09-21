@@ -9,7 +9,7 @@ import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
-import { queryClient } from "../App";
+import { queryClient } from "../queries";
 
 const SignupForm = () => {
   const validate = Yup.object({

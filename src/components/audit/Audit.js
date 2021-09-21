@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import PageHeader from "../app/PageHeader";
 import EventsList from "./EventsList";
 import EventTypesSelector from "./EventTypesSelector";
-
 import AuditService from "../../services/AuditService";
-import { queryClient } from "../App";
+import { queryClient } from "../queries";
 
 export default () => {
   const [events, setEvents] = useState([]);

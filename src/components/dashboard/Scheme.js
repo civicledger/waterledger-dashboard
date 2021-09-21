@@ -2,7 +2,7 @@ import React from "react";
 
 import WaterAccountsList from "./WaterAccountsList";
 import { formatAmount, formatEthereumAddress } from "../../utils/format";
-import { queryClient } from "../App";
+import { queryClient } from "../queries";
 
 export default props => {
   let scheme = queryClient.getQueryData("getScheme");
