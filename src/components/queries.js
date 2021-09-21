@@ -6,7 +6,6 @@ import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
 import { licenceService } from "../services/LicenceService";
 
-export const queryCache = new QueryCache();
 export const queryClient = new QueryClient();
 
 export const getOrders = async (type, licenceId = null) => {
