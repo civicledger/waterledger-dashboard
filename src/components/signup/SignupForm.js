@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { useState } from "react";
 import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
-import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -10,8 +9,7 @@ import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
-
-import { getScheme } from "../queries";
+import { queryClient } from "../queries";
 
 const SignupForm = () => {
   const validate = Yup.object({
@@ -27,7 +25,7 @@ const SignupForm = () => {
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const history = useHistory();
-  let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
+  let scheme = queryClient.getQueryData("getScheme");
 
   const zones = scheme?.zones || [];
   const keyedZones = zones.reduce((accumulator, item) => {

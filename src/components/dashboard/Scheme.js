@@ -1,15 +1,11 @@
 import React from "react";
-import { useQuery } from "react-query";
-
-import { getScheme } from "../queries";
 
 import WaterAccountsList from "./WaterAccountsList";
 import { formatAmount, formatEthereumAddress } from "../../utils/format";
+import { queryClient } from "../queries";
 
 export default props => {
-  let { data: scheme } = useQuery("getScheme", getScheme, {
-    keepPreviousData: true,
-  });
+  let scheme = queryClient.getQueryData("getScheme");
   if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };
 
   return (
