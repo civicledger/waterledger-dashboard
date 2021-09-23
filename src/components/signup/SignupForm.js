@@ -56,7 +56,11 @@ const SignupForm = () => {
 
           const { licence, accounts, ...user } = values;
           accounts.pop();
-          user.licence = { licence, schemeId: scheme.id, accounts };
+
+          const accountsInML = accounts.map(account => {
+            return { ...account, allocation: account.allocation + "000" };
+          });
+          user.licence = { licence, schemeId: scheme.id, accounts: accountsInML };
 
           userService
             .signup(user)
@@ -136,7 +140,7 @@ const SignupForm = () => {
                             Zone
                           </label>
                           <label htmlFor="allocation" className="text-steel-300 font-semibold">
-                            Allocation
+                            Allocation (ML)
                           </label>
                           {values.accounts.map((account, index) => {
                             if (index < values.accounts.length - 1) {
