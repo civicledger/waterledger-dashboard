@@ -56,7 +56,6 @@ const SignupForm = () => {
 
           const { licence, accounts, ...user } = values;
           accounts.pop();
-
           user.licence = { licence, schemeId: scheme.id, accounts };
 
           userService
