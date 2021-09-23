@@ -57,10 +57,7 @@ const SignupForm = () => {
           const { licence, accounts, ...user } = values;
           accounts.pop();
 
-          const accountsInML = accounts.map(account => {
-            return { ...account, allocation: account.allocation + "000" };
-          });
-          user.licence = { licence, schemeId: scheme.id, accounts: accountsInML };
+          user.licence = { licence, schemeId: scheme.id, accounts };
 
           userService
             .signup(user)
@@ -140,7 +137,7 @@ const SignupForm = () => {
                             Zone
                           </label>
                           <label htmlFor="allocation" className="text-steel-300 font-semibold">
-                            Allocation (ML)
+                            Allocation
                           </label>
                           {values.accounts.map((account, index) => {
                             if (index < values.accounts.length - 1) {
@@ -172,6 +169,8 @@ const SignupForm = () => {
                               disabled={isAddDisabled}
                               onClick={event => {
                                 event.preventDefault();
+                                const latest = values.accounts[values.accounts.length - 1];
+                                latest.allocation = latest.allocation * 1000;
                                 arrayHelpers.insert(values.accounts.length, { waterAccount: "", zoneId: "", allocation: "" });
                               }}
                             >
