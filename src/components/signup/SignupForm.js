@@ -168,6 +168,8 @@ const SignupForm = () => {
                               disabled={isAddDisabled}
                               onClick={event => {
                                 event.preventDefault();
+                                const latest = values.accounts[values.accounts.length - 1];
+                                latest.allocation = latest.allocation * 1000;
                                 arrayHelpers.insert(values.accounts.length, { waterAccount: "", zoneId: "", allocation: "" });
                               }}
                             >
