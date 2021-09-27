@@ -21,6 +21,7 @@ const SignupForm = () => {
       .required("Confirm password is required"),
     name: Yup.string().required("Name is required"),
     licence: Yup.string().required("Your licence is required"),
+    accounts: Yup.array().min(2, "At least one account is required"),
   });
 
   const [success, setSuccess] = useState(null);
@@ -78,7 +79,7 @@ const SignupForm = () => {
             });
         }}
       >
-        {({ values }) => {
+        {({ values, isValid, dirty }) => {
           return (
             <Form className="mt-5">
               <FormError show={formErrors.length > 0} errors={formErrors} title="Unable to create account - errors occurred" />
@@ -123,11 +124,16 @@ const SignupForm = () => {
                   <ErrorMessage component="p" name="licence" className="mb-3" />
 
                   <h4 className="font-semibold my-2">Water Accounts</h4>
+                  <ErrorMessage component="p" name="accounts" className="mb-3" />
                   <FieldArray
                     name="accounts"
                     render={arrayHelpers => {
                       const lastAccount = values.accounts[values.accounts.length - 1];
-                      const isAddDisabled = lastAccount.zoneId === "" || lastAccount.waterAccount === "";
+                      const isAddDisabled =
+                        lastAccount.zoneId === "" ||
+                        lastAccount.waterAccount === "" ||
+                        lastAccount.allocation === "" ||
+                        isNaN(lastAccount.allocation);
 
                       return (
                         <div className="grid grid-cols-3 gap-2 ">
@@ -147,7 +153,7 @@ const SignupForm = () => {
                               <Fragment key={index}>
                                 <Field name={`accounts[${index}].waterAccount`} className="input text-steel-900 rounded" />
                                 <Field component="select" name={`accounts[${index}].zoneId`} className="input text-steel-900 rounded">
-                                  <option>Select a zone</option>
+                                  <option value="">Select a zone</option>
                                   {zones.map(zone => (
                                     <option key={zone.id} value={zone.id}>
                                       {zone.name}
@@ -182,7 +188,12 @@ const SignupForm = () => {
                   />
                 </div>
                 <div className="text-right col-span-2">
-                  <button type="submit" className={`text-steel-white p-2 px-3 rounded-sm bg-steel-200 text-right`}>
+                  <button
+                    type="submit"
+                    className={`text-steel-white p-2 px-3 rounded-sm bg-steel-200 text-right
+                    ${!(isValid && dirty) ? "opacity-25 cursor-default" : ""}
+                  `}
+                  >
                     <i className="fal fa-user-plus fa-fw mr-2"></i>Create your Water Ledger Account
                   </button>
                 </div>
