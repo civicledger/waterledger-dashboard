@@ -44,7 +44,7 @@ export const submitOrder = order => {
               text: `Your ${order.type} order has been mined and confirmed`,
             })
           );
-        }, 5000);
+        }, 10000);
       })
       .catch("error", function (error) {
         dispatch(
