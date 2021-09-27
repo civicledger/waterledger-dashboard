@@ -31,11 +31,20 @@ export const submitOrder = order => {
       .then(response => {
         dispatch(
           addNotification({
-            id: `confirmed-${response.id}`,
+            id: `placed-${response.id}`,
             type: "success",
-            text: `Your ${order.type} order has been confirmed`,
+            text: `Your ${order.type} order has been placed`,
           })
         );
+        setTimeout(() => {
+          dispatch(
+            addNotification({
+              id: `confirmed-${response.id}`,
+              type: "success",
+              text: `Your ${order.type} order has been mined and confirmed`,
+            })
+          );
+        }, 5000);
       })
       .catch("error", function (error) {
         dispatch(
