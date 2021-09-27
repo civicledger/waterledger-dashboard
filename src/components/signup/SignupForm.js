@@ -63,7 +63,6 @@ const SignupForm = () => {
             .signup(user)
             .then(() => {
               setSuccess(true);
-              actions.resetForm();
               setTimeout(() => {
                 history.push("/login");
               }, 3000);
