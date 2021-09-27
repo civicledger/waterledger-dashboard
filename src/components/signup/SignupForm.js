@@ -192,7 +192,7 @@ const SignupForm = () => {
                     className={`text-steel-white p-2 px-3 rounded-sm bg-steel-200 text-right
                     ${!(isValid && dirty) ? "opacity-25 cursor-default" : ""}
                   `}
-                    disabled={!isValid}
+                    disabled={!(isValid && dirty)}
                   >
                     <i className="fal fa-user-plus fa-fw mr-2"></i>Create your Water Ledger Account
                   </button>
