@@ -21,7 +21,7 @@ const SignupForm = () => {
       .required("Confirm password is required"),
     name: Yup.string().required("Name is required"),
     licence: Yup.string().required("Your licence is required"),
-    accounts: Yup.array().min(2).required("At least one account is required"),
+    accounts: Yup.array().min(2, "At least one account is required"),
   });
 
   const [success, setSuccess] = useState(null);
@@ -124,6 +124,7 @@ const SignupForm = () => {
                   <ErrorMessage component="p" name="licence" className="mb-3" />
 
                   <h4 className="font-semibold my-2">Water Accounts</h4>
+                  <ErrorMessage component="p" name="accounts" className="mb-3" />
                   <FieldArray
                     name="accounts"
                     render={arrayHelpers => {
@@ -192,7 +193,6 @@ const SignupForm = () => {
                     className={`text-steel-white p-2 px-3 rounded-sm bg-steel-200 text-right
                     ${!(isValid && dirty) ? "opacity-25 cursor-default" : ""}
                   `}
-                    disabled={!(isValid && dirty)}
                   >
                     <i className="fal fa-user-plus fa-fw mr-2"></i>Create your Water Ledger Account
                   </button>
