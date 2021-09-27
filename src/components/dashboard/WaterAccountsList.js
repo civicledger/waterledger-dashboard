@@ -25,7 +25,7 @@ export default () => {
       <div className="table w-full text-sm p-4 pt-1">
         {licence.accounts
           .sort((a, b) => {
-            return a.zone.zoneIndex - b.zone.zoneIndex;
+            return a.zone.identifier.localeCompare(b.zone.identifier);
           })
           .map((wa, index) => {
             wa.balance = wa.balance ?? 0;

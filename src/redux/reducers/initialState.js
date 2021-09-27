@@ -5,7 +5,6 @@ const initialState = {
     type: ORDER_TYPE_BUY,
     price: "",
     quantity: "",
-    zoneIndex: 0,
   },
   acceptFormDetails: {
     type: ORDER_TYPE_BUY,
