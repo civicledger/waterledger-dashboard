@@ -128,7 +128,11 @@ const SignupForm = () => {
                     name="accounts"
                     render={arrayHelpers => {
                       const lastAccount = values.accounts[values.accounts.length - 1];
-                      const isAddDisabled = lastAccount.zoneId === "" || lastAccount.waterAccount === "" || lastAccount.allocation === "";
+                      const isAddDisabled =
+                        lastAccount.zoneId === "" ||
+                        lastAccount.waterAccount === "" ||
+                        lastAccount.allocation === "" ||
+                        isNaN(lastAccount.allocation);
 
                       return (
                         <div className="grid grid-cols-3 gap-2 ">
