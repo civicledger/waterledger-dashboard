@@ -37,7 +37,7 @@ export default props => {
     <div>
       <form className="" onSubmit={event => event.preventDefault()}>
         <div>
-          <p>Do you wish to accept this {acceptFormDetails.type === "sell" ? "bid" : "offer"}?</p>
+          <p>Do you wish to accept this {acceptFormDetails.type === "sell" ? "offer" : "bid"}?</p>
 
           <div className="w-3/4 mx-auto text-steel-800 bg-steel-100 border border-steel-800 rounded p-3 mt-5 mb-10">
             <h3 className="text-lg">Order Details</h3>
