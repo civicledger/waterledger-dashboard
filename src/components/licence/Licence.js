@@ -33,12 +33,26 @@ export default () => {
       <div className="grid grid-cols-2 gap-3">
         <div className="col-span-2 md:col-span-1 rounded p-5 bg-steel-800">
           <h2 className="text-steel-300 text-xl mb-3 font-semibold">Bids</h2>
-          <OrderList type="buy" licenceId={licenceId} loggedIn={loggedIn} pending={licence.status === 1} button={false} />
+          <OrderList
+            type="buy"
+            licenceId={licenceId}
+            loggedIn={loggedIn}
+            pending={licence.status === 1}
+            waterAccounts={licence.waterAccounts}
+            button={false}
+          />
         </div>
 
         <div className="col-span-2 md:col-span-1 rounded p-5 bg-steel-800">
           <h2 className="text-steel-300 text-xl mb-3 font-semibold">Offers</h2>
-          <OrderList type="sell" licenceId={licenceId} loggedIn={loggedIn} pending={licence.status === 1} button={false} />
+          <OrderList
+            type="sell"
+            licenceId={licenceId}
+            loggedIn={loggedIn}
+            pending={licence.status === 1}
+            waterAccounts={licence.waterAccounts}
+            button={false}
+          />
         </div>
       </div>
 
