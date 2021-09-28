@@ -1,7 +1,7 @@
 import React from "react";
 import { formatAmount, formatShortDateObject } from "../../utils/format";
 
-const statuses = ["Pending", "Paid", "Finalised"];
+const statuses = ["Paid", "Finalised"];
 
 export default ({ liabilities, isLoading }) => {
   if (isLoading) {
