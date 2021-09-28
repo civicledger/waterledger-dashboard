@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../contexts";
 import { useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
@@ -10,6 +11,9 @@ const orderTypes = { buy: "Offer", sell: "Bid" };
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending }) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const {
+    login: { loggedIn },
+  } = useContext(UserContext);
 
   let { id, ethId, price, quantity, createdAt, zoneName, accountId } = order;
 
@@ -18,18 +22,18 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
   const classNameObject = {
     "order-row": true,
     "text-gray-500": isOwner,
-    "cursor-pointer": !isOwner && highlightRow && !isPending,
-    "hover:bg-green-300": !isOwner && highlightRow && !isPending && type === "buy",
-    "hover:text-green-600": !isOwner && highlightRow && !isPending && type === "buy",
-    "hover:bg-red-300": !isOwner && highlightRow && !isPending && type === "sell",
-    "hover:text-red-600": !isOwner && highlightRow && !isPending && type === "sell",
+    "cursor-pointer": !isOwner && loggedIn && highlightRow && !isPending,
+    "hover:bg-green-300": !isOwner && loggedIn && highlightRow && !isPending && type === "buy",
+    "hover:text-green-600": !isOwner && loggedIn && highlightRow && !isPending && type === "buy",
+    "hover:bg-red-300": !isOwner && loggedIn && highlightRow && !isPending && type === "sell",
+    "hover:text-red-600": !isOwner && loggedIn && highlightRow && !isPending && type === "sell",
   };
 
   return (
     <tr
       className={classNames(classNameObject)}
       onClick={() => {
-        if (!highlightRow || isPending || isOwner) return;
+        if (!highlightRow || isPending || isOwner || !loggedIn) return;
         dispatch(openAcceptOrder({ id, ethId, type, price, quantity }));
       }}
     >
