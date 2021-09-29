@@ -37,8 +37,8 @@ export default () => {
             type="buy"
             licenceId={licenceId}
             loggedIn={loggedIn}
-            pending={licence.status === 1}
-            waterAccounts={licence.waterAccounts}
+            isPending={licence.status === 1}
+            waterAccounts={licence.accounts}
             button={false}
           />
         </div>
@@ -49,8 +49,8 @@ export default () => {
             type="sell"
             licenceId={licenceId}
             loggedIn={loggedIn}
-            pending={licence.status === 1}
-            waterAccounts={licence.waterAccounts}
+            isPending={licence.status === 1}
+            waterAccounts={licence.accounts}
             button={false}
           />
         </div>
