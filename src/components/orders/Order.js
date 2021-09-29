@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UserContext } from "../contexts";
+import React from "react";
 import { useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
@@ -8,12 +7,9 @@ import classNames from "classnames";
 
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
-export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending }) => {
+export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending, loggedIn }) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const {
-    login: { loggedIn },
-  } = useContext(UserContext);
 
   let { id, ethId, price, quantity, createdAt, zoneName, accountId } = order;
 
