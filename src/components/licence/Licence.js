@@ -35,11 +35,11 @@ export default () => {
           <h2 className="text-steel-300 text-xl mb-3 font-semibold">Bids</h2>
           <OrderList
             type="buy"
-            licenceId={licenceId}
+            isPending={licence.status === 1}
             loggedIn={loggedIn}
-            pending={licence.status === 1}
-            waterAccounts={licence.waterAccounts}
+            waterAccounts={licence.accounts}
             button={false}
+            licenceId={licenceId}
           />
         </div>
 
@@ -47,11 +47,11 @@ export default () => {
           <h2 className="text-steel-300 text-xl mb-3 font-semibold">Offers</h2>
           <OrderList
             type="sell"
-            licenceId={licenceId}
+            isPending={licence.status === 1}
             loggedIn={loggedIn}
-            pending={licence.status === 1}
-            waterAccounts={licence.waterAccounts}
+            waterAccounts={licence.accounts}
             button={false}
+            licenceId={licenceId}
           />
         </div>
       </div>

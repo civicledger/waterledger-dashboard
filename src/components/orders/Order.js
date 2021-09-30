@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
-export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending }) => {
+export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending, loggedIn }) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
@@ -15,21 +15,20 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
 
   const isOwner = waterAccounts.find(({ id }) => id === accountId);
 
+  const isHighlightable = !isOwner && !isPending && loggedIn && highlightRow;
+
   const classNameObject = {
     "order-row": true,
     "text-gray-500": isOwner,
-    "cursor-pointer": !isOwner && highlightRow && !isPending,
-    "hover:bg-green-300": !isOwner && highlightRow && !isPending && type === "buy",
-    "hover:text-green-600": !isOwner && highlightRow && !isPending && type === "buy",
-    "hover:bg-red-300": !isOwner && highlightRow && !isPending && type === "sell",
-    "hover:text-red-600": !isOwner && highlightRow && !isPending && type === "sell",
+    "cursor-pointer hover:bg-green-300 hover:text-green-600": isHighlightable && type === "buy",
+    "cursor-pointer hover:bg-red-300 hover:text-red-600": isHighlightable && type === "sell",
   };
 
   return (
     <tr
       className={classNames(classNameObject)}
       onClick={() => {
-        if (!highlightRow || isPending || isOwner) return;
+        if (!highlightRow || isPending || isOwner || !loggedIn) return;
         dispatch(openAcceptOrder({ id, ethId, type, price, quantity }));
       }}
     >
