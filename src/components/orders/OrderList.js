@@ -1,18 +1,14 @@
 import React from "react";
-import { useQuery } from "react-query";
 
 import Order from "./Order";
 
 import OrderButton from "../dashboard/OrderButton";
-import { getOrders } from "../queries";
 
 export default props => {
-  const { type, isPending, licenceId = null, showType = false, showTimestamp = false, button } = props;
+  const { type, orders = [], isPending, showType = false, showTimestamp = false, button } = props;
   const columns = 3 + +showTimestamp + +showType;
 
-  const { data: orders, isLoading } = useQuery(["getOrders", type], () => getOrders(type, licenceId), { keepPreviousData: true });
-
-  if (!orders && isLoading) return "";
+  if (!orders) return "";
 
   return (
     <>
