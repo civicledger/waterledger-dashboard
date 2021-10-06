@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
 
-import { getHistory, getLicence } from "../queries";
+import { getHistory, getLicence, getOrders } from "../queries";
 import TradesList from "../history/TradesList";
 import OrderList from "../orders/OrderList";
 import AccountBanner from "./AccountBanner";
@@ -16,8 +16,11 @@ export default () => {
     login: { loggedIn, licenceId },
   } = useContext(UserContext);
 
-  const { data: trades, isLoading: tradesLoading } = useQuery(["getTrades"], () => getHistory(null), { keepPreviousData: true });
-  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true, enabled: !!licenceId });
+  const { data: trades, isLoading: tradesLoading } = useQuery("trades", () => getHistory(), { keepPreviousData: true });
+  const { data: licence } = useQuery("licence", () => getLicence(licenceId), { keepPreviousData: true, enabled: !!licenceId });
+
+  const { data: buyOrders = [] } = useQuery("buyOrders", () => getOrders("buy"), { keepPreviousData: true });
+  const { data: sellOrders = [] } = useQuery("sellOrders", () => getOrders("sell"), { keepPreviousData: true });
 
   const waterAccounts = licence ? licence.accounts : [];
   const isPending = licence?.status === 1;
@@ -36,13 +39,13 @@ export default () => {
       <div className="col-span-8 lg:col-span-3 p-5 rounded bg-steel-800">
         <h2 className="text-xl mb-3 font-semibold">Bids</h2>
 
-        <OrderList type="buy" isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} button={true} />
+        <OrderList type="buy" orders={buyOrders} isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} button={true} />
       </div>
 
       <div className="col-span-8 lg:col-span-3 p-5 rounded bg-steel-800">
         <h2 className="text-xl mb-3 font-semibold">Offers</h2>
 
-        <OrderList type="sell" isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} button={true} />
+        <OrderList type="sell" orders={sellOrders} isPending={isPending} loggedIn={loggedIn} waterAccounts={waterAccounts} button={true} />
       </div>
       <div className="col-span-8">
         <TradesList trades={trades} isLoading={tradesLoading} limit="10" />
