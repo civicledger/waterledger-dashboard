@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { userReducer, UserContext } from "./contexts";
 import { Route, Switch } from "react-router-dom";
+import Watchers from "./Watchers";
 import Sidebar from "./app/Sidebar";
 import Dashboard from "./dashboard/Dashboard";
 import History from "./history/History";
@@ -28,6 +29,7 @@ export default props => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider value={{ login, loginDispatch }}>
+        <Watchers />
         <div className="flex min-h-screen bg-steel-900 text-steel-100">
           <Sidebar />
           <Notifications notifications={notifications} />
