@@ -28,6 +28,11 @@ const Watchers = () => {
       dispatch(addNotification({ text: "Refreshing trades list" }));
     });
 
+    socket.on("BalanceUpdated", async () => {
+      await queryClient.invalidateQueries("licence");
+      dispatch(addNotification({ text: "Water Balance Updated" }));
+    });
+
     socket.on("OrderTransactionMined", async () => {
       dispatch(addNotification({ text: "Your order has been mined on the blockchain", type: "success" }));
     });
