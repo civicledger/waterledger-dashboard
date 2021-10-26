@@ -75,10 +75,9 @@ export const deleteOrder = id => {
   return dispatch => {
     orderService
       .delete(id)
-      .then(transaction => {
+      .then(() => {
         dispatch(
           addNotification({
-            id: `added-${transaction.data.receipt.hash}`,
             type: "success",
             text: "Order is being removed",
           })
