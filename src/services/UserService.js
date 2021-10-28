@@ -14,7 +14,8 @@ export default class UserService extends BaseService {
   }
 
   signup(user) {
-    return axios.post("signup", user);
+    const headers = { "x-scheme": getInstanceIdentifier() };
+    return axios.post("signup", user, { headers });
   }
 
   saveLocalUser({ user, token, licenceId, activeWaterAccount }) {

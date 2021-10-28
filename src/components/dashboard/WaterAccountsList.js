@@ -18,7 +18,6 @@ export default () => {
   const isPending = licence?.status === 1;
 
   if (!licence) return <></>;
-
   return (
     <div>
       <h4 className="text-lg text-left ml-5">Your Water Accounts</h4>
