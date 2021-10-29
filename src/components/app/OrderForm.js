@@ -17,7 +17,7 @@ export default props => {
   const [price, setPrice] = useState(orderFormDetails.price || "");
   const [quantity, setQuantity] = useState(orderFormDetails.quantity || "");
   if (!licenceId) return "";
-  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
+  const { data: licence } = useQuery("getLicence", () => getLicence(licenceId), { keepPreviousData: true });
   if (!licence) return "";
 
   const isSell = type === "sell";
@@ -41,7 +41,7 @@ export default props => {
 
       <label className="text-steel-900">Volume (ML)</label>
       <input
-        type="text"
+        type="number"
         value={quantity}
         onChange={({ target }) => setQuantity(target.value)}
         className="input text-steel-900 rounded"
@@ -51,7 +51,13 @@ export default props => {
       {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
       <label className="text-steel-900">Price ($/ML)</label>
-      <input type="text" value={price} onChange={({ target }) => setPrice(target.value)} className="input text-steel-900 rounded" name="price" />
+      <input
+        type="number"
+        value={price}
+        onChange={({ target }) => setPrice(Math.floor(+target.value))}
+        className="input text-steel-900 rounded"
+        name="price"
+      />
 
       <button
         type="submit"

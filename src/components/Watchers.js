@@ -29,7 +29,8 @@ const Watchers = () => {
     });
 
     socket.on("BalanceUpdated", async () => {
-      await queryClient.invalidateQueries("licence");
+      await queryClient.invalidateQueries("getLicence");
+      console.log("Should update balance");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
 

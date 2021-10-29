@@ -18,8 +18,6 @@ export default class SocketService {
   }
 
   emit(...args) {
-    console.log("emitting");
-    console.log(...args);
     this.#socket.emit(...args);
   }
 }

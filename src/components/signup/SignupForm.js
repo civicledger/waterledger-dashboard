@@ -159,7 +159,7 @@ const SignupForm = () => {
                                     </option>
                                   ))}
                                 </Field>
-                                <Field name={`accounts[${index}].allocation`} className="input text-steel-900 rounded" />
+                                <Field type="number" name={`accounts[${index}].allocation`} className="input text-steel-900 rounded" />
                               </Fragment>
                             );
                           })}

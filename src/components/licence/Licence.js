@@ -13,7 +13,7 @@ export default () => {
   } = useContext(UserContext);
 
   const { data: trades } = useQuery("licenceTrades", () => getHistory(licenceId), { keepPreviousData: true });
-  const { data: licence } = useQuery(["licence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
+  const { data: licence } = useQuery("getLicence", () => getLicence(licenceId), { keepPreviousData: true });
 
   const { data: buyOrders } = useQuery("licenceBuyOrders", () => getOrders("buy", licenceId), { keepPreviousData: true });
   const { data: sellOrders } = useQuery("licenceSellOrders", () => getOrders("sell", licenceId), { keepPreviousData: true });

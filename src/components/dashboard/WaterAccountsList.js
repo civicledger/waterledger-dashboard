@@ -14,7 +14,7 @@ export default () => {
   const { login, loginDispatch } = useContext(UserContext);
   if (!login.licenceId) return "";
 
-  const { data: licence } = useQuery(["getLicence", login.licenceId], () => getLicence(login.licenceId), { keepPreviousData: true });
+  const { data: licence } = useQuery("getLicence", () => getLicence(login.licenceId), { keepPreviousData: true });
   const isPending = licence?.status === 1;
 
   if (!licence) return <></>;
