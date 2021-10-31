@@ -2,7 +2,9 @@ import axios from "axios";
 import { getInstanceIdentifier } from "../utils/ethUtils";
 import { interceptResponse, interceptRequest } from "../utils/interceptors";
 
-axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
+export const baseURL = process.env.REACT_APP_API_URL;
+
+axios.defaults.baseURL = baseURL;
 axios.interceptors.request.use(interceptRequest);
 axios.interceptors.response.use(interceptResponse);
 

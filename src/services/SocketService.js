@@ -1,9 +1,11 @@
 import { io } from "socket.io-client";
 
+import { baseURL } from "./BaseService";
+
 export default class SocketService {
   static instance = null;
 
-  #socket = io(process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL);
+  #socket = io(baseURL);
 
   static getInstance() {
     if (!SocketService.instance) {

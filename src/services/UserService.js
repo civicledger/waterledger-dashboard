@@ -2,8 +2,9 @@ import axios from "axios";
 import BaseService from "./BaseService";
 import SocketService from "./SocketService";
 import { getInstanceIdentifier } from "../utils/ethUtils";
+import { baseURL } from "./BaseService";
 
-axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
+axios.defaults.baseURL = baseURL;
 
 const socketService = SocketService.getInstance();
 

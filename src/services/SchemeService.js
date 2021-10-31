@@ -1,8 +1,8 @@
 import axios from "axios";
 import BaseService from "./BaseService";
 import { getInstanceIdentifier } from "../utils/ethUtils";
-
-axios.defaults.baseURL = process.env.REACT_APP_WL_CONTRACT_DEPLOYMENT_URL;
+import { baseURL } from "./BaseService";
+axios.defaults.baseURL = baseURL;
 
 export default class SchemeService extends BaseService {
   entity = "schemes";

@@ -1,5 +1,6 @@
 import Web3 from "web3";
-const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP_PROVIDER_URL));
+import { baseURL } from "./BaseService";
+const web3 = new Web3(new Web3.providers.WebsocketProvider(baseURL));
 
 export default class AuditService {
   orderbookInstance = null;
