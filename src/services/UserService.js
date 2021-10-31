@@ -1,12 +1,12 @@
 import axios from "axios";
 import BaseService from "./BaseService";
-import SocketService from "./SocketService";
+// import SocketService from "./SocketService";
 import { getInstanceIdentifier } from "../utils/ethUtils";
 import { baseURL } from "./BaseService";
 
 axios.defaults.baseURL = baseURL;
 
-const socketService = SocketService.getInstance();
+// const socketService = SocketService.getInstance();
 
 export default class UserService extends BaseService {
   entity = "users";
@@ -46,8 +46,8 @@ export default class UserService extends BaseService {
 
     user.createdAt = new Date(user.createdAt);
 
-    socketService.emit("RegisterLicence", licenceId);
-    socketService.emit("JoinScheme", getInstanceIdentifier());
+    // socketService.emit("RegisterLicence", licenceId);
+    // socketService.emit("JoinScheme", getInstanceIdentifier());
 
     return { user, licenceId, token, activeWaterAccount, loggedIn: true };
   }
