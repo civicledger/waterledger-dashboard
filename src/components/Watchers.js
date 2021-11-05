@@ -13,14 +13,23 @@ const Watchers = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    socket.onAny((event, ...args) => {
+      console.log(`got ${event}`);
+      console.log(args);
+    });
     socket.on("LicenceCompleted", () => {
       dispatch(addNotification({ text: "Your licence has been approved and you can now trade" }));
     });
     socket.on("OrderAdded", async () => {
+      // OrderAdded
+      console.log("OrderAdded triggered");
+      await queryClient.invalidateQueries("buyOrders");
+      await queryClient.invalidateQueries("sellOrders");
       dispatch(addNotification({ text: "Your order has been mined on the blockchain", type: "success" }));
     });
 
     socket.on("OrdersModified", async () => {
+      console.log("OrdersModified triggered");
       await queryClient.invalidateQueries("buyOrders");
       await queryClient.invalidateQueries("sellOrders");
     });
