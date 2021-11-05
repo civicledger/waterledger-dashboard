@@ -14,22 +14,19 @@ const Watchers = () => {
 
   useEffect(() => {
     socket.onAny((event, ...args) => {
-      console.log(`got ${event}`);
+      console.log(`got ${event} event`);
       console.log(args);
     });
     socket.on("LicenceCompleted", () => {
       dispatch(addNotification({ text: "Your licence has been approved and you can now trade" }));
     });
     socket.on("OrderAdded", async () => {
-      // OrderAdded
-      console.log("OrderAdded triggered");
       await queryClient.invalidateQueries("buyOrders");
       await queryClient.invalidateQueries("sellOrders");
       dispatch(addNotification({ text: "Your order has been mined on the blockchain", type: "success" }));
     });
 
     socket.on("OrdersModified", async () => {
-      console.log("OrdersModified triggered");
       await queryClient.invalidateQueries("buyOrders");
       await queryClient.invalidateQueries("sellOrders");
     });
@@ -45,7 +42,6 @@ const Watchers = () => {
     });
     socket.on("BalancesUpdated", async () => {
       await queryClient.invalidateQueries("getLicence");
-      console.log("Should update balance");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
     socket.on("AcceptTransactionMined", async () => {
