@@ -46,7 +46,6 @@ export default class UserService extends BaseService {
 
     user.createdAt = new Date(user.createdAt);
 
-    console.log("should be emitting");
     socketService.emit("RegisterLicence", licenceId);
     socketService.emit("JoinScheme", getInstanceIdentifier());
 
