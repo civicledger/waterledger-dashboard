@@ -19,25 +19,23 @@ import Licence from "./licence/Licence";
 import TopNav from "./app/TopNav";
 
 import { QueryClientProvider } from "react-query";
-import { getScheme, queryClient } from "./queries";
-import Translate from "./common/Translate";
+import { getScheme, queryClient, getTerminologies } from "./queries";
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
   const terminologyStore = useReducer(termReducer, initialTerminologyState);
-
   queryClient.prefetchQuery("getScheme", getScheme);
-  const terminologyJson = { default: { scheme: "Scheme" }, COLORADO: { scheme: "Catchment" }, MDWSS: { scheme: "Scheme" } };
+  queryClient.prefetchQuery("getTerminologies", getTerminologies);
 
   const notifications = useSelector(state => state.notifications);
   return (
     <QueryClientProvider client={queryClient}>
-      <TerminologyContext.Provider value={{ terminologyStore, terminologyJson }}>
+      <TerminologyContext.Provider value={{ terminologyStore }}>
         <UserContext.Provider value={{ login, loginDispatch }}>
           <Watchers />
           <div className="flex min-h-screen bg-steel-900 text-steel-100">
             <Sidebar />
-            <Translate token="scheme" />
+            {/* <Translate token="scheme" /> */}
             <Notifications notifications={notifications} />
             <div className="flex-1 flex flex-col">
               <TopNav />

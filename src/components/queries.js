@@ -5,6 +5,7 @@ import { schemeService } from "../services/SchemeService";
 import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
 import { licenceService } from "../services/LicenceService";
+import { terminologyService } from "../services/TerminologyService";
 
 export const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ export const getHistory = async (licenceId = null) => {
 
 export const getScheme = async () => {
   const { data } = await schemeService.getCurrentScheme();
+  localStorage.setItem("schemeId", data.scheme.id);
   return data.scheme;
 };
 
@@ -31,4 +33,10 @@ export const getLicence = async id => {
 export const getLiabilities = async () => {
   const { data } = await liabilityService.getAll();
   return data.liabilities;
+};
+
+export const getTerminologies = async schemeId => {
+  const { data } = await terminologyService.getCurrentTerminology(schemeId);
+  console.log(data.terminologies);
+  return data.terminologies;
 };

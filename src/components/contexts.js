@@ -41,6 +41,7 @@ export const initialTerminologyState = {
   selectedTerm: "COLORADO",
 };
 
+/// required
 export function termReducer(state, action) {
   const { type, payload } = action;
   switch (type) {
