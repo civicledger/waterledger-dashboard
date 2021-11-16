@@ -98,7 +98,7 @@ const SignupForm = () => {
                   <label htmlFor="password" className="text-steel-300 my-2 font-semibold">
                     Password
                   </label>
-                  <Field type="password" name="password" autoComplete="signup-password" className="input text-steel-900 rounded mb-5" />
+                  <Field type="password" name="password" autoComplete="new-password" className="input text-steel-900 rounded mb-5" />
                   <ErrorMessage component="p" name="password" className="mb-3" />
 
                   <label htmlFor="confirmPassword" className="text-steel-300 my-2 font-semibold">
