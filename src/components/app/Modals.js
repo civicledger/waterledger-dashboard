@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setOrderFormModal, setAcceptOrderModal } from "../../redux/actions/actions";
@@ -18,6 +18,17 @@ export default () => {
     dispatch(submitOrder({ waterAccountId, type, price, quantity: quantity * 1000 }));
     dispatch(setOrderFormModal(false));
   };
+
+  useEffect(() => {
+    const closeModal = () => dispatch(setOrderFormModal(false));
+
+    const handleEsc = ({ code }) => {
+      if (code === "Escape" && modals.orderForm) closeModal();
+    };
+    window.addEventListener("keydown", handleEsc);
+
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [modals, dispatch]);
 
   return (
     <Fragment>
