@@ -26,10 +26,8 @@ const dateReducer = (acc, [key, value]) => {
     });
   }
 
-  if (key === "quantity") return acc;
-
   const date = parseISO(value);
-  if (isNaN(date) || isBefore(date, new Date(1905))) return acc;
+  if (!isNaN(value) || isNaN(date) || isBefore(date, new Date(1905))) return acc;
 
   acc[key] = date;
   return acc;
