@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ResponsiveLine } from "@nivo/line";
+
+import { TerminologyContext } from "../contexts";
 
 const data = [
   {
@@ -167,6 +169,7 @@ const data = [
 ];
 
 export default () => {
+  const { terminologies } = useContext(TerminologyContext);
   return (
     <div className="pb-10 px-2" id="graph" style={{ height: "400px" }}>
       <ResponsiveLine
@@ -218,7 +221,7 @@ export default () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Price in $/ML",
+          legend: `Price in $/${terminologies["ML"]}`,
           legendOffset: -50,
           legendPosition: "middle",
         }}

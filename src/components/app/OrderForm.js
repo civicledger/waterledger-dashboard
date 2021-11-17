@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
 import { getLicence } from "../queries";
-import { UserContext } from "../contexts";
+import { TerminologyContext, UserContext } from "../contexts";
 
 export default props => {
   const queryClient = useQueryClient();
@@ -12,6 +12,9 @@ export default props => {
   const {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
+
+  const terminologies = useContext(TerminologyContext);
+
   const { type } = orderFormDetails;
 
   const [price, setPrice] = useState(orderFormDetails.price || "");
@@ -39,7 +42,7 @@ export default props => {
         </div>
       </div>
 
-      <label className="text-steel-900">Volume (ML)</label>
+      <label className="text-steel-900">Volume ({terminologies["ML"]})</label>
       <input
         type="number"
         value={quantity}

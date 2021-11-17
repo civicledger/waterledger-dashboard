@@ -11,7 +11,9 @@ export const formatDate = utcDate => formatDistance(utcDate * 1000, new Date()) 
 export const formatKilolitres = kl => {
   if (kl === undefined) return;
 
-  return `${kl / 1000} ML`;
+  const unit = JSON.parse(localStorage.getItem("terminologyObject")).terminologies["ML"];
+
+  return `${kl / 1000} ${unit}`;
 };
 
 export const formatShortDate = utcDate => new Date(utcDate * 1000).toLocaleDateString("en-au", { day: "numeric", year: "numeric", month: "short" });

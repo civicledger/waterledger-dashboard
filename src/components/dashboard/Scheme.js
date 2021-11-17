@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 
 import WaterAccountsList from "./WaterAccountsList";
 import { formatAmount, formatEthereumAddress } from "../../utils/format";
+import { TerminologyContext } from "../contexts";
 import { getScheme } from "../queries";
 
 export default props => {
+  const { terminologies } = useContext(TerminologyContext);
   let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
   if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };
 
@@ -20,7 +22,7 @@ export default props => {
 
         <div className="mt-5">
           <div className="text-xl scheme-name mt-0">{scheme.name}</div>
-          Last Traded Price / ML
+          Last Traded Price / {terminologies["ML"]}
           <div className="text-xl lg:text-4xl">{formatAmount(scheme.lastTradedPrice ?? 0)}</div>
           <div className="mb-3 text-sm xl:text-lg text-steel-300">
             <span className="py-1 px-2 border rounded border-steel-300">

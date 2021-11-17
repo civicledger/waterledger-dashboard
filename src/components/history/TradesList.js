@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { TerminologyContext } from "../contexts";
 
 import Trade from "./Trade";
 
 export default ({ trades, isLoading = false, limit = null }) => {
+  const { terminologies } = useContext(TerminologyContext);
   if (isLoading) {
     return <div>loading</div>;
   }
@@ -14,7 +16,7 @@ export default ({ trades, isLoading = false, limit = null }) => {
       <table className="table relative w-full transaction-list ">
         <thead>
           <tr className="text-left font-semibold bg-steel-700">
-            <th className="p-2">Price / ML</th>
+            <th className="p-2">Price / {terminologies["ML"]}</th>
             <th className="p-2">Volume</th>
             <th className="p-2 lg:table-cell">From Zone</th>
             <th className="p-2 lg:table-cell">To Zone</th>
