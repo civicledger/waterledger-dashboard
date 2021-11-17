@@ -36,23 +36,6 @@ export const userReducer = (state = defaultUserState, { type, payload }) => {
   }
 };
 
-export const initialTerminologyState = {
-  defaultTerm: "default",
-  selectedTerm: "COLORADO",
-};
-
-/// required
-export function termReducer(state, action) {
-  const { type, payload } = action;
-  switch (type) {
-    case "TERM_UPDATE": {
-      return { ...state, selectedTerm: payload };
-    }
-    default:
-      return state;
-  }
-}
-
 export const TerminologyContext = createContext();
 
 export const UserContext = createContext(null);

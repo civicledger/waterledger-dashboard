@@ -1,6 +1,6 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
-import { userReducer, UserContext, TerminologyContext, termReducer, initialTerminologyState } from "./contexts";
+import { userReducer, UserContext, TerminologyContext } from "./contexts";
 import { Route, Switch } from "react-router-dom";
 import Watchers from "./Watchers";
 import Sidebar from "./app/Sidebar";
@@ -13,6 +13,7 @@ import Login from "./login/Login";
 import Logout from "./logout/Logout";
 import Modals from "./app/Modals";
 import UserService from "../services/UserService";
+import TerminologyService from "../services/TerminologyService";
 
 import Liabilities from "./liabilities/Liabilities";
 import Licence from "./licence/Licence";
@@ -23,19 +24,19 @@ import { getScheme, queryClient, getTerminologies } from "./queries";
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
-  const terminologyStore = useReducer(termReducer, initialTerminologyState);
+  const [terminologies] = useState(TerminologyService.getSavedTerminologies());
+
   queryClient.prefetchQuery("getScheme", getScheme);
   queryClient.prefetchQuery("getTerminologies", getTerminologies);
 
   const notifications = useSelector(state => state.notifications);
   return (
     <QueryClientProvider client={queryClient}>
-      <TerminologyContext.Provider value={{ terminologyStore }}>
+      <TerminologyContext.Provider value={{ terminologies }}>
         <UserContext.Provider value={{ login, loginDispatch }}>
           <Watchers />
           <div className="flex min-h-screen bg-steel-900 text-steel-100">
             <Sidebar />
-            {/* <Translate token="scheme" /> */}
             <Notifications notifications={notifications} />
             <div className="flex-1 flex flex-col">
               <TopNav />

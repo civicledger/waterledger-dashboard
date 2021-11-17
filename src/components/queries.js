@@ -35,8 +35,22 @@ export const getLiabilities = async () => {
   return data.liabilities;
 };
 
-export const getTerminologies = async schemeId => {
-  const { data } = await terminologyService.getCurrentTerminology(schemeId);
-  console.log(data.terminologies);
-  return data.terminologies;
+export const getTerminologies = async () => {
+  const defaultTerminologies = {
+    Scheme: "Scheme",
+    "Water Accounts": "Water Accounts",
+    ML: "ML",
+  };
+
+  const {
+    data: { terminologies },
+  } = await terminologyService.getCurrentTerminology();
+
+  const applicableTerminologies = Object.fromEntries(terminologies.map(term => [term.term, term.termValue]));
+
+  const returnData = { terminologies: { ...defaultTerminologies, ...applicableTerminologies } };
+
+  localStorage.setItem("terminologyObject", JSON.stringify(returnData));
+
+  return returnData;
 };

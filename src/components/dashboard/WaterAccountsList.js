@@ -4,11 +4,12 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
 import { getLicence } from "../queries";
-import { UserContext, ACTIONS } from "../contexts";
+import { UserContext, ACTIONS, TerminologyContext } from "../contexts";
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 import { formatKilolitres } from "../../utils/format";
 
 export default () => {
+  const { terminologies } = useContext(TerminologyContext);
   const dispatch = useDispatch();
 
   const { login, loginDispatch } = useContext(UserContext);
@@ -20,7 +21,7 @@ export default () => {
   if (!licence) return <></>;
   return (
     <div>
-      <h4 className="text-lg text-left ml-5">Your Water Accounts</h4>
+      <h4 className="text-lg text-left ml-5">Your {terminologies["Water Accounts"]}</h4>
       <div className="table w-full text-sm p-4 pt-1">
         {licence.accounts
           .sort((a, b) => {

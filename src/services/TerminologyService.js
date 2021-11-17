@@ -6,16 +6,12 @@ axios.defaults.baseURL = baseURL;
 export default class TerminologyService extends BaseService {
   entity = "terminologies";
 
-  /// wip
+  static getSavedTerminologies() {
+    return JSON.parse(localStorage.getItem("terminologyObject")).terminologies;
+  }
+
   getCurrentTerminology() {
     const schemeId = localStorage.getItem("schemeId");
-    const defaultTerminologies = {
-      scheme: "scheme",
-      account: "account",
-      ML: "ML",
-    };
-    console.log(schemeId, defaultTerminologies);
-
     return axios.get(`${this.entity}`, { params: { schemeId } });
   }
 }
