@@ -6,6 +6,7 @@ import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
 import { licenceService } from "../services/LicenceService";
 import { terminologyService } from "../services/TerminologyService";
+import { defaultTerminologies } from "../utils/terminologies";
 
 export const queryClient = new QueryClient();
 
@@ -36,12 +37,6 @@ export const getLiabilities = async () => {
 };
 
 export const getTerminologies = async () => {
-  const defaultTerminologies = {
-    Scheme: "Scheme",
-    "Water Accounts": "Water Accounts",
-    ML: "ML",
-  };
-
   const {
     data: { terminologies },
   } = await terminologyService.getCurrentTerminology();
