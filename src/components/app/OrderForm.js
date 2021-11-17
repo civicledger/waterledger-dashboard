@@ -13,7 +13,7 @@ export default props => {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
 
-  const terminologies = useContext(TerminologyContext);
+  const { terminologies } = useContext(TerminologyContext);
 
   const { type } = orderFormDetails;
 
@@ -53,7 +53,7 @@ export default props => {
 
       {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
-      <label className="text-steel-900">Price ($/ML)</label>
+      <label className="text-steel-900">Price ($/{terminologies["ML"]})</label>
       <input
         type="number"
         value={price}
