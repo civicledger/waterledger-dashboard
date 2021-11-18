@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getInstanceIdentifier } from "../utils/ethUtils";
 import { defaultTerminologies } from "../utils/terminologies";
 import BaseService, { baseURL } from "./BaseService";
 axios.defaults.baseURL = baseURL;
@@ -15,8 +16,7 @@ export default class TerminologyService extends BaseService {
   }
 
   getCurrentTerminology() {
-    const schemeId = localStorage.getItem("schemeId");
-    return axios.get(`${this.entity}`, { params: { schemeId } });
+    return axios.get(`${this.entity}`, { params: { identifier: getInstanceIdentifier() } });
   }
 }
 
