@@ -1,7 +1,6 @@
 import axios from "axios";
 import { defaultTerminologies } from "../utils/terminologies";
-import BaseService from "./BaseService";
-import { baseURL } from "./BaseService";
+import BaseService, { baseURL } from "./BaseService";
 axios.defaults.baseURL = baseURL;
 
 export default class TerminologyService extends BaseService {

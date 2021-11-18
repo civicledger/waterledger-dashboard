@@ -170,7 +170,6 @@ const data = [
 
 export default () => {
   const { terminologies } = queryClient.getQueryData("getTerminologies");
-  console.log("from graph", terminologies);
   return (
     <div className="pb-10 px-2" id="graph" style={{ height: "400px" }}>
       <ResponsiveLine

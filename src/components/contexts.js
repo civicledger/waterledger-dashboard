@@ -36,6 +36,4 @@ export const userReducer = (state = defaultUserState, { type, payload }) => {
   }
 };
 
-export const TerminologyContext = createContext();
-
 export const UserContext = createContext(null);
