@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
 import { formatAmount, formatShortDateObject, formatKilolitres } from "../../utils/format";
 import classNames from "classnames";
-import { queryClient } from "../queries";
+import { getSavedTerminologies, queryClient } from "../queries";
+import { useQuery } from "react-query";
 
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending, loggedIn }) => {
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
 
   const dispatch = useDispatch();
 

@@ -3,10 +3,14 @@ import React from "react";
 import Order from "./Order";
 
 import OrderButton from "../dashboard/OrderButton";
-import { queryClient } from "../queries";
+import { getSavedTerminologies } from "../queries";
+import { useQuery } from "react-query";
 
 export default props => {
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
+
   const { type, orders = [], isPending, showType = false, showTimestamp = false, button } = props;
   const columns = 3 + +showTimestamp + +showType;
 

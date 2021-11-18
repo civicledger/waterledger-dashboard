@@ -1,11 +1,15 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { queryClient } from "../queries";
+import { getSavedTerminologies } from "../queries";
 
 import Trade from "./Trade";
 
 export default ({ trades, isLoading = false, limit = null }) => {
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
+
   if (isLoading) {
     return <div>loading</div>;
   }

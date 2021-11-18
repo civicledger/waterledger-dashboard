@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
-import { getLicence, queryClient } from "../queries";
+import { getLicence, getSavedTerminologies } from "../queries";
 import { UserContext } from "../contexts";
 
 export default props => {
@@ -12,7 +12,9 @@ export default props => {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
 
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
 
   const { type } = orderFormDetails;
 

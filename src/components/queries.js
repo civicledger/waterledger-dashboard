@@ -36,12 +36,14 @@ export const getLiabilities = async () => {
   return data.liabilities;
 };
 
-export const getTerminologies = async () => {
-  const {
-    data: { terminologies: fetchedTerminologies },
-  } = await terminologyService.getCurrentTerminology();
+export const getSavedTerminologies = () => {
+  return queryClient.getQueryData("getTerminologies");
+};
 
-  const applicableTerminologies = Object.fromEntries(fetchedTerminologies.map(terminology => [terminology.term, terminology.termValue]));
+export const getTerminologies = async () => {
+  const { data } = await terminologyService.getCurrentTerminology();
+
+  const applicableTerminologies = Object.fromEntries(data.terminologies.map(terminology => [terminology.term, terminology.termValue]));
 
   const { terminologies } = defaultTerminologies;
 

@@ -3,13 +3,15 @@ import classNames from "classnames";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
-import { getLicence, queryClient } from "../queries";
+import { getLicence, getSavedTerminologies } from "../queries";
 import { UserContext, ACTIONS } from "../contexts";
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 import { formatKilolitres } from "../../utils/format";
 
 export default () => {
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
 
   const dispatch = useDispatch();
 

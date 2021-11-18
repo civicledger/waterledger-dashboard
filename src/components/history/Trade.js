@@ -1,9 +1,13 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { formatAmount, formatKilolitres, formatShortDateObject } from "../../utils/format";
-import { queryClient } from "../queries";
+import { getSavedTerminologies } from "../queries";
 
 const Trade = ({ trade }) => {
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
+
   return (
     <tr>
       <td className="p-2 pb-1">{formatAmount(trade.price)}</td>

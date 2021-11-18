@@ -1,7 +1,8 @@
 import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 
-import { queryClient } from "../queries";
+import { getSavedTerminologies } from "../queries";
+import { useQuery } from "react-query";
 
 const data = [
   {
@@ -169,7 +170,10 @@ const data = [
 ];
 
 export default () => {
-  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
+
   return (
     <div className="pb-10 px-2" id="graph" style={{ height: "400px" }}>
       <ResponsiveLine
