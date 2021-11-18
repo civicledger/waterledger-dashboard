@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
-import { useQueryClient } from "react-query";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
 import { formatAmount, formatShortDateObject, formatKilolitres } from "../../utils/format";
 import classNames from "classnames";
-import { TerminologyContext } from "../contexts";
+import { queryClient } from "../queries";
 
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending, loggedIn }) => {
-  const { terminologies } = useContext(TerminologyContext);
+  const { terminologies } = queryClient.getQueryData("getTerminologies");
+
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
 
   let { id, ethId, price, quantity, createdAt, account } = order;
 

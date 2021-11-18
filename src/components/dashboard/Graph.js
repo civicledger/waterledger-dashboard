@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 
-import { TerminologyContext } from "../contexts";
+import { queryClient } from "../queries";
 
 const data = [
   {
@@ -169,7 +169,8 @@ const data = [
 ];
 
 export default () => {
-  const { terminologies } = useContext(TerminologyContext);
+  const { terminologies } = queryClient.getQueryData("getTerminologies");
+  console.log("from graph", terminologies);
   return (
     <div className="pb-10 px-2" id="graph" style={{ height: "400px" }}>
       <ResponsiveLine

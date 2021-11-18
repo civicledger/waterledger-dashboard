@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import Order from "./Order";
 
 import OrderButton from "../dashboard/OrderButton";
-import { TerminologyContext } from "../contexts";
+import { queryClient } from "../queries";
 
 export default props => {
-  const { terminologies } = useContext(TerminologyContext);
+  const { terminologies } = queryClient.getQueryData("getTerminologies");
   const { type, orders = [], isPending, showType = false, showTimestamp = false, button } = props;
   const columns = 3 + +showTimestamp + +showType;
 

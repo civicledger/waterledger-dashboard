@@ -38,14 +38,14 @@ export const getLiabilities = async () => {
 
 export const getTerminologies = async () => {
   const {
-    data: { terminologies },
+    data: { terminologies: fetchedTerminologies },
   } = await terminologyService.getCurrentTerminology();
 
-  const applicableTerminologies = Object.fromEntries(terminologies.map(term => [term.term, term.termValue]));
+  const applicableTerminologies = Object.fromEntries(fetchedTerminologies.map(terminology => [terminology.term, terminology.termValue]));
 
-  const returnData = { terminologies: { ...defaultTerminologies, ...applicableTerminologies } };
+  const { terminologies } = defaultTerminologies;
 
-  localStorage.setItem("terminologyObject", JSON.stringify(returnData));
+  const returnData = { terminologies: { ...terminologies, ...applicableTerminologies } };
 
   return returnData;
 };

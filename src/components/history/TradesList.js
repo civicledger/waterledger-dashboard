@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { TerminologyContext } from "../contexts";
+import { queryClient } from "../queries";
 
 import Trade from "./Trade";
 
 export default ({ trades, isLoading = false, limit = null }) => {
-  const { terminologies } = useContext(TerminologyContext);
+  const { terminologies } = queryClient.getQueryData("getTerminologies");
   if (isLoading) {
     return <div>loading</div>;
   }

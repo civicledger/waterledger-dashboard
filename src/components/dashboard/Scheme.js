@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 
 import WaterAccountsList from "./WaterAccountsList";
 import { formatAmount, formatEthereumAddress } from "../../utils/format";
-import { TerminologyContext } from "../contexts";
-import { getScheme } from "../queries";
+import { getScheme, queryClient } from "../queries";
 
 export default props => {
-  const { terminologies } = useContext(TerminologyContext);
+  const { terminologies } = queryClient.getQueryData("getTerminologies");
+
   let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
   if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };
 
