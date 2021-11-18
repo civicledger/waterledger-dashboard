@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
@@ -7,7 +7,6 @@ import { getLicence } from "../queries";
 import { TerminologyContext, UserContext } from "../contexts";
 
 export default props => {
-  const queryClient = useQueryClient();
   const orderFormDetails = useSelector(state => state.orderFormDetails);
   const {
     login: { activeWaterAccount, licenceId },
@@ -69,9 +68,6 @@ export default props => {
           props.placeOrder({ waterAccountId: waterAccount.id, price, quantity, type });
           setPrice("");
           setQuantity("");
-          setTimeout(() => {
-            queryClient.invalidateQueries(["getOrders"]);
-          }, 3000);
         }}
         disabled={isReadOnly}
       >

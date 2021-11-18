@@ -27,7 +27,7 @@ const dateReducer = (acc, [key, value]) => {
   }
 
   const date = parseISO(value);
-  if (isNaN(date) || isBefore(date, new Date(1905))) return acc;
+  if (!isNaN(value) || isNaN(date) || isBefore(date, new Date(1905))) return acc;
 
   acc[key] = date;
   return acc;

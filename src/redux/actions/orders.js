@@ -36,15 +36,6 @@ export const submitOrder = order => {
             text: `Your ${order.type} order has been placed`,
           })
         );
-        setTimeout(() => {
-          dispatch(
-            addNotification({
-              id: `confirmed-${response.id}`,
-              type: "success",
-              text: `Your ${order.type} order has been mined and confirmed`,
-            })
-          );
-        }, 10000);
       })
       .catch("error", function (error) {
         dispatch(
