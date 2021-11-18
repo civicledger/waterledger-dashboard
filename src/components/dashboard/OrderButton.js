@@ -17,7 +17,7 @@ export default ({ isPending, type }) => {
   const colour = type === "sell" ? "red" : "green";
   const buttonWord = type === "sell" ? "Offer" : "Bid";
   const defaultClasses = `w-full border border-${colour}-500 text-${colour}-500 rounded mt-5 p-3 m-3 lg:m-0 cursor-pointer hover:border-${colour}-300`;
-  const buttonClass = classNames({ [defaultClasses]: true, "opacity-50": isPending });
+  const buttonClass = classNames({ [defaultClasses]: true, "opacity-50 cursor-not-allowed": isPending });
   const defaultIconClasses = `fal  text-${colour}-500 mr-3`;
   const iconClass = classNames({ [defaultIconClasses]: true, "fa-plus-square": !isPending, "fa-ban": isPending });
 
