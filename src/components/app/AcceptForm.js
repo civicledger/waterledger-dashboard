@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
-import { getOrders, getLicence } from "../queries";
+import { getOrders, getLicence, getSavedTerminologies } from "../queries";
 import { UserContext } from "../contexts";
 import { acceptOrder } from "../../redux/actions/orders";
 import { setAcceptOrderModal } from "../../redux/actions/actions";
@@ -15,6 +15,10 @@ export default props => {
   const {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
+
+  const {
+    data: { terminologies },
+  } = useQuery("getTerminologies", getSavedTerminologies);
 
   if (!activeWaterAccount) return "";
   const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
@@ -62,17 +66,17 @@ export default props => {
             </div>
 
             <div className="flex mt-3">
-              <div className="w-1/4">Order Zone</div>
+              <div className="w-1/4 capitalize">Order {terminologies["zone"]}</div>
               <div className="w-3/4">{order.zoneNameLong}</div>
             </div>
 
             <div className="flex mt-1">
-              <div className="w-1/4">Your Zone</div>
+              <div className="w-1/4 capitalize">Your {terminologies["zone"]}</div>
               <div className="w-3/4">{activeAccount.zone.longName}</div>
             </div>
 
             <div className="flex mt-1">
-              <div className="w-1/4">Interzone</div>
+              <div className="w-1/4">Inter{terminologies["zone"]}</div>
               <div className="w-3/4">{activeAccount.zone.longName === order.zoneNameLong ? "No" : "Yes"}</div>
             </div>
           </div>
