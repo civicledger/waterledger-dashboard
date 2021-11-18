@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { useSelector } from "react-redux";
-import { userReducer, UserContext, TerminologyContext } from "./contexts";
+import { userReducer, UserContext } from "./contexts";
 import { Route, Switch } from "react-router-dom";
 import Watchers from "./Watchers";
 import Sidebar from "./app/Sidebar";
