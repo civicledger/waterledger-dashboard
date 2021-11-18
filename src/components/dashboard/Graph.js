@@ -221,7 +221,7 @@ export default () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: `Price in $/${terminologies["ML"]}`,
+          legend: `Price in $/${terminologies["unit"]}`,
           legendOffset: -50,
           legendPosition: "middle",
         }}

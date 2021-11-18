@@ -21,12 +21,15 @@ import TopNav from "./app/TopNav";
 
 import { QueryClientProvider } from "react-query";
 import { getScheme, queryClient, getTerminologies } from "./queries";
+import { defaultTerminologies } from "../utils/terminologies";
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
   const [terminologies] = useState(TerminologyService.getSavedTerminologies());
 
   queryClient.prefetchQuery("getScheme", getScheme);
+
+  queryClient.setQueryData("getTerminologies", defaultTerminologies);
   queryClient.prefetchQuery("getTerminologies", getTerminologies);
 
   const notifications = useSelector(state => state.notifications);

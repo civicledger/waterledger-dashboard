@@ -41,7 +41,7 @@ export default props => {
         </div>
       </div>
 
-      <label className="text-steel-900">Volume ({terminologies["ML"]})</label>
+      <label className="text-steel-900">Volume ({terminologies["unit"]})</label>
       <input
         type="number"
         value={quantity}
@@ -52,7 +52,7 @@ export default props => {
 
       {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
-      <label className="text-steel-900">Price ($/{terminologies["ML"]})</label>
+      <label className="text-steel-900">Price ($/{terminologies["unit"]})</label>
       <input
         type="number"
         value={price}

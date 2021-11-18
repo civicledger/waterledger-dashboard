@@ -21,7 +21,7 @@ export default () => {
   if (!licence) return <></>;
   return (
     <div>
-      <h4 className="text-lg text-left ml-5">Your {terminologies["Water Accounts"]}</h4>
+      <h4 className="text-lg text-left ml-5">Your Water Accounts</h4>
       <div className="table w-full text-sm p-4 pt-1">
         {licence.accounts
           .sort((a, b) => {
@@ -44,7 +44,7 @@ export default () => {
               >
                 <span className="table-cell text-left p-2">{wa.waterAccount}</span>
                 <span className="table-cell text-left p-2">{wa.zone.shortName}</span>
-                <span className="table-cell text-left p-2">{isPending ? "pending" : formatKilolitres(wa.balance)}</span>
+                <span className="table-cell text-left p-2">{isPending ? "pending" : formatKilolitres(wa.balance, terminologies["unit"])}</span>
               </div>
             );
           })}

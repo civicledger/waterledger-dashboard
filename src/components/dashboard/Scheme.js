@@ -22,7 +22,7 @@ export default props => {
 
         <div className="mt-5">
           <div className="text-xl scheme-name mt-0">{scheme.name}</div>
-          Last Traded Price / {terminologies["ML"]}
+          Last Traded Price / {terminologies["unit"]}
           <div className="text-xl lg:text-4xl">{formatAmount(scheme.lastTradedPrice ?? 0)}</div>
           <div className="mb-3 text-sm xl:text-lg text-steel-300">
             <span className="py-1 px-2 border rounded border-steel-300">

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { openAcceptOrder, deleteOrder } from "../../redux/actions/orders";
 import { formatAmount, formatShortDateObject, formatKilolitres } from "../../utils/format";
 import classNames from "classnames";
+import { TerminologyContext } from "../contexts";
 
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending, loggedIn }) => {
+  const { terminologies } = useContext(TerminologyContext);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
@@ -34,7 +36,7 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
     >
       {showType && <td className="p-4 py-3">{orderTypes[type]}</td>}
       <td className="p-4 py-3">{formatAmount(price)}</td>
-      <td className="p-4 py-3">{formatKilolitres(quantity)}</td>
+      <td className="p-4 py-3">{formatKilolitres(quantity, terminologies["unit"])}</td>
       <td className="p-4 py-3">{account.zone.shortName}</td>
       {showTimestamp && <td className="p-4 py-3">{formatShortDateObject(createdAt)}</td>}
       <td width="30" className="py-3">

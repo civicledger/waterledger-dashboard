@@ -1,5 +1,5 @@
 export const defaultTerminologies = {
-  licence,
-  scheme,
+  licence: "licence",
+  scheme: "scheme",
   unit: "ML",
 };

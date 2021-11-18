@@ -18,7 +18,7 @@ export default props => {
         <thead>
           <tr className="text-left bg-steel-700">
             {showType && <th className="p-4 py-3">Type</th>}
-            <th className="p-4 py-3">Price / {terminologies["ML"]}</th>
+            <th className="p-4 py-3">Price / {terminologies["unit"]}</th>
             <th className="p-4 py-3">Volume</th>
             <th className="p-4 py-3">Zone</th>
             {showTimestamp && <th className="p-4 py-3">Mined</th>}
