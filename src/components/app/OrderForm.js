@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
+import classNames from "classnames";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
 import { getLicence } from "../queries";
@@ -25,7 +26,12 @@ export default props => {
   const excessVolumeError = isSell && quantity > waterAccount.balance;
   const isReadOnly = !quantity || !price || excessVolumeError;
 
-  let bgColor = isReadOnly ? "gray" : isSell ? "red" : "green";
+  let bgColor = isReadOnly ? "gray " : isSell ? "red" : "green";
+
+  const buttonClass = classNames(`btn-${bgColor} w-ful`,  {
+    "fa-caret-down": sortTimeDirection === "newFirst",
+    "fa-caret-up": sortTimeDirection !== "newFirst",
+  });
 
   return (
     <Fragment>
@@ -60,7 +66,7 @@ export default props => {
 
       <button
         type="submit"
-        className={`btn-${bgColor} w-full`}
+        className={(`btn-${bgColor} w-full`, isReadOnly : "cursor-not-allowed")}
         onClick={() => {
           props.placeOrder({ waterAccountId: waterAccount.id, price, quantity, type });
           setPrice("");
