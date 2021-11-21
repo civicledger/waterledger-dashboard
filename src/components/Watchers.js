@@ -34,6 +34,8 @@ const Watchers = () => {
     socket.on("TradeAdded", async () => {
       await queryClient.invalidateQueries("trades");
       await queryClient.invalidateQueries("getScheme");
+      await queryClient.invalidateQueries("buyOrders");
+      await queryClient.invalidateQueries("sellOrders");
       dispatch(addNotification({ text: "Refreshing trades list" }));
     });
     socket.on("BalanceUpdated", async () => {
