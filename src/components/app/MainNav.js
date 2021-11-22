@@ -9,9 +9,7 @@ const MainNav = () => {
     login: { loggedIn },
   } = useContext(UserContext);
 
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   return (
     <ul className="list-reset text-center">

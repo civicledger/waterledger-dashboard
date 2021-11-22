@@ -16,9 +16,7 @@ export default props => {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
 
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   if (!activeWaterAccount) return "";
   const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });

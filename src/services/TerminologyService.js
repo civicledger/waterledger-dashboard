@@ -16,7 +16,7 @@ export default class TerminologyService extends BaseService {
   }
 
   getCurrentTerminology() {
-    return axios.get(`${this.entity}`, { params: { identifier: getInstanceIdentifier() } });
+    return axios.get(`${this.entity}`, { params: { schemeIdentifier: getInstanceIdentifier() } });
   }
 }
 

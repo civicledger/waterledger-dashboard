@@ -45,9 +45,7 @@ const pendingLayout = (pending, terminologies) => {
 };
 
 export default ({ loggedIn, pending }) => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
   if (loggedIn && !pending) return "";
   return (
     <>

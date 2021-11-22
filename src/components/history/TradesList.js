@@ -6,9 +6,7 @@ import { getSavedTerminologies } from "../queries";
 import Trade from "./Trade";
 
 export default ({ trades, isLoading = false, limit = null }) => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   if (isLoading) {
     return <div>loading</div>;

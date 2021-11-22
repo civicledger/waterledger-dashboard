@@ -9,9 +9,7 @@ import { useQuery } from "react-query";
 const orderTypes = { buy: "Offer", sell: "Bid" };
 
 export default ({ order, showType = false, showTimestamp = false, highlightRow, waterAccounts = [], type, isPending, loggedIn }) => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const dispatch = useDispatch();
 

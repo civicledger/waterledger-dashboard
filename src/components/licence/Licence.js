@@ -12,9 +12,7 @@ export default () => {
     login: { licenceId, loggedIn },
   } = useContext(UserContext);
 
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const { data: trades } = useQuery("licenceTrades", () => getHistory(licenceId), { keepPreviousData: true });
   const { data: licence } = useQuery("getLicence", () => getLicence(licenceId), { keepPreviousData: true });

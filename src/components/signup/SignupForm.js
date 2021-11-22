@@ -13,9 +13,7 @@ import AccountRow from "./AccountRow";
 import { getSavedTerminologies, getScheme } from "../queries";
 
 const SignupForm = () => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
   const validate = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),

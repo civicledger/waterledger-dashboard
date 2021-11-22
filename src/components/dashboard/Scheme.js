@@ -6,9 +6,7 @@ import { formatAmount, formatEthereumAddress } from "../../utils/format";
 import { getSavedTerminologies, getScheme } from "../queries";
 
 export default props => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
   if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };

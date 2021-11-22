@@ -170,9 +170,7 @@ const data = [
 ];
 
 export default () => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   return (
     <div className="pb-10 px-2" id="graph" style={{ height: "400px" }}>

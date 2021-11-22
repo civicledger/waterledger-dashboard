@@ -9,9 +9,7 @@ import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 import { formatKilolitres } from "../../utils/format";
 
 export default () => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const dispatch = useDispatch();
 

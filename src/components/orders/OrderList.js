@@ -7,9 +7,7 @@ import { getSavedTerminologies } from "../queries";
 import { useQuery } from "react-query";
 
 export default props => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const { type, orders = [], isPending, showType = false, showTimestamp = false, button } = props;
   const columns = 3 + +showTimestamp + +showType;

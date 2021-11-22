@@ -12,9 +12,7 @@ export default props => {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
 
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const { type } = orderFormDetails;
 
@@ -39,7 +37,7 @@ export default props => {
         <div className="flex text-steel-100 text-center">
           <div className="flex-1 text-left">{waterAccount.waterAccount}</div>
           <div className="flex-2">{waterAccount.zone.longName}</div>
-          <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance)}</div>
+          <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance, terminologies["unit"])}</div>
         </div>
       </div>
 

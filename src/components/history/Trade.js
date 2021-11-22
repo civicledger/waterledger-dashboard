@@ -4,9 +4,7 @@ import { formatAmount, formatKilolitres, formatShortDateObject } from "../../uti
 import { getSavedTerminologies } from "../queries";
 
 const Trade = ({ trade }) => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   return (
     <tr>

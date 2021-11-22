@@ -14,9 +14,7 @@ const TopNav = () => {
     login: { loggedIn },
   } = useContext(UserContext);
 
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const toggleMenu = () => setHideMenu(!hideMenu);
 

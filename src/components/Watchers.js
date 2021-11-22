@@ -11,9 +11,7 @@ const socketService = SocketService.getInstance();
 const socket = socketService.getSocket();
 
 const Watchers = () => {
-  const {
-    data: { terminologies },
-  } = useQuery("getTerminologies", getSavedTerminologies);
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   const dispatch = useDispatch();
 
