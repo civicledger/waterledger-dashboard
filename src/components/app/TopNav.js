@@ -5,12 +5,17 @@ import classNames from "classnames";
 import { UserContext } from "../contexts";
 
 import waterLedgerLogo from "../../images/wl-logo.png";
+import { useQuery } from "react-query";
+import { getSavedTerminologies } from "../queries";
 
 const TopNav = () => {
   const [hideMenu, setHideMenu] = useState(true);
   const {
     login: { loggedIn },
   } = useContext(UserContext);
+
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
+
   const toggleMenu = () => setHideMenu(!hideMenu);
 
   return (
@@ -50,9 +55,9 @@ const TopNav = () => {
         {loggedIn && (
           <Fragment>
             <li>
-              <NavLink className="top-nav" to="/licence" onClick={toggleMenu}>
+              <NavLink className="top-nav capitalize" to="/licence" onClick={toggleMenu}>
                 <i className="fal fa-user fa-fw menu-icon mr-2" />
-                Licence Details
+                {terminologies["licence"]} Details
               </NavLink>
             </li>
             <li>

@@ -10,9 +10,10 @@ import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
-import { getScheme } from "../queries";
+import { getSavedTerminologies, getScheme } from "../queries";
 
 const SignupForm = () => {
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
   const validate = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
@@ -20,8 +21,8 @@ const SignupForm = () => {
       .oneOf([Yup.ref("password"), null], "Password must match")
       .required("Confirm password is required"),
     name: Yup.string().required("Name is required"),
-    licence: Yup.string().required("Your licence is required"),
-    accounts: Yup.array().min(2, "At least one account is required"),
+    licence: Yup.string().required(`Your ${terminologies["licence"]} number is required`),
+    accounts: Yup.array().min(2, `At least one ${terminologies["account"]} is required`),
   });
 
   const [success, setSuccess] = useState(null);
@@ -37,10 +38,10 @@ const SignupForm = () => {
 
   return (
     <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-800 lg:p-5">
-      <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Provide your user and account details</h2>
+      <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Provide your user and {terminologies["account"]} details</h2>
       <p>
-        Provide your email address and login details to get access to the trading platform. You will not be able to trade until your water accounts
-        and licence are approved.
+        Provide your email address and login details to get access to the trading platform. You will not be able to trade until your{" "}
+        {terminologies["account"]}s and {terminologies["licence"]} are approved.
       </p>
       <Formik
         initialValues={{
@@ -116,13 +117,13 @@ const SignupForm = () => {
                   <Field name="name" className="input text-steel-900 rounded" />
                   <ErrorMessage component="p" name="name" className="mb-3" />
 
-                  <label htmlFor="licence" className="text-steel-300 my-2 font-semibold">
-                    Licence Number
+                  <label htmlFor="licence" className="text-steel-300 my-2 font-semibold capitalize">
+                    {terminologies["licence"]} Number
                   </label>
                   <Field name="licence" autoComplete="confirm-password" className="input text-steel-900 rounded mb-5" />
                   <ErrorMessage component="p" name="licence" className="mb-3" />
 
-                  <h4 className="font-semibold my-2">Water Accounts</h4>
+                  <h4 className="font-semibold my-2 capitalize">{terminologies["account"]}s</h4>
                   <ErrorMessage component="p" name="accounts" className="mb-3" />
                   <FieldArray
                     name="accounts"
@@ -136,16 +137,16 @@ const SignupForm = () => {
 
                       return (
                         <div className="grid grid-cols-3 gap-2 ">
-                          <label className="text-steel-300 font-semibold">Account Number</label>
-                          <label htmlFor="name" className="text-steel-300 font-semibold">
-                            Zone
+                          <label className="text-steel-300 font-semibold capitalize">{terminologies["account"]} Number</label>
+                          <label htmlFor="name" className="text-steel-300 font-semibold capitalize">
+                            {terminologies["zone"]}
                           </label>
                           <label htmlFor="allocation" className="text-steel-300 font-semibold">
                             Allocation
                           </label>
                           {values.accounts.map((account, index) => {
                             if (index < values.accounts.length - 1) {
-                              return <AccountRow key={index} account={account} zone={keyedZones[account.zoneId]} />;
+                              return <AccountRow key={index} account={account} zone={keyedZones[account.zoneId]} unit={terminologies["unit"]} />;
                             }
 
                             return (

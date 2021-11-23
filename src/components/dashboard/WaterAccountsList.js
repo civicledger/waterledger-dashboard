@@ -3,12 +3,14 @@ import classNames from "classnames";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
-import { getLicence } from "../queries";
+import { getLicence, getSavedTerminologies } from "../queries";
 import { UserContext, ACTIONS } from "../contexts";
 import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
 import { formatKilolitres } from "../../utils/format";
 
 export default () => {
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
+
   const dispatch = useDispatch();
 
   const { login, loginDispatch } = useContext(UserContext);
@@ -20,7 +22,7 @@ export default () => {
   if (!licence) return <></>;
   return (
     <div>
-      <h4 className="text-lg text-left ml-5">Your Water Accounts</h4>
+      <h4 className="text-lg text-left ml-5 capitalize">Your {terminologies["account"]}s</h4>
       <div className="table w-full text-sm p-4 pt-1">
         {licence.accounts
           .sort((a, b) => {
@@ -38,12 +40,12 @@ export default () => {
                 )}
                 onClick={() => {
                   loginDispatch({ type: ACTIONS.SET_ACTIVE_WATER_ACCOUNT, payload: wa.id });
-                  dispatch(setCurrentWaterAccount(wa.waterAccount));
+                  dispatch(setCurrentWaterAccount(wa.waterAccount, terminologies["account"]));
                 }}
               >
                 <span className="table-cell text-left p-2">{wa.waterAccount}</span>
                 <span className="table-cell text-left p-2">{wa.zone.shortName}</span>
-                <span className="table-cell text-left p-2">{isPending ? "pending" : formatKilolitres(wa.balance)}</span>
+                <span className="table-cell text-left p-2">{isPending ? "pending" : formatKilolitres(wa.balance, terminologies["unit"])}</span>
               </div>
             );
           })}

@@ -4,12 +4,12 @@ import { addNotification } from "./actions";
 
 export const setActiveWaterAccount = payload => ({ type: SET_ACTIVE_WATER_ACCOUNT, payload });
 
-export function setCurrentWaterAccount(waterAccount) {
+export function setCurrentWaterAccount(waterAccount, accountString) {
   return dispatch => {
     dispatch(
       addNotification({
         type: "success",
-        text: `Active water account set to ${waterAccount}`,
+        text: `Active ${accountString} set to ${waterAccount}`,
       })
     );
   };

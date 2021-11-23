@@ -4,17 +4,20 @@ import { useDispatch } from "react-redux";
 
 import SocketService from "../services/SocketService";
 import { addNotification } from "../redux/actions/actions";
-import { queryClient } from "./queries";
+import { getSavedTerminologies, queryClient } from "./queries";
+import { useQuery } from "react-query";
 
 const socketService = SocketService.getInstance();
 const socket = socketService.getSocket();
 
 const Watchers = () => {
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     socket.on("LicenceCompleted", () => {
-      dispatch(addNotification({ text: "Your licence has been approved and you can now trade" }));
+      dispatch(addNotification({ text: `Your ${terminologies["licence"]} has been approved and you can now trade` }));
     });
     socket.on("OrderAdded", async () => {
       await queryClient.invalidateQueries("buyOrders");
@@ -45,7 +48,7 @@ const Watchers = () => {
     socket.on("AcceptTransactionMined", async () => {
       dispatch(addNotification({ text: "Your trade transaction has been mined on the blockchain", type: "success" }));
     });
-  }, [dispatch]);
+  }, [dispatch, terminologies]);
 
   return <></>;
 };

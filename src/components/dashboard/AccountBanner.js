@@ -1,5 +1,7 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { getSavedTerminologies } from "../queries";
 
 const notLoggedInLayout = loggedIn => {
   if (loggedIn) return "";
@@ -30,25 +32,26 @@ const notLoggedInLayout = loggedIn => {
   );
 };
 
-const pendingLayout = pending => {
+const pendingLayout = (pending, terminologies) => {
   if (!pending) return "";
   return (
     <div className="col-span-3 text-lg">
       <p className=" align-middle mb-3 lg:mb-0">
         <i className="fal fa-exclamation-triangle mr-2"></i>Your account is pending approval. You can access the full application but you cannot make
-        trades until the licence is approved.
+        trades until the {terminologies["licence"]} is approved.
       </p>
     </div>
   );
 };
 
 export default ({ loggedIn, pending }) => {
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
   if (loggedIn && !pending) return "";
   return (
     <>
       <div className="col-span-8 bg-steel-700 rounded p-5 grid grid-cols-3">
         {notLoggedInLayout(loggedIn)}
-        {pendingLayout(pending)}
+        {pendingLayout(pending, terminologies)}
       </div>
     </>
   );

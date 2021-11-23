@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
-import { getLicence } from "../queries";
+import { getLicence, getSavedTerminologies } from "../queries";
 import { UserContext } from "../contexts";
 
 export default props => {
@@ -11,6 +11,9 @@ export default props => {
   const {
     login: { activeWaterAccount, licenceId },
   } = useContext(UserContext);
+
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
+
   const { type } = orderFormDetails;
 
   const [price, setPrice] = useState(orderFormDetails.price || "");
@@ -34,11 +37,11 @@ export default props => {
         <div className="flex text-steel-100 text-center">
           <div className="flex-1 text-left">{waterAccount.waterAccount}</div>
           <div className="flex-2">{waterAccount.zone.longName}</div>
-          <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance)}</div>
+          <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance, terminologies["unit"])}</div>
         </div>
       </div>
 
-      <label className="text-steel-900">Volume (ML)</label>
+      <label className="text-steel-900">Volume ({terminologies["unit"]})</label>
       <input
         type="number"
         value={quantity}
@@ -49,7 +52,7 @@ export default props => {
 
       {excessVolumeError && <div className="text-sm text-red-100 mb-3">You do not have suffient allocation to make this offer</div>}
 
-      <label className="text-steel-900">Price ($/ML)</label>
+      <label className="text-steel-900">Price ($/{terminologies["unit"]})</label>
       <input
         type="number"
         value={price}

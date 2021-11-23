@@ -1,11 +1,15 @@
 import React, { Fragment, useContext } from "react";
+import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../contexts";
+import { getSavedTerminologies } from "../queries";
 
 const MainNav = () => {
   const {
     login: { loggedIn },
   } = useContext(UserContext);
+
+  const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   return (
     <ul className="list-reset text-center">
@@ -20,7 +24,7 @@ const MainNav = () => {
           <li>
             <NavLink to="/licence" className="main-nav pb-0">
               <i className="fal fa-user fa-fw menu-icon"></i>
-              <div className="text-xs">LICENCE</div>
+              <div className="text-xs uppercase">{terminologies["licence"]}</div>
             </NavLink>
           </li>
 
