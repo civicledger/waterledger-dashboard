@@ -22,6 +22,7 @@ export default ({ trades, isLoading = false, limit = null }) => {
             <th className="p-2">Volume</th>
             <th className="p-2 lg:table-cell capitalize">From {terminologies["zone"]}</th>
             <th className="p-2 lg:table-cell capitalize">To {terminologies["zone"]}</th>
+            <th className="p-2 lg:table-cell">Status</th>
             <th className="xl:table-cell p-2">Date</th>
           </tr>
         </thead>

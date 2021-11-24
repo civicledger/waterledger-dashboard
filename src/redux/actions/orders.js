@@ -55,7 +55,7 @@ export const acceptOrder = order => {
         addNotification({
           id: `confirmed-${response.id}`,
           type: "success",
-          text: `Your trade has been approved`,
+          text: `Your trade has been added for pending approval`,
         })
       );
     });
