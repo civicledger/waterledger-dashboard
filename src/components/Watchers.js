@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 
 import SocketService from "../services/SocketService";
 import { addNotification } from "../redux/actions/actions";
-import { getSavedTerminologies, queryClient } from "./queries";
-import { useQuery } from "react-query";
+import { queryClient } from "./queries";
 
 const socketService = SocketService.getInstance();
 const socket = socketService.getSocket();
