@@ -53,7 +53,7 @@ const Watchers = () => {
     });
   }, [dispatch]);
 
-  return <></>;
+  return <div></div>;
 };
 
 export default Watchers;

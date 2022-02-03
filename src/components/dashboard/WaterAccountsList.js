@@ -19,7 +19,7 @@ export default () => {
   const { data: licence } = useQuery("getLicence", () => getLicence(login.licenceId), { keepPreviousData: true });
   const isPending = licence?.status === 1;
 
-  if (!licence) return <></>;
+  if (!licence) return "";
   return (
     <div>
       <h4 className="text-lg text-left ml-5 capitalize">Your {terminologies["account"]}s</h4>
