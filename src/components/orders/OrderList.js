@@ -15,7 +15,7 @@ export default props => {
   if (!orders) return "";
 
   return (
-    <>
+    <div>
       <table className="w-full order-list">
         <thead>
           <tr className="text-left bg-steel-700">
@@ -42,6 +42,6 @@ export default props => {
       </table>
 
       {button && <OrderButton type={type} isPending={isPending} />}
-    </>
+    </div>
   );
 };
