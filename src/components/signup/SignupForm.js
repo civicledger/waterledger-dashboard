@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import { userService } from "../../services/UserService";
@@ -27,7 +27,7 @@ const SignupForm = () => {
 
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
   let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
 
   const zones = scheme?.zones || [];
@@ -65,7 +65,7 @@ const SignupForm = () => {
             .then(() => {
               setSuccess(true);
               setTimeout(() => {
-                history.push("/login");
+                navigate("/login");
               }, 3000);
             })
             .catch(({ response }) => {

@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 export default class SocketService {
   static instance = null;
 
-  #socket = io(process.env.REACT_APP_WEBSOCKET);
+  #socket = io("wss://localhost:3002");
 
   static getInstance() {
     if (!SocketService.instance) {
