@@ -1,5 +1,5 @@
 import Web3 from "web3";
-const web3 = new Web3(new Web3.providers.WebsocketProvider("wss://goerli.infura.io/ws/v3/394dd8e957a64166acc56ec7e8690533"));
+const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP_PROVIDER_URL));
 
 export default class AuditService {
   orderbookInstance = null;

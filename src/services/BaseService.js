@@ -2,7 +2,7 @@ import axios from "axios";
 import { getInstanceIdentifier } from "../utils/ethUtils";
 import { interceptResponse, interceptRequest } from "../utils/interceptors";
 
-export const baseURL = "https://localhost:3002/";
+export const baseURL = process.env.REACT_APP_API_URL;
 
 axios.defaults.baseURL = baseURL;
 axios.interceptors.request.use(interceptRequest);
