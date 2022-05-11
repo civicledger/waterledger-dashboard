@@ -14,7 +14,7 @@ const MainNav = () => {
   return (
     <ul className="list-reset text-center">
       <li>
-        <NavLink to="/" exact className="main-nav">
+        <NavLink to="/" className="main-nav">
           <i className="fal fa-chart-pie fa-fw menu-icon"></i>
           <div className="text-xs">DASHBOARD</div>
         </NavLink>
