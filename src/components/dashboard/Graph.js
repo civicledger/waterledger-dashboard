@@ -174,7 +174,7 @@ export default () => {
 
   return (
     <div className="pb-10 px-2" id="graph" style={{ height: "400px" }}>
-      {/* <ResponsiveLine
+      <ResponsiveLine
         data={data}
         theme={{
           textColor: "#ffffff",
@@ -268,7 +268,7 @@ export default () => {
             ],
           },
         ]}
-      /> */}
+      />
     </div>
   );
 };
