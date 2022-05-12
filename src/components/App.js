@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { userReducer, UserContext } from "./contexts";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Watchers from "./Watchers";
 import Sidebar from "./app/Sidebar";
 import Dashboard from "./dashboard/Dashboard";
@@ -39,16 +39,16 @@ export default props => {
           <Notifications notifications={notifications} />
           <div className="flex-1 flex flex-col">
             <TopNav />
-            <Switch>
-              <Route path="/" exact component={Dashboard} />
-              <Route path="/licence" component={Licence} />
-              <Route path="/history" component={History} />
-              <Route path="/liabilities" component={Liabilities} />
-              <Route path="/audit" component={Audit} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/logout" component={Logout} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/licence" element={<Licence />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/liabilities" element={<Liabilities />} />
+              <Route path="/audit" element={<Audit />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
+            </Routes>
           </div>
           <Modals />
         </div>

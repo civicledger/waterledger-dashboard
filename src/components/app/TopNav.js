@@ -35,13 +35,13 @@ const TopNav = () => {
 
       <ul className={classNames("list-reset text-center text-white w-full md:h-auto flex-column lg:flex", { hidden: hideMenu })}>
         <li>
-          <NavLink className="top-nav" to="/" exact onClick={toggleMenu}>
+          <NavLink className="top-nav" to="/" onClick={toggleMenu}>
             <i className="fal fa-chart-pie fa-fw menu-icon mr-2" />
             Dashboard
           </NavLink>
         </li>
         <li>
-          <NavLink className="top-nav" to="/audit" exact onClick={toggleMenu}>
+          <NavLink className="top-nav" to="/audit" onClick={toggleMenu}>
             <i className="fal fa-history fa-fw menu-icon mr-2" />
             Audit
           </NavLink>
