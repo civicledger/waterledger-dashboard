@@ -1,4 +1,4 @@
-/*! tailwindcss v2.2.14 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v2.2.17 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -4594,8 +4594,7 @@ video {
 }
 
 .appearance-none {
-  -webkit-appearance: none;
-          appearance: none;
+  appearance: none;
 }
 
 .auto-cols-auto {
@@ -26768,8 +26767,7 @@ input[type="number"] {
   }
 
   .sm\:appearance-none {
-    -webkit-appearance: none;
-            appearance: none;
+    appearance: none;
   }
 
   .sm\:auto-cols-auto {
@@ -48111,8 +48109,7 @@ input[type="number"] {
   }
 
   .md\:appearance-none {
-    -webkit-appearance: none;
-            appearance: none;
+    appearance: none;
   }
 
   .md\:auto-cols-auto {
@@ -69454,8 +69451,7 @@ input[type="number"] {
   }
 
   .lg\:appearance-none {
-    -webkit-appearance: none;
-            appearance: none;
+    appearance: none;
   }
 
   .lg\:auto-cols-auto {
@@ -90797,8 +90793,7 @@ input[type="number"] {
   }
 
   .xl\:appearance-none {
-    -webkit-appearance: none;
-            appearance: none;
+    appearance: none;
   }
 
   .xl\:auto-cols-auto {
