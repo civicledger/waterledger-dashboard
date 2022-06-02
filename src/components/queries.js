@@ -40,19 +40,18 @@ export const getSavedTerminologies = () => {
 };
 
 export const getTerminologies = async () => {
+  const { data: defaultData } = await terminologyService.getDefaultTerminologies();
   const { data } = await terminologyService.getCurrentTerminology();
 
-  const appliedTerminologies = data.terminologies.reduce((terms, { term, termValue }) => {
-    terms[term] = termValue;
-    return terms;
-  }, {});
-
-  const { data: defaultData } = await terminologyService.getDefaultTerminologies();
-
-  const defaultTerminologies = defaultData.terminologies.reduce((terms, { term, termValue }) => {
-    terms[term] = termValue;
-    return terms;
-  }, {});
+  const defaultTerminologies = createTerminologyObject(defaultData);
+  const appliedTerminologies = createTerminologyObject(data);
 
   return { ...defaultTerminologies, ...appliedTerminologies };
+};
+
+const createTerminologyObject = data => {
+  return data.terminologies.reduce((terms, { term, termValue }) => {
+    terms[term] = termValue;
+    return terms;
+  }, {});
 };
