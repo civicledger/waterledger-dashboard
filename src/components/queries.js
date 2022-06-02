@@ -6,7 +6,6 @@ import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
 import { licenceService } from "../services/LicenceService";
 import { terminologyService } from "../services/TerminologyService";
-import { defaultTerminologies } from "../utils/terminologies";
 
 export const queryClient = new QueryClient();
 
@@ -44,6 +43,13 @@ export const getTerminologies = async () => {
   const { data } = await terminologyService.getCurrentTerminology();
 
   const appliedTerminologies = data.terminologies.reduce((terms, { term, termValue }) => {
+    terms[term] = termValue;
+    return terms;
+  }, {});
+
+  const { data: defaultData } = await terminologyService.getDefaultTerminologies();
+
+  const defaultTerminologies = defaultData.terminologies.reduce((terms, { term, termValue }) => {
     terms[term] = termValue;
     return terms;
   }, {});
