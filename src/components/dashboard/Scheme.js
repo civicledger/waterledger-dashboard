@@ -9,7 +9,7 @@ export default props => {
   const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
-  if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "", orderbookDeployment: { address: "" } };
+  if (scheme === undefined) scheme = { lastTradedPrice: 0, name: "" };
 
   return (
     <div className="col-span-8 flex flex-col justify-center justify-between steel-gradient rounded text-center lg:row-span-3 lg:col-span-2">
@@ -27,7 +27,6 @@ export default props => {
           <div className="mb-3 text-sm xl:text-lg text-steel-300">
             <span className="py-1 px-2 border rounded border-steel-300">
               <i className="text-sm xl:text-lg mr-2 fab fa-ethereum"></i>
-              {formatEthereumAddress(scheme.orderbookDeployment.address)}
             </span>
           </div>
         </div>

@@ -3,36 +3,16 @@ const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP
 
 export default class AuditService {
   orderbookInstance = null;
-  zonesInstance = null;
-  licenceInstance = null;
-  historyInstance = null;
 
   constructor(scheme) {
-    const { orderbookDeployment, zonesDeployment, licenceDeployment, historyDeployment } = scheme;
-    this.orderbookInstance = this.createInstance(orderbookDeployment);
-    this.zonesInstance = this.createInstance(zonesDeployment);
-    this.licenceInstance = this.createInstance(licenceDeployment);
-    this.historyInstance = this.createInstance(historyDeployment);
+    const { deployments } = scheme;
+    const orderbook = deployments.find(({ contractName }) => contractName === "OrderBook");
+    this.orderbookInstance = this.createInstance(orderbook.details);
   }
 
   async getOrderbookPastEvents() {
     const rawEvents = await this.orderbookInstance.getPastEvents("allEvents", { fromBlock: 0 });
     return this.cleanEventData(rawEvents, "OrderBook");
-  }
-
-  async getZonesPastEvents() {
-    const rawEvents = await this.zonesInstance.getPastEvents("allEvents", { fromBlock: 0 });
-    return this.cleanEventData(rawEvents, "Zones");
-  }
-
-  async getHistoryPastEvents() {
-    const rawEvents = await this.historyInstance.getPastEvents("allEvents", { fromBlock: 0 });
-    return this.cleanEventData(rawEvents, "History");
-  }
-
-  async getLicencePastEvents() {
-    const rawEvents = await this.licenceInstance.getPastEvents("allEvents", { fromBlock: 0 });
-    return this.cleanEventData(rawEvents, "Licence");
   }
 
   createInstance({ abi, address }) {

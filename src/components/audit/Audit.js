@@ -18,14 +18,11 @@ export default () => {
 
   useEffect(() => {
     const getData = async () => {
-      if (!scheme) return;
+      if (!scheme || scheme.platform !== 1) return;
       const auditService = new AuditService(scheme);
-      const obEvents = await auditService.getOrderbookPastEvents();
-      const zonesEvents = await auditService.getZonesPastEvents();
-      const historyEvents = await auditService.getHistoryPastEvents();
-      const licenceEvents = await auditService.getLicencePastEvents();
+      if (!auditService.orderbookInstance) return;
+      const events = await auditService.getOrderbookPastEvents();
 
-      const events = [...historyEvents, ...obEvents, ...licenceEvents, ...zonesEvents];
       const contractTypes = events.reduce((types, { contract, event }) => {
         if (!types[contract]) types[contract] = [];
         if (types[contract].includes(event)) return types;
