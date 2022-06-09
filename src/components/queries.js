@@ -42,10 +42,8 @@ export const getSavedTerminologies = () => {
 export const getTerminologies = async () => {
   const { data } = await terminologyService.getCurrentTerminology();
 
-  const terminologies = data.terminologies.reduce((terms, { term, termValue }) => {
+  return data.terminologies.reduce((terms, { term, termValue }) => {
     terms[term] = termValue;
     return terms;
   }, {});
-
-  return { ...terminologies };
 };
