@@ -36,11 +36,9 @@ const Watchers = () => {
     });
     socket.on("BalanceUpdated", async () => {
       await queryClient.invalidateQueries("getLicence");
-      console.log("Should update balance");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
     socket.on("TradeCompleted", async () => {
-      console.log("happend");
       await queryClient.invalidateQueries("trades");
       dispatch(addNotification({ text: "Your trade has been approved", type: "success" }));
       dispatch(addNotification({ text: "Refreshing trades list" }));
