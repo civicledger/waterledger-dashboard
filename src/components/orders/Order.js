@@ -41,8 +41,8 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
       {showTimestamp && <td className="p-4 py-3">{formatShortDateObject(createdAt)}</td>}
       <td width="30" className="py-3">
         {isOwner && (
-          <i
-            className="fal fa-times-square font-red-500 fa-fw delete-order"
+          <div
+            role="button"
             onClick={e => {
               e.stopPropagation();
               dispatch(deleteOrder(id));
@@ -50,7 +50,9 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
                 queryClient.invalidateQueries(["getOrders"]);
               }, 3000);
             }}
-          ></i>
+          >
+            <i className="fal fa-times-square font-red-500 fa-fw delete-order"></i>
+          </div>
         )}
       </td>
     </tr>
