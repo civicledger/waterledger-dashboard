@@ -21,7 +21,7 @@ const LoginForm = () => {
   // const history = useHistory();
 
   return (
-    <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-900 lg:p-5">
+    <div className="p-0 pt-3 lg:p-5 mt-3 rounded bg-steel-900">
       <Formik
         initialValues={{
           email: "",

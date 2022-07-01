@@ -4,12 +4,12 @@ import { getInstanceIdentifier } from "../utils/ethUtils";
 import { baseURL } from "./BaseService";
 axios.defaults.baseURL = baseURL;
 
-export default class SchemeService extends BaseService {
-  entity = "schemes";
+export default class Level1ResourceService extends BaseService {
+  entity = "level1Resources";
 
-  getCurrentScheme() {
+  getCurrentLevel1Resource() {
     return axios.get(`${this.entity}/${getInstanceIdentifier()}`);
   }
 }
 
-export const schemeService = new SchemeService();
+export const level1ResourceService = new Level1ResourceService();

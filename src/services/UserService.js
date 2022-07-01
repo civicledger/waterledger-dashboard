@@ -15,7 +15,7 @@ export default class UserService extends BaseService {
   }
 
   signup(user) {
-    const headers = { "x-scheme": getInstanceIdentifier() };
+    const headers = { "x-level1-resource": getInstanceIdentifier() };
     return axios.post("signup", user, { headers });
   }
 
@@ -47,7 +47,7 @@ export default class UserService extends BaseService {
     user.createdAt = new Date(user.createdAt);
 
     socketService.emit("RegisterLicence", licenceId);
-    socketService.emit("JoinScheme", getInstanceIdentifier());
+    socketService.emit("JoinLevel1Resource", getInstanceIdentifier());
 
     return { user, licenceId, token, activeWaterAccount, loggedIn: true };
   }

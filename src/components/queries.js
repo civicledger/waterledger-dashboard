@@ -1,7 +1,7 @@
 import { QueryClient } from "react-query";
 
 import { orderService } from "../services/OrderService";
-import { schemeService } from "../services/SchemeService";
+import { level1ResourceService } from "../services/Level1ResourceService";
 import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
 import { licenceService } from "../services/LicenceService";
@@ -19,10 +19,10 @@ export const getHistory = async (licenceId = null) => {
   return data.trades;
 };
 
-export const getScheme = async () => {
-  const { data } = await schemeService.getCurrentScheme();
-  localStorage.setItem("schemeId", data.scheme.id);
-  return data.scheme;
+export const getLevel1Resource = async () => {
+  const { data } = await level1ResourceService.getCurrentLevel1Resource();
+  localStorage.setItem("level1ResourceId", data.level1Resource.id);
+  return data.level1Resource;
 };
 
 export const getLicence = async id => {

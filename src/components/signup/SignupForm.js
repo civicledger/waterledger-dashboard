@@ -10,7 +10,7 @@ import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
-import { getSavedTerminologies, getScheme } from "../queries";
+import { getSavedTerminologies, getLevel1Resource } from "../queries";
 
 const SignupForm = () => {
   const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
@@ -28,9 +28,9 @@ const SignupForm = () => {
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const navigate = useNavigate();
-  let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
+  let { data: level1Resource } = useQuery("getLevel1Resource", getLevel1Resource, { keepPreviousData: true });
 
-  const zones = scheme?.zones || [];
+  const zones = level1Resource?.zones || [];
   const keyedZones = zones.reduce((accumulator, item) => {
     accumulator[item.id] = item.name;
     return accumulator;
@@ -58,7 +58,7 @@ const SignupForm = () => {
 
           const { licence, accounts, ...user } = values;
           accounts.pop();
-          user.licence = { licence, schemeId: scheme.id, accounts };
+          user.licence = { licence, level1ResourceId: level1Resource.id, accounts };
 
           userService
             .signup(user)

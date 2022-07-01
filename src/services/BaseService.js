@@ -31,6 +31,6 @@ export default class BaseService {
 
   getHeaders() {
     const token = localStorage.getItem("token");
-    return { Authorization: `Bearer ${token}`, "x-scheme": getInstanceIdentifier() };
+    return { Authorization: `Bearer ${token}`, "x-level1-resource": getInstanceIdentifier() };
   }
 }
