@@ -16,7 +16,7 @@ const WaterAccountsSelect = () => {
     >
       {waterAccounts.map(wa => (
         <option key={wa.waterAccount} value={wa.waterAccount}>
-          {wa.waterAccount} - {wa.zoneString} - {wa.balance} ML
+          {wa.waterAccount} - {wa.level0ResourceString} - {wa.balance} ML
         </option>
       ))}
     </select>
