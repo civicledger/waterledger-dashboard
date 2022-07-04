@@ -21,7 +21,7 @@ const SignupForm = () => {
       .oneOf([Yup.ref("password"), null], "Password must match")
       .required("Confirm password is required"),
     name: Yup.string().required("Name is required"),
-    licence: Yup.string().required(`Your ${terminologies["licence"]} number is required`),
+    licence: Yup.string().required(`Your ${terminologies["extractionRight"]} number is required`),
     accounts: Yup.array().min(2, `At least one ${terminologies["account"]} is required`),
   });
 
@@ -41,7 +41,7 @@ const SignupForm = () => {
       <h2 className="text-xl mb-3 ml-5 lg:ml-0 font-semibold">Provide your user and {terminologies["account"]} details</h2>
       <p>
         Provide your email address and login details to get access to the trading platform. You will not be able to trade until your{" "}
-        {terminologies["account"]}s and {terminologies["licence"]} are approved.
+        {terminologies["account"]}s and {terminologies["extractionRight"]} are approved.
       </p>
       <Formik
         initialValues={{
@@ -118,7 +118,7 @@ const SignupForm = () => {
                   <ErrorMessage component="p" name="name" className="mb-3" />
 
                   <label htmlFor="licence" className="text-steel-300 my-2 font-semibold capitalize">
-                    {terminologies["licence"]} Number
+                    {terminologies["extractionRight"]} Number
                   </label>
                   <Field name="licence" autoComplete="confirm-password" className="input text-steel-900 rounded mb-5" />
                   <ErrorMessage component="p" name="licence" className="mb-3" />
@@ -139,7 +139,7 @@ const SignupForm = () => {
                         <div className="grid grid-cols-3 gap-2 ">
                           <label className="text-steel-300 font-semibold capitalize">{terminologies["account"]} Number</label>
                           <label htmlFor="name" className="text-steel-300 font-semibold capitalize">
-                            {terminologies["zone"]}
+                            {terminologies["level0Resource"]}
                           </label>
                           <label htmlFor="allocation" className="text-steel-300 font-semibold">
                             Allocation
@@ -153,7 +153,7 @@ const SignupForm = () => {
                               <Fragment key={index}>
                                 <Field name={`accounts[${index}].waterAccount`} className="input text-steel-900 rounded" />
                                 <Field component="select" name={`accounts[${index}].zoneId`} className="input text-steel-900 rounded">
-                                  <option value="">Select a zone</option>
+                                  <option value="">Select {terminologies["level0Resource"]}</option>
                                   {zones.map(zone => (
                                     <option key={zone.id} value={zone.id}>
                                       {zone.name}

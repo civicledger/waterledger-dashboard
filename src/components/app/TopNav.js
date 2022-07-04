@@ -57,7 +57,7 @@ const TopNav = () => {
             <li>
               <NavLink className="top-nav capitalize" to="/licence" onClick={toggleMenu}>
                 <i className="fal fa-user fa-fw menu-icon mr-2" />
-                {terminologies["licence"]} Details
+                {terminologies["extractionRight"]} Details
               </NavLink>
             </li>
             <li>

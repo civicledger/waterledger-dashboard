@@ -28,8 +28,8 @@ export default () => {
         User {<span className="lowercase">and</span>} {terminologies["account"]} Details
       </h2>
       <p className="pb-3">
-        View your history with Water Ledger, including your {terminologies["licence"]} and {terminologies["account"]} details, and the details of
-        orders and trades.
+        View your history with Water Ledger, including your {terminologies["extractionRight"]} and {terminologies["account"]} details, and the details
+        of orders and trades.
       </p>
       <h4 className="text-steel-600 text-lg mb-3 capitalize">Your {terminologies["account"]}s</h4>
       <div className="w-full lg:w-1/2">
