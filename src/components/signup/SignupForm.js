@@ -109,7 +109,7 @@ const SignupForm = () => {
                   <ErrorMessage component="p" name="confirmPassword" className="mb-3" />
                 </div>
                 <div className="p-5 bg-steel-500 rounded">
-                  <h4 className="font-semibold my-2">Licence Details</h4>
+                  <h4 className="font-semibold my-2 capitalize">{terminologies["extractionRight"]} Details</h4>
 
                   <label htmlFor="name" className="text-steel-300 mb-2 font-semibold">
                     Name
@@ -123,7 +123,7 @@ const SignupForm = () => {
                   <Field name="licence" autoComplete="confirm-password" className="input text-steel-900 rounded mb-5" />
                   <ErrorMessage component="p" name="licence" className="mb-3" />
 
-                  <h4 className="font-semibold my-2 capitalize">{terminologies["account"]}s</h4>
+                  <h4 className="font-semibold my-2 capitalize">{`${terminologies["account"]}s`}</h4>
                   <ErrorMessage component="p" name="accounts" className="mb-3" />
                   <FieldArray
                     name="accounts"
