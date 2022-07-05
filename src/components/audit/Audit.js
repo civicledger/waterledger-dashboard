@@ -5,7 +5,7 @@ import PageHeader from "../app/PageHeader";
 import EventsList from "./EventsList";
 import EventTypesSelector from "./EventTypesSelector";
 import AuditService from "../../services/AuditService";
-import { getScheme } from "../queries";
+import { getLevel1Resource } from "../queries";
 
 export default () => {
   const [events, setEvents] = useState([]);
@@ -14,12 +14,12 @@ export default () => {
   const [sortTimeDirection, setSortTimeDirection] = useState("newFirst");
   const [activeEventTypes, setActiveEventTypes] = useState([]);
 
-  const { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
+  const { data: level1Resource } = useQuery("getLevel1Resource", getLevel1Resource, { keepPreviousData: true });
 
   useEffect(() => {
     const getData = async () => {
-      if (!scheme || scheme.platform !== 1) return;
-      const auditService = new AuditService(scheme);
+      if (!level1Resource || level1Resource.platform !== 1) return;
+      const auditService = new AuditService(level1Resource);
       if (!auditService.orderbookInstance) return;
       const events = await auditService.getOrderbookPastEvents();
 
@@ -42,7 +42,7 @@ export default () => {
       setEvents(events);
     };
     getData();
-  }, [scheme]);
+  }, [level1Resource]);
 
   const changeTimeSort = () => {
     const newSort = sortTimeDirection === "newFirst" ? "oldFirst" : "newFirst";

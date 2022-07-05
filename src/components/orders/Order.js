@@ -37,7 +37,7 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
       {showType && <td className="p-4 py-3">{orderTypes[type]}</td>}
       <td className="p-4 py-3">{formatAmount(price)}</td>
       <td className="p-4 py-3">{formatKilolitres(quantity, terminologies["unit"])}</td>
-      <td className="p-4 py-3">{account.zone.shortName}</td>
+      <td className="p-4 py-3">{account.level0Resource.shortName}</td>
       {showTimestamp && <td className="p-4 py-3">{formatShortDateObject(createdAt)}</td>}
       <td width="30" className="py-3">
         {isOwner && (

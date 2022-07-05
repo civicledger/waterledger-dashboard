@@ -5,7 +5,7 @@ import { getHistory, getLicence, getOrders } from "../queries";
 import TradesList from "../history/TradesList";
 import OrderList from "../orders/OrderList";
 import AccountBanner from "./AccountBanner";
-import Scheme from "./Scheme";
+import Level1Resource from "./Level1Resource";
 
 import Graph from "./Graph";
 
@@ -28,7 +28,7 @@ export default () => {
   return (
     <div className="grid gap-4 grid-cols-8 lg:p-5">
       <AccountBanner pending={isPending} loggedIn={loggedIn} />
-      <Scheme />
+      <Level1Resource />
       <div className="col-span-8 lg:col-span-6">
         <h2 className="px-5 pb-4 text-2xl">Historical Prices</h2>
         <Graph />

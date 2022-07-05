@@ -10,7 +10,7 @@ import { userService } from "../../services/UserService";
 import FormSuccess from "../common/form/FormSuccess";
 import FormError from "../common/form/FormError";
 import AccountRow from "./AccountRow";
-import { getSavedTerminologies, getScheme } from "../queries";
+import { getSavedTerminologies, getLevel1Resource } from "../queries";
 
 const SignupForm = () => {
   const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
@@ -28,10 +28,10 @@ const SignupForm = () => {
   const [success, setSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const navigate = useNavigate();
-  let { data: scheme } = useQuery("getScheme", getScheme, { keepPreviousData: true });
+  let { data: level1Resource } = useQuery("getLevel1Resource", getLevel1Resource, { keepPreviousData: true });
 
-  const zones = scheme?.zones || [];
-  const keyedZones = zones.reduce((accumulator, item) => {
+  const level0Resources = level1Resource?.level0Resources || [];
+  const keyedLevel0Resources = level0Resources.reduce((accumulator, item) => {
     accumulator[item.id] = item.name;
     return accumulator;
   }, {});
@@ -50,7 +50,7 @@ const SignupForm = () => {
           password: "",
           confirmPassword: "",
           licence: "",
-          accounts: [{ waterAccount: "", zoneId: "", allocation: "" }],
+          accounts: [{ waterAccount: "", level0ResourceId: "", allocation: "" }],
         }}
         validationSchema={validate}
         onSubmit={(values, actions) => {
@@ -58,7 +58,7 @@ const SignupForm = () => {
 
           const { licence, accounts, ...user } = values;
           accounts.pop();
-          user.licence = { licence, schemeId: scheme.id, accounts };
+          user.licence = { licence, level1ResourceId: level1Resource.id, accounts };
 
           userService
             .signup(user)
@@ -130,7 +130,7 @@ const SignupForm = () => {
                     render={arrayHelpers => {
                       const lastAccount = values.accounts[values.accounts.length - 1];
                       const isAddDisabled =
-                        lastAccount.zoneId === "" ||
+                        lastAccount.level0ResourceId === "" ||
                         lastAccount.waterAccount === "" ||
                         lastAccount.allocation === "" ||
                         isNaN(lastAccount.allocation);
@@ -146,17 +146,24 @@ const SignupForm = () => {
                           </label>
                           {values.accounts.map((account, index) => {
                             if (index < values.accounts.length - 1) {
-                              return <AccountRow key={index} account={account} zone={keyedZones[account.zoneId]} unit={terminologies["unit"]} />;
+                              return (
+                                <AccountRow
+                                  key={index}
+                                  account={account}
+                                  level0Resource={keyedLevel0Resources[account.level0ResourceId]}
+                                  unit={terminologies["unit"]}
+                                />
+                              );
                             }
 
                             return (
                               <Fragment key={index}>
                                 <Field name={`accounts[${index}].waterAccount`} className="input text-steel-900 rounded" />
-                                <Field component="select" name={`accounts[${index}].zoneId`} className="input text-steel-900 rounded">
-                                  <option value="">Select {terminologies["level0Resource"]}</option>
-                                  {zones.map(zone => (
-                                    <option key={zone.id} value={zone.id}>
-                                      {zone.name}
+                                <Field component="select" name={`accounts[${index}].level0ResourceId`} className="input text-steel-900 rounded">
+                                  <option value="">Select a level 0 water resource</option>
+                                  {level0Resources.map(level0Resource => (
+                                    <option key={level0Resource.id} value={level0Resource.id}>
+                                      {level0Resource.name}
                                     </option>
                                   ))}
                                 </Field>
@@ -176,7 +183,7 @@ const SignupForm = () => {
                                 event.preventDefault();
                                 const latest = values.accounts[values.accounts.length - 1];
                                 latest.allocation = latest.allocation * 1000;
-                                arrayHelpers.insert(values.accounts.length, { waterAccount: "", zoneId: "", allocation: "" });
+                                arrayHelpers.insert(values.accounts.length, { waterAccount: "", level0ResourceId: "", allocation: "" });
                               }}
                             >
                               <i className="fal fa-plus fa-fw mr-2"></i>Add

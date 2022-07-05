@@ -4,8 +4,8 @@ const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP
 export default class AuditService {
   orderbookInstance = null;
 
-  constructor(scheme) {
-    const { deployments } = scheme;
+  constructor(level1Resource) {
+    const { deployments } = level1Resource;
     const orderbook = deployments.find(({ contractName }) => contractName === "OrderBook");
     this.orderbookInstance = this.createInstance(orderbook.details);
   }
