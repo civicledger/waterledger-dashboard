@@ -22,7 +22,7 @@ export default props => {
             {showType && <th className="p-4 py-3">Type</th>}
             <th className="p-4 py-3">Price / {terminologies["unit"]}</th>
             <th className="p-4 py-3">Volume</th>
-            <th className="p-4 py-3 capitalize">{terminologies["zone"]}</th>
+            <th className="p-4 py-3 capitalize">{terminologies["level0Resource"]}</th>
             {showTimestamp && <th className="p-4 py-3">Mined</th>}
             <th></th>
           </tr>

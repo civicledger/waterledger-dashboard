@@ -64,18 +64,18 @@ export default props => {
             </div>
 
             <div className="flex mt-3">
-              <div className="w-1/4 capitalize">Order {terminologies["zone"]}</div>
-              <div className="w-3/4">{order.zoneNameLong}</div>
+              <div className="w-1/4 capitalize">Order {terminologies["level0Resource"]}</div>
+              <div className="w-3/4">{order.level0ResourceNameLong}</div>
             </div>
 
             <div className="flex mt-1">
-              <div className="w-1/4 capitalize">Your {terminologies["zone"]}</div>
-              <div className="w-3/4">{activeAccount.zone.longName}</div>
+              <div className="w-1/4 capitalize">Your {terminologies["level0Resource"]}</div>
+              <div className="w-3/4">{activeAccount.level0Resource.longName}</div>
             </div>
 
             <div className="flex mt-1">
-              <div className="w-1/4">Inter{terminologies["zone"]}</div>
-              <div className="w-3/4">{activeAccount.zone.longName === order.zoneNameLong ? "No" : "Yes"}</div>
+              <div className="w-1/4">Inter{terminologies["level0Resource"]}</div>
+              <div className="w-3/4">{activeAccount.level0Resource.longName === order.level0ResourceNameLong ? "No" : "Yes"}</div>
             </div>
           </div>
         </div>

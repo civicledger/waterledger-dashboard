@@ -36,7 +36,7 @@ export default props => {
         <h4 className="mb-2 font-semibold">Currently Trading As</h4>
         <div className="flex text-steel-100 text-center">
           <div className="flex-1 text-left">{waterAccount.waterAccount}</div>
-          <div className="flex-2">{waterAccount.zone.longName}</div>
+          <div className="flex-2">{waterAccount.level0Resource.longName}</div>
           <div className="flex-1 text-right">{formatKilolitres(waterAccount.balance, terminologies["unit"])}</div>
         </div>
       </div>

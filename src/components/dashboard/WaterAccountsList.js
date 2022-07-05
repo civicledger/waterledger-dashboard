@@ -26,7 +26,7 @@ export default () => {
       <div className="table w-full text-sm p-4 pt-1">
         {licence.accounts
           .sort((a, b) => {
-            return a.zone.identifier.localeCompare(b.zone.identifier);
+            return a.level0Resource.identifier.localeCompare(b.level0Resource.identifier);
           })
           .map((wa, index) => {
             wa.balance = wa.balance ?? 0;
@@ -44,7 +44,7 @@ export default () => {
                 }}
               >
                 <span className="table-cell text-left p-2">{wa.waterAccount}</span>
-                <span className="table-cell text-left p-2">{wa.zone.shortName}</span>
+                <span className="table-cell text-left p-2">{wa.level0Resource.shortName}</span>
                 <span className="table-cell text-left p-2">{isPending ? "pending" : formatKilolitres(wa.balance, terminologies["unit"])}</span>
               </div>
             );
