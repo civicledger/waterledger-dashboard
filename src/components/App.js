@@ -19,12 +19,12 @@ import Licence from "./licence/Licence";
 import TopNav from "./app/TopNav";
 
 import { QueryClientProvider } from "react-query";
-import { getScheme, queryClient, getTerminologies } from "./queries";
+import { getLevel1Resource, queryClient, getTerminologies } from "./queries";
 
 export default props => {
   const [login, loginDispatch] = useReducer(userReducer, UserService.getLoggedInUser());
 
-  queryClient.prefetchQuery("getScheme", getScheme);
+  queryClient.prefetchQuery("getLevel1Resource", getLevel1Resource);
   queryClient.setQueryData("getTerminologies", getTerminologies);
   queryClient.prefetchQuery("getTerminologies", getTerminologies);
 

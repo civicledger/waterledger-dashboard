@@ -89,7 +89,7 @@ export default props => {
               dispatch(acceptOrder({ orderId: order.id, waterAccountId: activeAccount.id }));
               dispatch(setAcceptOrderModal(false));
               setTimeout(() => {
-                queryClient.invalidateQueries(["getScheme"]);
+                queryClient.invalidateQueries(["getLevel1Resource"]);
               }, 3000);
             }}
           >
