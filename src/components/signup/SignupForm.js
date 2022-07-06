@@ -160,7 +160,7 @@ const SignupForm = () => {
                               <Fragment key={index}>
                                 <Field name={`accounts[${index}].waterAccount`} className="input text-steel-900 rounded" />
                                 <Field component="select" name={`accounts[${index}].level0ResourceId`} className="input text-steel-900 rounded">
-                                  <option value="">Select a level 0 water resource</option>
+                                  <option value="">Select a {terminologies["level0Resource"]}</option>
                                   {level0Resources.map(level0Resource => (
                                     <option key={level0Resource.id} value={level0Resource.id}>
                                       {level0Resource.name}
