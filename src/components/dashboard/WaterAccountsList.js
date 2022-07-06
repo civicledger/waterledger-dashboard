@@ -22,7 +22,7 @@ export default () => {
   if (!extractionRight) return "";
   return (
     <div>
-      <h4 className="text-lg text-left ml-5 capitalize">Your {terminologies["account"]}s</h4>
+      <h4 className="text-lg text-left ml-5 capitalize">{`Your ${terminologies["account"]}s`}</h4>
       <div className="table w-full text-sm p-4 pt-1">
         {extractionRight.accounts
           .sort((a, b) => {
