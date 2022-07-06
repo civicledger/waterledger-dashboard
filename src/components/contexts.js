@@ -6,13 +6,13 @@ export const ACTIONS = {
   UPDATE_USER: "UPDATE_USER",
   CLEAR_USER: "CLEAR_USER",
   SET_ACTIVE_WATER_ACCOUNT: "SET_ACTIVE_WATER_ACCOUNT",
-  SET_LICENCE_ID: "SET_LICENCE_ID",
+  SET_EXTRACTION_RIGHT_ID: "SET_EXTRACTION_RIGHT_ID",
 };
 
 export const defaultUserState = {
   user: null,
   token: null,
-  licenceId: null,
+  extractionRightId: null,
   activeWaterAccount: null,
   loggedIn: false,
 };
@@ -29,8 +29,8 @@ export const userReducer = (state = defaultUserState, { type, payload }) => {
       return { ...payload, loggedIn: true };
     case ACTIONS.SET_ACTIVE_WATER_ACCOUNT:
       return { ...state, activeWaterAccount: payload };
-    case ACTIONS.SET_LICENCE_ID:
-      return { ...state, licenceId: payload };
+    case ACTIONS.SET_EXTRACTION_RIGHT_ID:
+      return { ...state, extractionRightId: payload };
     default:
       return { ...state };
   }

@@ -22,7 +22,7 @@ const MainNav = () => {
       {loggedIn && (
         <Fragment>
           <li>
-            <NavLink to="/licence" className="main-nav pb-0">
+            <NavLink to="/extractionRight" className="main-nav pb-0">
               <i className="fal fa-user fa-fw menu-icon"></i>
               <div className="text-xs uppercase">{terminologies["extractionRight"]}</div>
             </NavLink>

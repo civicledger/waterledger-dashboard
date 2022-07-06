@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
+import { setCurrentWaterAccount } from "../../redux/actions/waterExtractionRights";
 
 const WaterAccountsSelect = () => {
   const dispatch = useDispatch();

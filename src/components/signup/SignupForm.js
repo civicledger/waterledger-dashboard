@@ -21,7 +21,7 @@ const SignupForm = () => {
       .oneOf([Yup.ref("password"), null], "Password must match")
       .required("Confirm password is required"),
     name: Yup.string().required("Name is required"),
-    licence: Yup.string().required(`Your ${terminologies["extractionRight"]} number is required`),
+    extractionRight: Yup.string().required(`Your ${terminologies["extractionRight"]} number is required`),
     accounts: Yup.array().min(2, `At least one ${terminologies["account"]} is required`),
   });
 
@@ -49,16 +49,16 @@ const SignupForm = () => {
           email: "",
           password: "",
           confirmPassword: "",
-          licence: "",
+          extractionRight: "",
           accounts: [{ waterAccount: "", level0ResourceId: "", allocation: "" }],
         }}
         validationSchema={validate}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
 
-          const { licence, accounts, ...user } = values;
+          const { extractionRight, accounts, ...user } = values;
           accounts.pop();
-          user.licence = { licence, level1ResourceId: level1Resource.id, accounts };
+          user.extractionRight = { extractionRight, level1ResourceId: level1Resource.id, accounts };
 
           userService
             .signup(user)
@@ -117,11 +117,11 @@ const SignupForm = () => {
                   <Field name="name" className="input text-steel-900 rounded" />
                   <ErrorMessage component="p" name="name" className="mb-3" />
 
-                  <label htmlFor="licence" className="text-steel-300 my-2 font-semibold capitalize">
+                  <label htmlFor="extractionRight" className="text-steel-300 my-2 font-semibold capitalize">
                     {terminologies["extractionRight"]} Number
                   </label>
-                  <Field name="licence" autoComplete="confirm-password" className="input text-steel-900 rounded mb-5" />
-                  <ErrorMessage component="p" name="licence" className="mb-3" />
+                  <Field name="extractionRight" autoComplete="confirm-password" className="input text-steel-900 rounded mb-5" />
+                  <ErrorMessage component="p" name="extractionRight" className="mb-3" />
 
                   <h4 className="font-semibold my-2 capitalize">{`${terminologies["account"]}s`}</h4>
                   <ErrorMessage component="p" name="accounts" className="mb-3" />

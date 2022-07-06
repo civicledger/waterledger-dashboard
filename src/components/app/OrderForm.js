@@ -3,13 +3,13 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 
 import { titleCase, formatKilolitres } from "../../utils/format";
-import { getLicence, getSavedTerminologies } from "../queries";
+import { getExtractionRight, getSavedTerminologies } from "../queries";
 import { UserContext } from "../contexts";
 
 export default props => {
   const orderFormDetails = useSelector(state => state.orderFormDetails);
   const {
-    login: { activeWaterAccount, licenceId },
+    login: { activeWaterAccount, extractionRightId },
   } = useContext(UserContext);
 
   const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
@@ -18,13 +18,13 @@ export default props => {
 
   const [price, setPrice] = useState(orderFormDetails.price || "");
   const [quantity, setQuantity] = useState(orderFormDetails.quantity || "");
-  if (!licenceId) return "";
-  const { data: licence } = useQuery("getLicence", () => getLicence(licenceId), { keepPreviousData: true });
-  if (!licence) return "";
+  if (!extractionRightId) return "";
+  const { data: extractionRight } = useQuery("getExtractionRight", () => getExtractionRight(extractionRightId), { keepPreviousData: true });
+  if (!extractionRight) return "";
 
   const isSell = type === "sell";
 
-  const waterAccount = licence.accounts.find(wa => wa.id === activeWaterAccount);
+  const waterAccount = extractionRight.accounts.find(wa => wa.id === activeWaterAccount);
   const excessVolumeError = isSell && quantity > waterAccount.balance;
   const isReadOnly = !quantity || !price || excessVolumeError;
 

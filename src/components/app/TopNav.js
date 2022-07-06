@@ -55,7 +55,7 @@ const TopNav = () => {
         {loggedIn && (
           <Fragment>
             <li>
-              <NavLink className="top-nav capitalize" to="/licence" onClick={toggleMenu}>
+              <NavLink className="top-nav capitalize" to="/extractionRight" onClick={toggleMenu}>
                 <i className="fal fa-user fa-fw menu-icon mr-2" />
                 {terminologies["extractionRight"]} Details
               </NavLink>

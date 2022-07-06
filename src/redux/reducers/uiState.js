@@ -12,7 +12,7 @@ import initialState from "./initialState";
 export const loading = (state = initialState.loading, action) => {
   switch (action.type) {
     case FETCH_WATER_ACCOUNTS:
-      return { ...state, waterLicences: true };
+      return { ...state, waterExtractionRights: true };
     case RECEIVE_WATER_ACCOUNTS:
       return { ...state };
     default:

@@ -13,7 +13,7 @@ const Watchers = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    socket.on("LicenceCompleted", () => {
+    socket.on("ExtractionRightCompleted", () => {
       dispatch(addNotification({ text: `Your id has been approved and you can now trade` }));
     });
     socket.on("OrderAdded", async () => {
@@ -35,7 +35,7 @@ const Watchers = () => {
       dispatch(addNotification({ text: "Refreshing trades list" }));
     });
     socket.on("BalanceUpdated", async () => {
-      await queryClient.invalidateQueries("getLicence");
+      await queryClient.invalidateQueries("getExtractionRight");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
     socket.on("TradeCompleted", async () => {
@@ -44,7 +44,7 @@ const Watchers = () => {
       dispatch(addNotification({ text: "Refreshing trades list" }));
     });
     socket.on("BalancesUpdated", async () => {
-      await queryClient.invalidateQueries("getLicence");
+      await queryClient.invalidateQueries("getExtractionRight");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
     socket.on("AcceptTransactionMined", async () => {

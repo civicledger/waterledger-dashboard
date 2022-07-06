@@ -26,7 +26,7 @@ const initialState = {
   },
   sells: [],
   trades: [],
-  waterLicences: [],
+  waterExtractionRights: [],
 };
 
 export default initialState;
