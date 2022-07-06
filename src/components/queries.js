@@ -4,18 +4,18 @@ import { orderService } from "../services/OrderService";
 import { level1ResourceService } from "../services/Level1ResourceService";
 import { liabilityService } from "../services/LiabilityService";
 import { historyService } from "../services/HistoryService";
-import { licenceService } from "../services/LicenceService";
+import { extractionRightService } from "../services/ExtractionRightService";
 import { terminologyService } from "../services/TerminologyService";
 
 export const queryClient = new QueryClient();
 
-export const getOrders = async (type, licenceId = null) => {
-  const { data } = await orderService.getAll({ type, licenceId });
+export const getOrders = async (type, extractionRightId = null) => {
+  const { data } = await orderService.getAll({ type, extractionRightId });
   return data.orders;
 };
 
-export const getHistory = async (licenceId = null) => {
-  const { data } = await historyService.getAll({ licenceId });
+export const getHistory = async (extractionRightId = null) => {
+  const { data } = await historyService.getAll({ extractionRightId });
   return data.trades;
 };
 
@@ -25,9 +25,9 @@ export const getLevel1Resource = async () => {
   return data.level1Resource;
 };
 
-export const getLicence = async id => {
-  const { data } = await licenceService.getOne(id);
-  return data.licence;
+export const getExtractionRight = async id => {
+  const { data } = await extractionRightService.getOne(id);
+  return data.extractionRight;
 };
 
 export const getLiabilities = async () => {

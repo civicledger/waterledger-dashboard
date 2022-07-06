@@ -1,8 +1,8 @@
-import { SET_ACTIVE_WATER_ACCOUNT, RECEIVE_LICENCE } from "../actions/actionConstants";
+import { SET_ACTIVE_WATER_ACCOUNT, RECEIVE_EXTRACTION_RIGHT } from "../actions/actionConstants";
 
-export const licence = (state = localStorage.getItem("wl-licence") || null, action) => {
+export const extractionRight = (state = localStorage.getItem("wl-extractionRight") || null, action) => {
   switch (action.type) {
-    case RECEIVE_LICENCE:
+    case RECEIVE_EXTRACTION_RIGHT:
       return action.value;
     default:
       return state;

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
 
-import { getHistory, getLicence, getOrders } from "../queries";
+import { getHistory, getExtractionRight, getOrders } from "../queries";
 import TradesList from "../history/TradesList";
 import OrderList from "../orders/OrderList";
 import AccountBanner from "./AccountBanner";
@@ -13,17 +13,20 @@ import { UserContext } from "../contexts";
 
 export default () => {
   const {
-    login: { loggedIn, licenceId },
+    login: { loggedIn, extractionRightId },
   } = useContext(UserContext);
 
   const { data: trades, isLoading: tradesLoading } = useQuery("trades", () => getHistory(), { keepPreviousData: true });
-  const { data: licence } = useQuery("getLicence", () => getLicence(licenceId), { keepPreviousData: true, enabled: !!licenceId });
+  const { data: extractionRight } = useQuery("getExtractionRight", () => getExtractionRight(extractionRightId), {
+    keepPreviousData: true,
+    enabled: !!extractionRightId,
+  });
 
   const { data: buyOrders = [] } = useQuery("buyOrders", () => getOrders("buy"), { keepPreviousData: true });
   const { data: sellOrders = [] } = useQuery("sellOrders", () => getOrders("sell"), { keepPreviousData: true });
 
-  const waterAccounts = licence ? licence.accounts : [];
-  const isPending = licence?.status === 1;
+  const waterAccounts = extractionRight ? extractionRight.accounts : [];
+  const isPending = extractionRight?.status === 1;
 
   return (
     <div className="grid gap-4 grid-cols-8 lg:p-5">

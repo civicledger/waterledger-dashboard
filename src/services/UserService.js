@@ -19,37 +19,37 @@ export default class UserService extends BaseService {
     return axios.post("signup", user, { headers });
   }
 
-  saveLocalUser({ user, token, licenceId, activeWaterAccount }) {
+  saveLocalUser({ user, token, extractionRightId, activeWaterAccount }) {
     localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("licenceId", licenceId);
+    localStorage.setItem("extractionRightId", extractionRightId);
     localStorage.setItem("token", token);
     localStorage.setItem("activeWaterAccount", activeWaterAccount);
   }
 
   static logOut() {
     localStorage.removeItem("user");
-    localStorage.removeItem("licenceId");
+    localStorage.removeItem("extractionRightId");
     localStorage.removeItem("token");
     localStorage.removeItem("activeWaterAccount");
   }
 
   static getLoggedInUser() {
     const userString = localStorage.getItem("user");
-    const licenceId = localStorage.getItem("licenceId");
+    const extractionRightId = localStorage.getItem("extractionRightId");
     const token = localStorage.getItem("token");
     const activeWaterAccount = localStorage.getItem("activeWaterAccount");
 
     if (!userString || userString === "undefined" || !token) {
-      return { user: null, token: null, licenceId: null, activeWaterAccount: null, loggedIn: false };
+      return { user: null, token: null, extractionRightId: null, activeWaterAccount: null, loggedIn: false };
     }
     const user = JSON.parse(userString);
 
     user.createdAt = new Date(user.createdAt);
 
-    socketService.emit("RegisterLicence", licenceId);
+    socketService.emit("RegisterExtractionRight", extractionRightId);
     socketService.emit("JoinLevel1Resource", getInstanceIdentifier());
 
-    return { user, licenceId, token, activeWaterAccount, loggedIn: true };
+    return { user, extractionRightId, token, activeWaterAccount, loggedIn: true };
   }
 
   static isLoggedIn() {

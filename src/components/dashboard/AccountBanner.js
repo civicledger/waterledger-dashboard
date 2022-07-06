@@ -38,7 +38,7 @@ const pendingLayout = (pending, terminologies) => {
     <div className="col-span-3 text-lg">
       <p className=" align-middle mb-3 lg:mb-0">
         <i className="fal fa-exclamation-triangle mr-2"></i>Your account is pending approval. You can access the full application but you cannot make
-        trades until the {terminologies["licence"]} is approved.
+        trades until the {terminologies["extractionRight"]} is approved.
       </p>
     </div>
   );

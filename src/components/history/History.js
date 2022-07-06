@@ -9,10 +9,10 @@ import TradesList from "./TradesList";
 
 export default () => {
   const {
-    login: { licenceId },
+    login: { extractionRightId },
   } = useContext(UserContext);
 
-  const { data: trades, isLoading } = useQuery(["getTrades", licenceId], () => getHistory(licenceId));
+  const { data: trades, isLoading } = useQuery(["getTrades", extractionRightId], () => getHistory(extractionRightId));
 
   return (
     <div className="p-5 lg:p-10 flex-grow pb-5">
