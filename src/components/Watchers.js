@@ -16,7 +16,7 @@ const Watchers = () => {
     socket.on("ExtractionRightCompleted", () => {
       dispatch(addNotification({ text: `Your id has been approved and you can now trade` }));
     });
-    socket.on("OrderAdded", async () => {
+    socket.off("OrderAdded").on("OrderAdded", async () => {
       await queryClient.invalidateQueries("buyOrders");
       await queryClient.invalidateQueries("sellOrders");
       dispatch(addNotification({ text: "Your order has been mined on the blockchain", type: "success" }));
@@ -27,27 +27,27 @@ const Watchers = () => {
     //   await queryClient.invalidateQueries("sellOrders");
     // });
 
-    socket.on("TradeAdded", async () => {
+    socket.off("TradeAdded").on("TradeAdded", async () => {
       await queryClient.invalidateQueries("trades");
       await queryClient.invalidateQueries("getLevel1Resource");
       await queryClient.invalidateQueries("buyOrders");
       await queryClient.invalidateQueries("sellOrders");
       dispatch(addNotification({ text: "Refreshing trades list" }));
     });
-    socket.on("BalanceUpdated", async () => {
+    socket.off("BalanceUpdated").on("BalanceUpdated", async () => {
       await queryClient.invalidateQueries("getExtractionRight");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
-    socket.on("TradeCompleted", async () => {
+    socket.off("TradeCompleted").on("TradeCompleted", async () => {
       await queryClient.invalidateQueries("trades");
       dispatch(addNotification({ text: "Your trade has been approved", type: "success" }));
       dispatch(addNotification({ text: "Refreshing trades list" }));
     });
-    socket.on("BalancesUpdated", async () => {
+    socket.off("BalancesUpdated").on("BalancesUpdated", async () => {
       await queryClient.invalidateQueries("getExtractionRight");
       dispatch(addNotification({ text: "Water Balance Updated" }));
     });
-    socket.on("AcceptTransactionMined", async () => {
+    socket.off("AcceptTransactionMined").on("AcceptTransactionMined", async () => {
       dispatch(addNotification({ text: "Your trade transaction has been mined on the blockchain", type: "success" }));
     });
   }, [dispatch]);
