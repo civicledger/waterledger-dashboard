@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
-import { getOrders, getLicence, getSavedTerminologies } from "../queries";
+import { getOrders, getExtractionRight, getSavedTerminologies } from "../queries";
 import { UserContext } from "../contexts";
 import { acceptOrder } from "../../redux/actions/orders";
 import { setAcceptOrderModal } from "../../redux/actions/actions";
@@ -13,21 +13,23 @@ export default props => {
   const queryClient = useQueryClient();
   const acceptFormDetails = useSelector(state => state.acceptFormDetails);
   const {
-    login: { activeWaterAccount, licenceId },
+    login: { activeWaterAccount, extractionRightId },
   } = useContext(UserContext);
 
   const { data: terminologies } = useQuery("getTerminologies", getSavedTerminologies);
 
   if (!activeWaterAccount) return "";
-  const { data: licence } = useQuery(["getLicence", licenceId], () => getLicence(licenceId), { keepPreviousData: true });
+  const { data: extractionRight } = useQuery(["getExtractionRight", extractionRightId], () => getExtractionRight(extractionRightId), {
+    keepPreviousData: true,
+  });
   const { data: buys, isLoading: buysLoading } = useQuery(["getOrders", "buy"], () => getOrders("buy"));
   const { data: sells, isLoading: sellsLoading } = useQuery(["getOrders", "sell"], () => getOrders("sell"));
 
-  if (!licence) return "";
+  if (!extractionRight) return "";
 
   if (buysLoading || sellsLoading) return "";
 
-  const activeAccount = licence.accounts.find(account => account.id === activeWaterAccount);
+  const activeAccount = extractionRight.accounts.find(account => account.id === activeWaterAccount);
 
   const orders = [...buys, ...sells];
   if (orders === undefined || orders.length === 0) return "";

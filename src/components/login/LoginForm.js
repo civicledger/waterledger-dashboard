@@ -35,14 +35,14 @@ const LoginForm = () => {
             .login(email, password)
             .then(({ data }) => {
               const { user, token } = data;
-              const licence = user.licence;
-              delete user.licence;
+              const extractionRight = user.extractionRight;
+              delete user.extractionRight;
 
               const userData = {
                 user,
                 token,
-                licenceId: licence.id,
-                activeWaterAccount: licence.accounts[0].id,
+                extractionRightId: extractionRight.id,
+                activeWaterAccount: extractionRight.accounts[0].id,
               };
 
               // loginDispatch({ type: ACTIONS.LOG_IN_USER, payload: { ...userData } });

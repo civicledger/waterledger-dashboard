@@ -3,9 +3,9 @@ import classNames from "classnames";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
-import { getLicence, getSavedTerminologies } from "../queries";
+import { getExtractionRight, getSavedTerminologies } from "../queries";
 import { UserContext, ACTIONS } from "../contexts";
-import { setCurrentWaterAccount } from "../../redux/actions/waterLicences";
+import { setCurrentWaterAccount } from "../../redux/actions/waterExtractionRights";
 import { formatKilolitres } from "../../utils/format";
 
 export default () => {
@@ -14,17 +14,17 @@ export default () => {
   const dispatch = useDispatch();
 
   const { login, loginDispatch } = useContext(UserContext);
-  if (!login.licenceId) return "";
+  if (!login.extractionRightId) return "";
 
-  const { data: licence } = useQuery("getLicence", () => getLicence(login.licenceId), { keepPreviousData: true });
-  const isPending = licence?.status === 1;
+  const { data: extractionRight } = useQuery("getExtractionRight", () => getExtractionRight(login.extractionRightId), { keepPreviousData: true });
+  const isPending = extractionRight?.status === 1;
 
-  if (!licence) return "";
+  if (!extractionRight) return "";
   return (
     <div>
       <h4 className="text-lg text-left ml-5 capitalize">Your {terminologies["account"]}s</h4>
       <div className="table w-full text-sm p-4 pt-1">
-        {licence.accounts
+        {extractionRight.accounts
           .sort((a, b) => {
             return a.level0Resource.identifier.localeCompare(b.level0Resource.identifier);
           })

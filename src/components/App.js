@@ -15,7 +15,7 @@ import Modals from "./app/Modals";
 import UserService from "../services/UserService";
 
 import Liabilities from "./liabilities/Liabilities";
-import Licence from "./licence/Licence";
+import ExtractionRight from "./extractionRight/ExtractionRight";
 import TopNav from "./app/TopNav";
 
 import { QueryClientProvider } from "react-query";
@@ -40,7 +40,7 @@ export default props => {
             <TopNav />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/licence" element={<Licence />} />
+              <Route path="/extractionRight" element={<ExtractionRight />} />
               <Route path="/history" element={<History />} />
               <Route path="/liabilities" element={<Liabilities />} />
               <Route path="/audit" element={<Audit />} />
