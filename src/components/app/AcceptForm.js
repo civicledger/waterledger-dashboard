@@ -47,7 +47,7 @@ export default props => {
             <h3 className="text-lg">Order Details</h3>
             <div className="flex mt-2">
               <div className="w-1/4">ID</div>
-              <div className="w-3/4">{formatEthereumAddress(order.ethId)}</div>
+              <div className="w-3/4">{formatEthereumAddress(order.remoteId)}</div>
             </div>
 
             <div className="flex mt-1">

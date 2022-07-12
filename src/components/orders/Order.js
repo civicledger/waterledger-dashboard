@@ -13,7 +13,7 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
 
   const dispatch = useDispatch();
 
-  let { id, ethId, price, quantity, createdAt, account } = order;
+  let { id, remoteId, price, quantity, createdAt, account } = order;
 
   const isOwner = waterAccounts.find(({ id }) => id === account.id);
 
@@ -31,7 +31,7 @@ export default ({ order, showType = false, showTimestamp = false, highlightRow, 
       className={classNames(classNameObject)}
       onClick={() => {
         if (!highlightRow || isPending || isOwner || !loggedIn) return;
-        dispatch(openAcceptOrder({ id, ethId, type, price, quantity }));
+        dispatch(openAcceptOrder({ id, remoteId, type, price, quantity }));
       }}
     >
       {showType && <td className="p-4 py-3">{orderTypes[type]}</td>}
