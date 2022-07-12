@@ -28,7 +28,7 @@ export const formatRelativeDateSeconds = utcDate => formatDistanceToNow(new Date
 
 export const formatRelativeDate = utcDate => formatDistanceToNow(new Date(utcDate), { addSuffix: true });
 
-export const formatEthereumAddress = address => {
+export const formatRemoteAddress = address => {
   if (!address) return "";
   return address.slice(0, 20).toLowerCase();
 };

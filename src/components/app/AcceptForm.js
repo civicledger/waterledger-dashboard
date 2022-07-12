@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
-import { formatAmount, formatKilolitres, formatEthereumAddress } from "../../utils/format";
+import { formatAmount, formatKilolitres, formatRemoteAddress } from "../../utils/format";
 import { getOrders, getExtractionRight, getSavedTerminologies } from "../queries";
 import { UserContext } from "../contexts";
 import { acceptOrder } from "../../redux/actions/orders";
@@ -47,7 +47,7 @@ export default props => {
             <h3 className="text-lg">Order Details</h3>
             <div className="flex mt-2">
               <div className="w-1/4">ID</div>
-              <div className="w-3/4">{formatEthereumAddress(order.remoteId)}</div>
+              <div className="w-3/4">{formatRemoteAddress(order.remoteId)}</div>
             </div>
 
             <div className="flex mt-1">
