@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 
 import WaterAccountsList from "./WaterAccountsList";
-import { formatAmount, formatEthereumAddress } from "../../utils/format";
+import { formatAmount, formatRemoteAddress } from "../../utils/format";
 import { getSavedTerminologies, getLevel1Resource } from "../queries";
 
 export default props => {
@@ -27,7 +27,7 @@ export default props => {
           <div className="mb-3 text-sm xl:text-lg text-steel-300">
             <span className="py-1 px-2 border rounded border-steel-300">
               <i className="text-sm xl:text-lg mr-2 fab fa-ethereum"></i>
-              {formatEthereumAddress(level1Resource.deployments[0].details.address)}
+              {formatRemoteAddress(level1Resource.deployments[0].details.address)}
             </span>
           </div>
         </div>
