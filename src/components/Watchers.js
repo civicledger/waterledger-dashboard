@@ -22,10 +22,11 @@ const Watchers = () => {
       dispatch(addNotification({ text: "Your order has been mined on the blockchain", type: "success" }));
     });
 
-    // socket.on("OrdersModified", async () => {
-    //   await queryClient.invalidateQueries("buyOrders");
-    //   await queryClient.invalidateQueries("sellOrders");
-    // });
+    socket.off("OrdersModified").on("OrdersModified", async () => {
+      await queryClient.invalidateQueries("buyOrders");
+      await queryClient.invalidateQueries("sellOrders");
+      dispatch(addNotification({ text: "Refreshing order list" }));
+    });
 
     socket.off("TradeAdded").on("TradeAdded", async () => {
       await queryClient.invalidateQueries("trades");
